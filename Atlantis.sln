@@ -1,9 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36414.22 d17.14
+VisualStudioVersion = 17.14.36414.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Atlantis", "Atlantis\Atlantis.csproj", "{1292F611-64D8-4825-859E-8CA4F42186A0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Atlantis", "Atlantis\Atlantis.csproj", "{142DCF41-0686-46BA-B3AB-3F5D47A6E7F7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +16,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1292F611-64D8-4825-859E-8CA4F42186A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1292F611-64D8-4825-859E-8CA4F42186A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1292F611-64D8-4825-859E-8CA4F42186A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1292F611-64D8-4825-859E-8CA4F42186A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{142DCF41-0686-46BA-B3AB-3F5D47A6E7F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{142DCF41-0686-46BA-B3AB-3F5D47A6E7F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{142DCF41-0686-46BA-B3AB-3F5D47A6E7F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{142DCF41-0686-46BA-B3AB-3F5D47A6E7F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {772AE468-C3C8-4EE9-A9AB-041250A0B646}
+		SolutionGuid = {22E35DF7-2077-4D3A-BF0F-399C9E7F98B0}
 	EndGlobalSection
 EndGlobal

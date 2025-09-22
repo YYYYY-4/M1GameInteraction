@@ -1,0 +1,10 @@
+﻿<local:GameControl x:Class="Atlantis.Game.BasicPlatform"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Atlantis.Game"
+             mc:Ignorable="d">
+    <!--<Rectangle x:Name="WallRect" Width="50" Height="50" Fill="{Binding FillColor}" />-->
+    <Line X1="0" X2="100" Y1="0" Stroke="Red" Height="20"/>
+</local:GameControl>

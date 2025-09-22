@@ -1,0 +1,37 @@
+﻿<local:GameControl x:Class="Atlantis.Game.Player"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Atlantis.Game"
+             xmlns:atlantis="clr-namespace:Atlantis" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <local:BodyDef.BodyDef>
+        <local:BodyDef LinearVelocity="0, -50" Name="player" Type="b2_dynamicBody" MotionLocks="Z" GravityScale="2.5" />
+    </local:BodyDef.BodyDef>
+
+    <Canvas Width="50" Height="100">
+        <Rectangle Width="50" Height="100" Canvas.Top="-50" Canvas.Left="-25">
+            <Rectangle.RenderTransform>
+                <RotateTransform Angle="0"/>
+            </Rectangle.RenderTransform>
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="{StaticResource NOSPRITE}" Stretch="Uniform" TileMode="Tile" Viewport="8,8,32,32" ViewportUnits="Absolute"/>
+            </Rectangle.Fill>
+            <local:ShapeDef.ShapeDef>
+                <local:ShapeDef CategoryBits="1" EnableSensorEvents="True">
+                    <local:ShapeDef.Material>
+                        <local:Material Friction="0" Restitution="0" />
+                    </local:ShapeDef.Material>
+                </local:ShapeDef>
+            </local:ShapeDef.ShapeDef>
+        </Rectangle>
+        <!--<Polygon Points="10,39, 0,161, 107,283, 214,175, 274,77, 186,0, 118,0, 44,6" Width="287" Height="288" Fill="AliceBlue" Stroke="Firebrick" Canvas.Left="99" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="113">
+            <Polygon.RenderTransform>
+                <RotateTransform Angle="45" />
+            </Polygon.RenderTransform>
+        </Polygon>-->
+    </Canvas>
+</local:GameControl>

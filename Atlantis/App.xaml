@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:Atlantis"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Assets/AllSprites.xaml" />
+                <ResourceDictionary Source="/Assets/Misc.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

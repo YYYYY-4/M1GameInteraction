@@ -1,0 +1,13 @@
+﻿<ResourceDictionary  xmlns:atlantis="clr-namespace:Atlantis" 
+                                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- This resource needs to be referenced by App.xaml to work globally -->
+
+
+
+    <BitmapImage x:Key="NOSPRITE" UriSource="/Atlantis;component/Assets/NOSPRITE.png" />
+    <BitmapImage x:Key="WALL1" UriSource="/Atlantis;component/Assets/Wall.png" />
+    <BitmapImage x:Key="Brick1" UriSource="/Atlantis;component/Assets/Brick1.png" />
+
+</ResourceDictionary>
+
