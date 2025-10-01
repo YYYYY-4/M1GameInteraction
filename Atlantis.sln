@@ -10,8 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Box2DNet", "Box2DNet\Box2DNet.csproj", "{7E000B69-B8C0-4D1B-BFCB-DD88E80EE999}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,10 +20,6 @@ Global
 		{142DCF41-0686-46BA-B3AB-3F5D47A6E7F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{142DCF41-0686-46BA-B3AB-3F5D47A6E7F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{142DCF41-0686-46BA-B3AB-3F5D47A6E7F7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7E000B69-B8C0-4D1B-BFCB-DD88E80EE999}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7E000B69-B8C0-4D1B-BFCB-DD88E80EE999}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7E000B69-B8C0-4D1B-BFCB-DD88E80EE999}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7E000B69-B8C0-4D1B-BFCB-DD88E80EE999}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Box2DNet\Box2DNet.csproj" />
+    <PackageReference Include="Box2dNet" Version="3.1.8.5" />
   </ItemGroup>
 
   <ItemGroup>
