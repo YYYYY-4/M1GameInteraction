@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,45 +26,41 @@ namespace Atlantis.Menus
         {
             InitializeComponent();
 
-            Voertuig Auto = new Voertuig();
+            int Score = Random.Shared.Next(10000);
+            string Name1 = "Ferry";
 
-            new Motor();
+            if (!File.Exists("example.csv"))
+            {
+                var file = File.Create("example.csv");
+                file.Close();
+            }
 
-            Auto.setmerk("Ford");
-            string merknaam = Auto.getmerk();
-            Console.WriteLine( merknaam );
-        }
-    }
+            var newLine = string.Format("{0},{1}\n", Name1, Score);
+            File.AppendAllText("example.csv", newLine);
+            string[] HighscoreList = File.ReadAllLines("example.csv");
 
-    public class Voertuig
-    {
-        protected string merk;
+            //Haalt de data uit de .csv file
+            List<List<string>> allValues = [];
+            for (int i = 0; i < HighscoreList.Length; i++)
+            {
+                string Line = HighscoreList[i];
+                //Line.Split(",");
 
-        public Voertuig()
-        {
-            merk = "merkloos";
-        }
+                int cursor = 0;
+                List<string> values = [];
 
-        public string getmerk()
-        {
-            return merk;
-        }
+                for (int j = 0; j < Line.Length; j++)
+                {
+                    if (Line[j] == ',')
+                    {
+                        values.Add(Line.Substring(cursor, j - cursor));
+                        cursor = j + 1;
+                    }
+                }
+                values.Add(Line.Substring(cursor));
 
-        public void setmerk(string merk)
-        {
-            merk = this.merk;
-        }
-
-    }
-
-    public class Motor : Voertuig
-    {
-        public int pk;
-
-        public Motor()
-        {
-            merk = "BMW";
-            pk = 999;
+                allValues.Add(values);
+            }
         }
     }
 }

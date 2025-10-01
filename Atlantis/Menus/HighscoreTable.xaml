@@ -9,6 +9,6 @@
       Title="Page1">
 
     <Grid>
-        <Label>merknaam = {0}</Label>
+       
     </Grid>
 </Page>
