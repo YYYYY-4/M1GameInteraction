@@ -76,6 +76,11 @@ namespace Atlantis
             return json;
         }
 
+        public void Delete()
+        {
+            File.Delete(path);
+        }
+
         static string GetSavePath(int saveIndex)
         {
             string path = "Save" + saveIndex + ".json";
