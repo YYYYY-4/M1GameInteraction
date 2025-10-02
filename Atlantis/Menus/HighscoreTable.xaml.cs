@@ -24,43 +24,49 @@ namespace Atlantis.Menus
     {
         public HighscorePage()
         {
-            InitializeComponent();
-
-            int Score = Random.Shared.Next(10000);
-            string Name1 = "Ferry";
-
-            if (!File.Exists("example.csv"))
-            {
-                var file = File.Create("example.csv");
-                file.Close();
-            }
-
-            var newLine = string.Format("{0},{1}\n", Name1, Score);
-            File.AppendAllText("example.csv", newLine);
-            string[] HighscoreList = File.ReadAllLines("example.csv");
-
-            //Haalt de data uit de .csv file
-            List<List<string>> allValues = [];
-            for (int i = 0; i < HighscoreList.Length; i++)
-            {
-                string Line = HighscoreList[i];
-                //Line.Split(",");
-
-                int cursor = 0;
-                List<string> values = [];
-
-                for (int j = 0; j < Line.Length; j++)
-                {
-                    if (Line[j] == ',')
+                InitializeComponent();
+                int RandName = Random.Shared.Next(0, 5);
+                int Score = Random.Shared.Next(10000);
+                string[] Name1 =
                     {
-                        values.Add(Line.Substring(cursor, j - cursor));
-                        cursor = j + 1;
-                    }
-                }
-                values.Add(Line.Substring(cursor));
+                    "Ferry", "Jesse", "Jelle", "Merijn", "Niels"
+                    };
 
-                allValues.Add(values);
-            }
+                string fileName = "HighscoreList.csv";
+
+                if (!File.Exists(fileName))
+                {
+                    var file = File.Create(fileName);
+                    file.Close();
+                }
+
+                var newLine = string.Format("{0},{1}\n", Name1[RandName], Score);
+                File.AppendAllText(fileName, newLine);
+                string[] HighscoreList = File.ReadAllLines(fileName);
+
+                //Haalt de data uit de .csv file
+                List<List<string>> allValues = [];
+                for (int i = 0; i < HighscoreList.Length; i++)
+                {
+                    string Line = HighscoreList[i];
+                    //Line.Split(",");
+
+                    int cursor = 0;
+                    List<string> values = [];
+
+                    for (int j = 0; j < Line.Length; j++)
+                    {
+                        if (Line[j] == ',')
+                        {
+                            values.Add(Line.Substring(cursor, j - cursor));
+                            cursor = j + 1;
+                        }
+                    }
+                    values.Add(Line.Substring(cursor));
+
+                    allValues.Add(values);
+                }
+                Console.ReadKey(true);
         }
     }
 }
