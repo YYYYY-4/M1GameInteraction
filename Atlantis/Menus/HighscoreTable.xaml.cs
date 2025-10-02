@@ -29,7 +29,7 @@ namespace Atlantis.Menus
             ActivePlayer player = new ActivePlayer(playerSave);
 
             int score = Random.Shared.Next(10000);
-            string name = player.Name;
+            string name = player.Save.Name;
             string fileName = "HighscoreList.csv";
 
             if (!File.Exists(fileName))
