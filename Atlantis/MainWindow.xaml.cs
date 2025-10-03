@@ -1,15 +1,7 @@
-﻿using Box2dNet.Interop;
-using System.Diagnostics;
-using System.Linq;
-using System.Numerics;
+﻿using System.Numerics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Shapes;
 using Atlantis.Game;
-using Atlantis.Scene;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace Atlantis
 {
