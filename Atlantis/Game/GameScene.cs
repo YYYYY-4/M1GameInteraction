@@ -27,12 +27,12 @@ namespace Atlantis.Game
     public class GameScene
     {
         private bool ControlsChanged = true;
-        private readonly List<GameControl> Controls = [];
-        private readonly List<GameControl> AddedControls = [];
-        //private readonly List<GameControl> RemovedControls = [];
+        private readonly List<GameControl> Controls = new List<GameControl>();
+        private readonly List<GameControl> AddedControls = new List<GameControl>();
+        //private readonly List<GameControl> RemovedControls = new List<GameControl>();
 
         // Copyy of Controls to iterate safely while supporting adding/removing objects
-        private List<GameControl> IterControls = [];
+        private List<GameControl> IterControls = new List<GameControl>();
 
         const float ScalingFactor = 25.0f;
 
@@ -55,7 +55,7 @@ namespace Atlantis.Game
         long ControlIdGen = 0;
 
         // When removing a Body from the Scene it must also be removed from the lookup
-        private Dictionary<nint, GameShape> ShapeLookup = [];
+        private Dictionary<nint, GameShape> ShapeLookup = new Dictionary<nint, GameShape>();
 
         public Dictionary<Key, KeyState> Keys;
 
@@ -131,7 +131,7 @@ namespace Atlantis.Game
 
             Watch.Start();
 
-            Keys = [];
+            Keys = new Dictionary<Key, KeyState>();
             foreach (var key in Enum.GetValues(typeof(Key)).Cast<Key>())
             {
                 Keys[key] = new();
@@ -226,7 +226,7 @@ namespace Atlantis.Game
             control.Rotate = bodyRotate;
             control.Translate = bodyTranslate;
             control.Body = body;
-            control.Shapes = [];
+            control.Shapes = new List<GameShape>();
 
             foreach (var shape in shapes)
             {
@@ -766,7 +766,7 @@ namespace Atlantis.Game
 
         public List<GameShape> OverlapCast(in b2ShapeProxy proxy, b2QueryFilter filter)
         {
-            overlapCast = [];
+            overlapCast = new List<GameShape>();
 
             World.OverlapShape(proxy, filter, OverlapCastFcn, 0);
 

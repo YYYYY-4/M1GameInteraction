@@ -63,7 +63,7 @@ namespace Atlantis.Game
 
         Stopwatch Watch;
 
-        Dictionary<GameControl, float> Spawned = [];
+        Dictionary<GameControl, float> Spawned = new Dictionary<GameControl, float>();
 
         public override void OnUpdate(float dt)
         {
@@ -80,7 +80,7 @@ namespace Atlantis.Game
                 Spawned.Add(control, Scene.Time);
             }
 
-            List<GameControl> Rm = [];
+            List<GameControl> Rm = new List<GameControl>();
             foreach (var pair in Spawned)
             {
                 if (Scene.Time - pair.Value > 1.0f)

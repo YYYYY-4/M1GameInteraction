@@ -52,7 +52,7 @@ namespace Atlantis.Game
             return 0.0f;
         }
 
-        //List<b2ShapeId> Overlap = [];
+        //List<b2ShapeId> Overlap = new List<b2ShapeId>();
 
         //public bool OverlapResultFcn(b2ShapeId shapeId, IntPtr context)
         //{
