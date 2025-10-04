@@ -92,6 +92,9 @@ namespace Atlantis.Game
 
         public List<GameShape> Shapes;
 
+        // utility getter for first shape
+        public GameShape Shape0 => Shapes[0];
+
         // When elements define properties in code-behind based on changes at runtime they should check if this is true.
         // To properly load a scene it is initally true, until after OnStart it is true/false based on actual design mode.
         // For example inner elements base some properties on the parent size, initially that should update, and within the designer it should actively update.
@@ -114,14 +117,20 @@ namespace Atlantis.Game
         {
         }
 
-        public virtual void ModifyBodyDef(ref b2BodyDef bodyDef)
+        public BodyDef? FindWPFBodyDef()
         {
-            // Check if this has a BodyDef, if not also check Content unless Content is a GameControl
             var def = BodyDef.GetBodyDef(this);
             if (def == null && Content is FrameworkElement content && content is not GameControl)
             {
                 def = BodyDef.GetBodyDef(content);
             }
+            return def;
+        }
+
+        public virtual void ModifyBodyDef(ref b2BodyDef bodyDef)
+        {
+            // Check if this has a BodyDef, if not also check Content unless Content is a GameControl
+            var def = FindWPFBodyDef();
             def?.ApplyBodyDef(ref bodyDef);
         }
 

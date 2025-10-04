@@ -89,7 +89,7 @@ namespace Atlantis.Game
 
         public void Destroy()
         {
-            if (B2Api.b2World_IsValid(World))
+            if (World.IsValid())
             {
                 Unload(null, null!);
             }
@@ -112,7 +112,7 @@ namespace Atlantis.Game
                 Drawing = new GeometryDrawing(Brushes.Transparent, new Pen(Brushes.LightGray, 1), new GeometryGroup
                 {
                     Children = [new LineGeometry(new Point(0, 0), new Point(25, 0)), new LineGeometry(new Point(0, 0), new Point(0, 25))]
-                })
+                }),
             };
 
             Canvas.Background = CanvasBrush;
@@ -203,7 +203,8 @@ namespace Atlantis.Game
 
             if (shapes == null || shapes.Count == 0)
             {
-                throw new NotImplementedException();
+                //throw new NotImplementedException();
+                shapes = [];
             }
 
             var bodyDef = B2Api.b2DefaultBodyDef(); // probably WPF properties Body.<Properties> for loading the Body. And then Body.GetBodyDef(Shape shape).
@@ -453,6 +454,24 @@ namespace Atlantis.Game
                 processGameControl(control);
             }
 
+            void processLabel(Label label)
+            {
+                var control = new GameControl();
+
+                Canvas.SetTop(control, Canvas.GetTop(label));
+                Canvas.SetLeft(control, Canvas.GetLeft(label));
+                Canvas.SetTop(label, 0.0);
+                Canvas.SetLeft(label, 0.0);
+
+                // Note: RenderTransform is not handled and Angle might be wrong.
+
+                canvas.Children.Remove(label);
+                control.Content = label;
+
+                Canvas.Children.Add(control);
+                processGameControl(control);
+            }
+
             double NanToZero(double d)
             {
                 return double.IsNaN(d) ? 0.0 : d;
@@ -479,6 +498,10 @@ namespace Atlantis.Game
                 else if (element is GameControl control)
                 {
                     processGameControl(control);
+                }
+                else if (element is Label label)
+                {
+                    processLabel(label);
                 }
                 else
                 {
@@ -746,8 +769,17 @@ namespace Atlantis.Game
                 Canvas.SetTop(control, (float)Canvas.ActualHeight - screenPosition.Y);
             }
 
+            // The grid rotation is correct but the calculation does not account for the shifting grid
+            // It does not preserve the grid where it should be.
+
             var pxCamera = Camera.Position * ScalingFactor;
-            CanvasBrush.Transform = new TranslateTransform(-pxCamera.X % ScalingFactor, pxCamera.Y % ScalingFactor);
+            CanvasBrush.Transform = new TransformGroup()
+            {
+                Children = [
+                    new TranslateTransform(-pxCamera.X % ScalingFactor, pxCamera.Y % ScalingFactor),
+                    new RotateTransform(-Camera.Angle.RadToDeg()),
+                ]
+            };
         }
 
         // Concept Overlap method.
@@ -771,6 +803,11 @@ namespace Atlantis.Game
             World.OverlapShape(proxy, filter, OverlapCastFcn, 0);
 
             return overlapCast;
+        }
+
+        public b2RayResult RayCastClosest(Vector2 origin, Vector2 translation, b2QueryFilter filter)
+        {
+            return World.CastRayClosest(origin, translation, filter);
         }
 
         // Instead of closing the application, an exception is thrown.
