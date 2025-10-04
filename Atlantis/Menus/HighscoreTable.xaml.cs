@@ -28,42 +28,61 @@ namespace Atlantis.Menus
             PlayerSave playerSave = new PlayerSave("Ferry", 1);
             ActivePlayer player = new ActivePlayer(playerSave);
 
+
+            // Variabele
             int score = Random.Shared.Next(10000);
             string name = player.Save.Name;
             string fileName = "HighscoreList.csv";
+            StreamReader reader = null;
 
+            // Creeërt .csv file als die nog niet bestaat
             if (!File.Exists(fileName))
             {
                 var file = File.Create(fileName);
                 file.Close();
             }
 
-            var newLine = string.Format("{0},{1}\n", name, score);
-            File.AppendAllText(fileName, newLine);
-            string[] HighscoreList = File.ReadAllLines(fileName);
-
-            //Haalt de data uit de .csv file
-            List<List<string>> allValues = [];
-            for (int i = 0; i < HighscoreList.Length; i++)
+            if (File.Exists(fileName))
             {
-                string line = HighscoreList[i];
-                //Line.Split(",");
+                // Stopt variabele in de .csv file
+                var newLine = string.Format("{0},{1}\n", name, score);
+                File.AppendAllText(fileName, newLine);
+                string[] HighscoreList = File.ReadAllLines(fileName);
 
-                int cursor = 0;
-                List<string> values = [];
+                //Haalt de data uit de .csv file
+                reader = new StreamReader(File.OpenRead(fileName));
 
-                for (int j = 0; j < line.Length; j++)
+                while (!reader.EndOfStream)
                 {
-                    if (line[j] == ',')
-                    {
-                        values.Add(line.Substring(cursor, j - cursor));
-                        cursor = j + 1;
-                    }
+                    var line = reader.ReadLine();
+                    var values = line.Split(',');
                 }
-                values.Add(line.Substring(cursor));
 
-                allValues.Add(values);
+                reader.Close();
+
+                // of
+                List<List<string>> allValues = [];
+                for (int i = 0; i < HighscoreList.Length; i++)
+                {
+                    string line = HighscoreList[i];
+                    int cursor = 0;
+                    List<string> values = [];
+
+                    for (int j = 0; j < line.Length; j++)
+                    {
+                        if (line[j] == ',')
+                        {
+                            values.Add(line.Substring(cursor, j - cursor));
+                            cursor = j + 1;
+                        }
+                    }
+                    values.Add(line.Substring(cursor));
+
+                    allValues.Add(values);
+                }
             }
+            else Console.WriteLine("The file doesn't exist")
+
             Console.ReadKey(true);
         }
     }
