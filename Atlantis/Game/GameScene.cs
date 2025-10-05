@@ -18,11 +18,11 @@ namespace Atlantis.Game;
 public class GameScene
 {
     private bool _controlsChanged = true;
-    private readonly List<GameControl> _controls = new List<GameControl>();
-    private readonly List<GameControl> _addedControls = new List<GameControl>();
+    private readonly List<GameControl> _controls = [];
+    private readonly List<GameControl> _addedControls = [];
 
     // Copyy of Controls to iterate safely while supporting adding/removing objects
-    private List<GameControl> _iterControls = new List<GameControl>();
+    private List<GameControl> _iterControls = [];
 
     const float ScalingFactor = 25.0f;
 
@@ -39,7 +39,7 @@ public class GameScene
     private long _controlIdGen = 0;
 
     // When removing a Body from the Scene it must also be removed from the lookup
-    private readonly Dictionary<nint, GameShape> _shapeLookup = new Dictionary<nint, GameShape>();
+    private readonly Dictionary<nint, GameShape> _shapeLookup = [];
 
     public Dictionary<Key, KeyState> Keys;
 
@@ -50,7 +50,7 @@ public class GameScene
     /// </summary>
     public float Time { get; private set; } = 0.0f;
 
-    private readonly Stopwatch _watch = new Stopwatch();
+    private readonly Stopwatch _watch = new();
 
     private TimeSpan _lastElapsed = TimeSpan.Zero;
         
@@ -477,19 +477,6 @@ public class GameScene
 
         dt = Math.Min(dt, 1.0f / 30.0f);
         Time += dt;
-
-        // Start new controls
-        if (_addedControls.Count > 0)
-        {
-            _controlsChanged = true;
-            foreach (var control in _addedControls.ToList())
-            {
-                _controls.Add(control);
-                if (control.Parent == null) _canvas.Children.Add(control);
-                control.OnStart();
-            }
-            _addedControls.Clear();
-        }
 
         // Start new controls
         if (_addedControls.Count > 0)
