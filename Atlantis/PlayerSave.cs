@@ -12,15 +12,15 @@ namespace Atlantis
 {
     internal class PlayerSave
     {
-        private string name;
-        private int clearedLevels = 0;
-        private int saveSlot;
-        private string path;
+        private string _name;
+        private int _clearedLevels = 0;
+        private int _saveSlot;
+        private string _path;
 
         public string Name
         {
-            get { return name; }
-            set { name = value; }
+            get { return _name; }
+            set { _name = value; }
         }
         
         /// <summary>
@@ -34,15 +34,15 @@ namespace Atlantis
             if (name.Contains(","))
             {
                 name.Replace(",", ".");
-                this.name = name;
+                this._name = name;
             }
             else
             {
-                this.name = name;
+                this._name = name;
             }
            
-            this.saveSlot = saveSlot;
-            path = GetSavePath(saveSlot);
+            this._saveSlot = saveSlot;
+            _path = GetSavePath(saveSlot);
         }
 
         /// <summary>
@@ -50,17 +50,17 @@ namespace Atlantis
         /// </summary>
         public void Save()
         {
-            string cl = clearedLevels.ToString();
-            List<string> data = new List<string>() { name, cl };
+            string cl = _clearedLevels.ToString();
+            List<string> data = new List<string>() { _name, cl };
             string json = JsonSerializer.Serialize(data);
-            if (!File.Exists(path))
+            if (!File.Exists(_path))
             {
-                var file = File.Create(path).Dispose;
-                File.WriteAllText(path, json);
+                var file = File.Create(_path).Dispose;
+                File.WriteAllText(_path, json);
             }
             else 
             {
-                File.WriteAllText(path, json);
+                File.WriteAllText(_path, json);
             }
         }
 
@@ -78,7 +78,7 @@ namespace Atlantis
 
         public void Delete()
         {
-            File.Delete(path);
+            File.Delete(_path);
         }
 
         static string GetSavePath(int saveIndex)
