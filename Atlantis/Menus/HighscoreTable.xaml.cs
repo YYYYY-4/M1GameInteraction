@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,14 +14,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace Atlantis.Menus
 {
     /// <summary>
-    /// Interaction logic for Page1.xaml
+    /// The logic for HighscorePage
     /// </summary>
     public partial class HighscorePage : Page
     {
+        private string _fileName = "HighscoreList.csv";
+
         public HighscorePage()
         {
             InitializeComponent();
@@ -32,58 +35,90 @@ namespace Atlantis.Menus
             // Variabele
             int score = Random.Shared.Next(10000);
             string name = player.Save.Name;
-            string fileName = "HighscoreList.csv";
-            StreamReader reader = null;
+            int level = Random.Shared.Next(1, 13);
 
+
+            // Puts the score in the file, if file does not exist creates the file
+            AddRecord(level, score, name);
+
+
+            //Haalt de data uit de .csv file
+            ReadData();
+        }
+
+        /// <summary>
+        /// Creates a file to keep record of the scores
+        /// </summary>
+        /// <param name="fileName"></param>
+        private void Create()
+        {
+            var file = File.Create(_fileName);
+            file.Close();
+        }
+
+        /// <summary>
+        /// Adds the Name + Score to the given file
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="score"></param>
+        /// <param name="fileName"></param>
+        private void AddRecord(int level, int score, string name)
+        {
             // Creeërt .csv file als die nog niet bestaat
-            if (!File.Exists(fileName))
+            if (!File.Exists(_fileName))
+                Create();
+
+            var newLine = string.Format("{0},{1},{2}\n", level, score, name);
+            File.AppendAllText(_fileName, newLine);
+        }
+
+        /// <summary>
+        /// Reads the data from .csv file, Makes a object with the collected data
+        /// </summary>
+        /// <returns></returns>
+        private List<HighscoreRecord> ReadData()
+        {
+            List<List<string>> allValues = [];
+
+            string[] HighscoreList = File.ReadAllLines(_fileName);
+
+            for (int i = 0; i < HighscoreList.Length; i++)
             {
-                var file = File.Create(fileName);
-                file.Close();
-            }
+                string line = HighscoreList[i];
+                int cursor = 0;
+                List<string> values = [];
 
-            if (File.Exists(fileName))
-            {
-                // Stopt variabele in de .csv file
-                var newLine = string.Format("{0},{1}\n", name, score);
-                File.AppendAllText(fileName, newLine);
-                string[] HighscoreList = File.ReadAllLines(fileName);
-
-                //Haalt de data uit de .csv file
-                reader = new StreamReader(File.OpenRead(fileName));
-
-                while (!reader.EndOfStream)
+                for (int j = 0; j < line.Length; j++)
                 {
-                    var line = reader.ReadLine();
-                    var values = line.Split(',');
-                }
-
-                reader.Close();
-
-                // of
-                List<List<string>> allValues = [];
-                for (int i = 0; i < HighscoreList.Length; i++)
-                {
-                    string line = HighscoreList[i];
-                    int cursor = 0;
-                    List<string> values = [];
-
-                    for (int j = 0; j < line.Length; j++)
+                    if (line[j] == ',')
                     {
-                        if (line[j] == ',')
-                        {
-                            values.Add(line.Substring(cursor, j - cursor));
-                            cursor = j + 1;
-                        }
+                        values.Add(line.Substring(cursor, j - cursor));
+                        cursor = j + 1;
                     }
-                    values.Add(line.Substring(cursor));
-
-                    allValues.Add(values);
                 }
-            }
-            else Console.WriteLine("The file doesn't exist")
+                values.Add(line.Substring(cursor));
 
-            Console.ReadKey(true);
+                allValues.Add(values);
+            }
+
+
+            List<HighscoreRecord> records = [];
+
+            for (int i = 0; i < allValues.Count; i++)
+            {
+                int level = Convert.ToInt32(allValues[i][0]);
+                int score = Convert.ToInt32(allValues[i][1]);
+                string name = allValues[i][2];
+
+                records.Add(new HighscoreRecord()
+                {
+                    Level = level,
+                    Score = score,
+                    Name = name
+                });
+            }
+
+            return [];
         }
     }
 }
