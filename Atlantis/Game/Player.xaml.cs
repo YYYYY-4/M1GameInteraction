@@ -2,6 +2,8 @@
 using System.Windows.Input;
 using System.Numerics;
 using Atlantis.Box2dNet;
+using System.Windows.Shapes;
+using System.Diagnostics;
 
 namespace Atlantis.Game
 {
