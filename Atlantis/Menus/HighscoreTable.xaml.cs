@@ -23,7 +23,7 @@ namespace Atlantis.Menus
     /// </summary>
     public partial class HighscorePage : Page
     {
-        private string _fileName = "HighscoreList.csv";
+        private static string s_fileName = "HighscoreList.csv";
 
         public HighscorePage()
         {
@@ -50,9 +50,9 @@ namespace Atlantis.Menus
         /// Creates a file to keep record of the scores
         /// </summary>
         /// <param name="fileName"></param>
-        private void Create()
+        private static void Create()
         {
-            var file = File.Create(_fileName);
+            var file = File.Create(s_fileName);
             file.Close();
         }
 
@@ -62,14 +62,14 @@ namespace Atlantis.Menus
         /// <param name="name"></param>
         /// <param name="score"></param>
         /// <param name="fileName"></param>
-        private void AddRecord(int level, int score, string name)
+        public static void AddRecord(int level, int score, string name)
         {
-            // Creeërt .csv file als die nog niet bestaat
-            if (!File.Exists(_fileName))
+            
+            if (!File.Exists(s_fileName))
                 Create();
 
             var newLine = string.Format("{0},{1},{2}\n", level, score, name);
-            File.AppendAllText(_fileName, newLine);
+            File.AppendAllText(s_fileName, newLine);
         }
 
         /// <summary>
@@ -78,9 +78,9 @@ namespace Atlantis.Menus
         /// <returns></returns>
         private List<HighscoreRecord> ReadData()
         {
-            List<List<string>> allValues = [];
+            List<HighscoreRecord> records = [];
 
-            string[] HighscoreList = File.ReadAllLines(_fileName);
+            string[] HighscoreList = File.ReadAllLines(s_fileName);
 
             for (int i = 0; i < HighscoreList.Length; i++)
             {
@@ -98,17 +98,9 @@ namespace Atlantis.Menus
                 }
                 values.Add(line.Substring(cursor));
 
-                allValues.Add(values);
-            }
-
-
-            List<HighscoreRecord> records = [];
-
-            for (int i = 0; i < allValues.Count; i++)
-            {
-                int level = Convert.ToInt32(allValues[i][0]);
-                int score = Convert.ToInt32(allValues[i][1]);
-                string name = allValues[i][2];
+                int level = Convert.ToInt32(values[0]);
+                int score = Convert.ToInt32(values[1]);
+                string name = values[2];
 
                 records.Add(new HighscoreRecord()
                 {
@@ -118,7 +110,7 @@ namespace Atlantis.Menus
                 });
             }
 
-            return [];
+            return records;
         }
     }
 }
