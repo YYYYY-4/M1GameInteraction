@@ -67,32 +67,32 @@ namespace Atlantis.Game
 
         private Stopwatch _watch = new();
 
-    private TimeSpan _lastElapsed = TimeSpan.Zero;
-        
-    private Vector2 _mousePosition = Vector2.Zero;
+        private TimeSpan _lastElapsed = TimeSpan.Zero;
 
-    private bool _ms1DownThisFrame = false;
+        private Vector2 _mousePosition = Vector2.Zero;
 
-    private GameControl? _dragging;
-    private Vector2 _worldMousePosition = Vector2.Zero;
-    private Vector2 _draggingOffset = Vector2.Zero;
+        private bool _ms1DownThisFrame = false;
 
-    private Vector2 _lastDragPosition = Vector2.Zero;
-    private Vector2 _lastMousePosition = Vector2.Zero;
-        
-    private List<GameShape> _overlapCast;
-    
-    private static bool _paused = false;
-    private static bool Paused
-    {
-        get => _paused;
-        set => _paused = value;
-    }
+        private GameControl? _dragging;
+        private Vector2 _worldMousePosition = Vector2.Zero;
+        private Vector2 _draggingOffset = Vector2.Zero;
 
-    public GameScene(MainWindow window)
-    {
-        _window = window;
-        _canvas = (Canvas)window.Content;
+        private Vector2 _lastDragPosition = Vector2.Zero;
+        private Vector2 _lastMousePosition = Vector2.Zero;
+
+        private List<GameShape> _overlapCast;
+
+        private static bool _paused = false;
+        private static bool Paused
+        {
+            get => _paused;
+            set => _paused = value;
+        }
+
+        public GameScene(MainWindow window)
+        {
+            Window = window;
+            Canvas = (Canvas)window.Content;
 
             Camera = new Camera();
 
@@ -177,15 +177,15 @@ namespace Atlantis.Game
             _watch.Stop();
         }
 
-    private void InvisGroundBody()
-    {
-        var wall = new Wall
+        private void InvisGroundBody()
         {
-            Width = 5e4f * ScalingFactor,
-            Height = 50.0f
-        };
-        ProcessGameControl(wall, new b2Transform(new Vector2(-2.5e4f, 0.0f), b2Rot.Zero));
-    }
+            var wall = new Wall
+            {
+                Width = 5e4f * ScalingFactor,
+                Height = 50.0f
+            };
+            ProcessGameControl(wall, new b2Transform(new Vector2(-2.5e4f, 0.0f), b2Rot.Zero));
+        }
 
         public void ProcessGameControl(GameControl control, b2Transform transform)
         {
@@ -527,11 +527,11 @@ namespace Atlantis.Game
             float dt = (float)(now - _lastElapsed).TotalSeconds;
             _lastElapsed = now;
 
-        dt = Math.Min(dt, 1.0f / 30.0f);
-        if (!Paused)
-        {
-            Time += dt;
-        }
+            dt = Math.Min(dt, 1.0f / 30.0f);
+            if (!Paused)
+            {
+                Time += dt;
+            }
 
             // Start new controls
             if (_addedControls.Count > 0)
@@ -586,11 +586,11 @@ namespace Atlantis.Game
             return false;
         }
 
-    public void GameUpdate(float dt)
-    {
-        if (Paused) return;
-        
-        float speed = 1.0f;
+        public void GameUpdate(float dt)
+        {
+            if (Paused) return;
+
+            float speed = 1.0f;
 
             World.Step(dt / speed, 64);
 
@@ -723,16 +723,16 @@ namespace Atlantis.Game
             }
             state.isPressed = true;
 
-        switch (e.Key)
-        {
-            case Key.Escape:
-                Paused = !Paused;
-                break;
-            case Key.F1:
-                _window.LoadScene<TestPage>();
-                break;
+            switch (e.Key)
+            {
+                case Key.Escape:
+                    Paused = !Paused;
+                    break;
+                case Key.F1:
+                    Window.LoadScene<TestPage>();
+                    break;
+            }
         }
-    }
 
         private void MainWindow_KeyUp(object sender, KeyEventArgs e)
         {
