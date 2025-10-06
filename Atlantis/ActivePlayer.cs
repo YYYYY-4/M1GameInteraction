@@ -8,17 +8,17 @@ namespace Atlantis
 {
     internal class ActivePlayer
     {
-        private string name;
+        private string _name;
 
         public string Name
         {
-            get { return name; }
-            set { name = value; }
+            get { return _name; }
+            set { _name = value; }
         }
 
         public ActivePlayer(PlayerSave save)
         {
-            name = save.Name;
+            _name = save.Name;
         }
     }
 }
