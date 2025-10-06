@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Windows;
 using Atlantis.Box2dNet;
-using Box2dNet.Interop;
 using System.Numerics;
 
 namespace Atlantis.Game

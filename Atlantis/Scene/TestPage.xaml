@@ -47,7 +47,7 @@
                     </Rectangle.RenderTransform>
                 </Rectangle>
             </Canvas>
-            <Rectangle Width="100" Height="100" Fill="PowderBlue" a:Metadata.Info="Platform" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="817" Canvas.Top="76">
+            <Rectangle Width="100" Height="100" Fill="PowderBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="817" Canvas.Top="76">
                 <Rectangle.RenderTransform>
                     <RotateTransform Angle="45"/>
                 </Rectangle.RenderTransform>
@@ -57,23 +57,21 @@
                 <Rectangle.RenderTransform>
                     <RotateTransform Angle="45" />
                 </Rectangle.RenderTransform>
-
-                <a:Metadata.Info>Ground</a:Metadata.Info>
             </Rectangle>
 
-            <Rectangle Width="100" Height="100" Fill="PowderBlue" a:Metadata.Info="Platform" Canvas.Top="104" Canvas.Left="708" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Rectangle Width="100" Height="100" Fill="PowderBlue" Canvas.Top="104" Canvas.Left="708" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Rectangle.RenderTransform>
                     <RotateTransform Angle="90"/>
                 </Rectangle.RenderTransform>
             </Rectangle>
 
-            <Rectangle Width="41" Height="331" Fill="Black" a:Metadata.Info="Ground" Canvas.Left="-37" Canvas.Top="346" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="-0.173,0.151">
+            <Rectangle Width="41" Height="331" Fill="Black" Canvas.Left="-37" Canvas.Top="346" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="-0.173,0.151">
                 <Rectangle.RenderTransform>
                     <RotateTransform Angle="0"/>
                 </Rectangle.RenderTransform>
             </Rectangle>
 
-            <Rectangle Width="100" Height="100" Fill="Red" a:Metadata.Info="Platform" Canvas.Top="201" Canvas.Left="499" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Rectangle Width="100" Height="100" Fill="Red" Canvas.Top="201" Canvas.Left="499" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <game:BodyDef.BodyDef>
                     <game:BodyDef Type="b2_dynamicBody" />
                 </game:BodyDef.BodyDef>
@@ -82,19 +80,19 @@
                 </Rectangle.RenderTransform>
             </Rectangle>
 
-            <Rectangle Width="100" Height="100" Fill="Red" a:Metadata.Info="Platform" Canvas.Top="163" Canvas.Left="169">
+            <Rectangle Width="100" Height="100" Fill="Red" Canvas.Top="163" Canvas.Left="169">
                 <Rectangle.RenderTransform>
                     <RotateTransform Angle="0"/>
                 </Rectangle.RenderTransform>
             </Rectangle>
 
-            <Rectangle Width="100" Height="100" Fill="Red" a:Metadata.Info="Platform" Canvas.Top="26" Canvas.Left="129" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Rectangle Width="100" Height="100" Fill="Red" Canvas.Top="26" Canvas.Left="129" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Rectangle.RenderTransform>
                     <RotateTransform Angle="0"/>
                 </Rectangle.RenderTransform>
             </Rectangle>
 
-            <Rectangle Width="100" Height="100" Fill="Green" a:Metadata.Info="Platform" Canvas.Top="26" Canvas.Left="475" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Rectangle Width="100" Height="100" Fill="Green" Canvas.Top="26" Canvas.Left="475" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Rectangle.RenderTransform>
                     <TransformGroup>
                         <RotateTransform Angle="0" CenterX="50" CenterY="50"/>
@@ -102,7 +100,7 @@
                 </Rectangle.RenderTransform>
             </Rectangle>
 
-            <Rectangle Width="262" Height="28" Fill="Purple" a:Metadata.Info="Platform" Canvas.Top="276" Canvas.Left="203">
+            <Rectangle Width="262" Height="28" Fill="Purple" Canvas.Top="276" Canvas.Left="203">
                 <Rectangle.RenderTransform>
                     <TransformGroup>
                         <RotateTransform Angle="0"/>
@@ -110,13 +108,13 @@
                 </Rectangle.RenderTransform>
             </Rectangle>
 
-            <Rectangle Width="100" Height="100" Fill="Red" a:Metadata.Info="Platform" Canvas.Top="97" Canvas.Left="316">
+            <Rectangle Width="100" Height="100" Fill="Red" Canvas.Top="97" Canvas.Left="316">
                 <Rectangle.RenderTransform>
                     <RotateTransform Angle="0"/>
                 </Rectangle.RenderTransform>
             </Rectangle>
 
-            <Ellipse Fill="Yellow" Width="100" Height="100" a:Metadata.Info="Ball" Canvas.Left="26" Canvas.Top="201"/>
+            <Ellipse Fill="Yellow" Width="100" Height="100" Canvas.Left="26" Canvas.Top="201"/>
         </Canvas>
         <game:Wall Width="488" Height="85" Canvas.Left="798" Canvas.Top="544" HorizontalAlignment="Left" VerticalAlignment="Top" />
         <game:Wall Canvas.Left="1625" Canvas.Top="137" Height="284" Width="405"/>

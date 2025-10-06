@@ -1,22 +1,7 @@
 ﻿using Box2dNet.Interop;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Numerics;
-using System.Diagnostics;
 using Atlantis.Box2dNet;
-using System.Runtime.InteropServices;
 
 namespace Atlantis.Game
 {
@@ -52,7 +37,7 @@ namespace Atlantis.Game
             return 0.0f;
         }
 
-        //List<b2ShapeId> Overlap = [];
+        //List<b2ShapeId> Overlap = new List<b2ShapeId>();
 
         //public bool OverlapResultFcn(b2ShapeId shapeId, IntPtr context)
         //{
