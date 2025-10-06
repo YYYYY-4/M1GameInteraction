@@ -66,6 +66,13 @@ public class GameScene
     private Vector2 _lastMousePosition = Vector2.Zero;
         
     private List<GameShape> _overlapCast;
+    
+    private static bool _paused = false;
+    private static bool Paused
+    {
+        get => _paused;
+        set => _paused = value;
+    }
 
     public GameScene(MainWindow window)
     {
@@ -476,7 +483,10 @@ public class GameScene
         _lastElapsed = now;
 
         dt = Math.Min(dt, 1.0f / 30.0f);
-        Time += dt;
+        if (!Paused)
+        {
+            Time += dt;
+        }
 
         // Start new controls
         if (_addedControls.Count > 0)
@@ -520,6 +530,8 @@ public class GameScene
 
     public void GameUpdate(float dt)
     {
+        if (Paused) return;
+        
         float speed = 1.0f;
 
         World.Step(dt / speed, 64);
@@ -645,7 +657,7 @@ public class GameScene
         switch (e.Key)
         {
             case Key.Escape:
-                _window.Close();
+                Paused = !Paused;
                 break;
             case Key.F1:
                 _window.LoadScene<TestPage>();
