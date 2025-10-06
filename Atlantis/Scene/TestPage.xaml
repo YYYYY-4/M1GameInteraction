@@ -50,8 +50,6 @@
                         <TranslateTransform/>
                     </TransformGroup>
                 </Rectangle.RenderTransform>
-
-                <a:Metadata.Info>Ground</a:Metadata.Info>
             </Rectangle>
 
             <Rectangle Width="100" Height="100" Fill="PowderBlue" a:Metadata.Info="Platform" Canvas.Top="-668" Canvas.Left="451" HorizontalAlignment="Center" VerticalAlignment="Top">
