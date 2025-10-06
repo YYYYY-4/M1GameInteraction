@@ -2,7 +2,7 @@
 
 namespace Atlantis.Game
 {
-    public class Material
+    public struct Material
     {
         public float? Friction { get; set; }
         public float? Restitution { get; set; }

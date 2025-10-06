@@ -32,6 +32,15 @@ namespace Atlantis.Game
         {
             SensorCount += 1;
             UpdateColor();
+
+            if (Targets != null)
+            {
+                foreach (var control in _targets)
+                {
+                    Scene.DestroyControl(control);
+                }
+                _targets = null;
+            }
         }
 
         public override void OnSensorEnd(GameShape sensor, GameShape visitor)
@@ -40,6 +49,29 @@ namespace Atlantis.Game
             UpdateColor();
         }
 
-        public string Targets { get; set; }
+        private List<GameControl> _targets = [];
+
+        public object? Targets
+        {
+            get
+            {
+                return _targets?.AsReadOnly();
+            }
+            set
+            {
+                if (value is GameControl c)
+                {
+                    _targets = [c];
+                }
+                else if (value is GameControl[] a)
+                {
+                    _targets = [..a];
+                }
+                else
+                {
+                    throw new ArgumentException("Invalid Targets value");
+                }
+            }
+        }
     }
 }
