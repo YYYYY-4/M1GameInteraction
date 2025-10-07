@@ -24,7 +24,7 @@ namespace Atlantis.Game
     /// Scene class that loads a xaml hierarchy into runtime.
     /// If resources and events are not cleared up properly (see Unload method) things will go wrong sooner or later.
     /// </summary>
-    public class GameScene
+    public class GameScene : Scene
     {
         private bool _controlsChanged = true;
         private readonly List<GameControl> _controls = [];
@@ -727,6 +727,7 @@ namespace Atlantis.Game
             {
                 case Key.Escape:
                     Paused = !Paused;
+                    Window.LoadScene<PausePage>();
                     break;
                 case Key.F1:
                     Window.LoadScene<TestPage>();

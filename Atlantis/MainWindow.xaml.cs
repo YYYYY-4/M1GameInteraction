@@ -10,7 +10,7 @@ namespace Atlantis
     /// </summary>
     public partial class MainWindow : Window
     {
-        private GameScene _scene;
+        private SceneController _sceneController;
 
         public MainWindow()
         {
@@ -18,7 +18,7 @@ namespace Atlantis
 
             InitializeComponent();
             Content = ((Page)Content).Content;
-            _scene = new(this);
+            _sceneController = new(this);
 
             //LoadScene<TestPage>();
 
@@ -51,13 +51,13 @@ namespace Atlantis
         /// <typeparam name="T">Scene which inherits Page and defines a Canvas at it's root.</typeparam>
         public void LoadScene<T>() where T : Page
         {
-            _scene.Destroy();
+            _sceneController.Destroy();
 
             // Creates an empty window based on the type given in the LoadScene.
             var page = (Page)typeof(T).GetConstructors().First().Invoke(null);
 
             Content = page.Content;
-            _scene = new GameScene(this);
+            _sceneController = new SceneController(this);
         }
 
         static Matrix3x2 M3X2Inverse(Matrix3x2 m)
