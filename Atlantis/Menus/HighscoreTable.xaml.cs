@@ -43,7 +43,7 @@ namespace Atlantis.Menus
 
 
             //Haalt de data uit de .csv file
-            ReadData();
+            Try1 = ReadData();
         }
 
         /// <summary>
@@ -112,5 +112,7 @@ namespace Atlantis.Menus
 
             return records;
         }
+        public List<HighscoreRecord> Try1 { get; set; }
     }
+
 }
