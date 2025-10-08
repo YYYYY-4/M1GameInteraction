@@ -9,6 +9,18 @@
       Title="Page1">
 
     <Grid>
-        <Button>Here</Button>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="64"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <ListView Grid.Row="1" Grid.Column="3">
+            
+        </ListView>
     </Grid>
 </Page>
