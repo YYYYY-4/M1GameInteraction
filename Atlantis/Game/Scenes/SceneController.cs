@@ -1,4 +1,4 @@
-using System.Windows;
+using System.Windows.Input;
 
 namespace Atlantis.Game;
 
@@ -6,23 +6,35 @@ public class SceneController
 {
     private readonly MainWindow _window;
     private Scene? _scene;
-    private PauseScene? _pauseScene = null;
     
     public SceneController(MainWindow window)
     {
         _window = window;
         _scene = new GameScene(window); // This can be changed once there is a home screen.
+        
+        _window.KeyDown += KeyDown;
     }
     
-    public void Destroy()
+    public void Reload()
     {
-        Scene scene = _scene;
-        _pauseScene = null; // _pauseScene may already be null, but this makes sure of it.
-
         switch (_scene)
         {
             case GameScene:
                 _scene = new GameScene(_window);
+                break;
+            case PauseScene:
+                _scene = new PauseScene(_window);
+                break;
+        }
+    }
+
+    public void KeyDown(object sender, KeyEventArgs e)
+    {
+        switch (e.Key)
+        {
+            case Key.Escape:
+                // _scene!.Destroy();
+                _scene = new PauseScene(_window);
                 break;
         }
     }

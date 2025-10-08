@@ -51,7 +51,7 @@ namespace Atlantis
         /// <typeparam name="T">Scene which inherits Page and defines a Canvas at it's root.</typeparam>
         public void LoadScene<T>() where T : Page
         {
-            _sceneController.Destroy();
+            _sceneController.Reload();
 
             // Creates an empty window based on the type given in the LoadScene.
             var page = (Page)typeof(T).GetConstructors().First().Invoke(null);
