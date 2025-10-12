@@ -11,6 +11,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -25,7 +26,7 @@
             </Grid.RowDefinitions>
             <Button Grid.Column="1" Grid.Row="1" Click="Button_Click">Click Here to add a score</Button>
         </Grid>
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="2">
 
 
             <Grid.RowDefinitions>
@@ -38,9 +39,9 @@
                     <ColumnDefinition />
             </Grid.ColumnDefinitions>
             
-            <Label Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="32" FontFamily="Comic Sans MS">Level</Label>
-            <Label Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="32" FontFamily="Comic Sans MS">Score</Label>
-            <Label Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="32" FontFamily="Comic Sans MS">Name</Label>
+            <Label Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontFamily="Comic Sans MS">Level</Label>
+            <Label Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontFamily="Comic Sans MS">Score</Label>
+            <Label Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontFamily="Comic Sans MS">Name</Label>
             
 
             <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Scoreboard}">
