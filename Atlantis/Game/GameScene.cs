@@ -89,10 +89,10 @@ namespace Atlantis.Game
             set => _paused = value;
         }
 
-        public GameScene(MainWindow window)
+        public GameScene(MainWindow window, TestPage page)
         {
             Window = window;
-            Canvas = (Canvas)window.Content;
+            Canvas = page.GameCanvas;
 
             Camera = new Camera();
 
