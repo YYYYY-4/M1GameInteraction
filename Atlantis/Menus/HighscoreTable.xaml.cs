@@ -46,15 +46,16 @@ namespace Atlantis.Menus
 
 
             // Puts the score in the file, if file does not exist creates the file
-            AddRecord(level, score, name);
+            //AddRecord(level, score, name);
 
 
             // Gets the data from the .csv file
-            Scoreboard = ReadData();
+            Scoreboard = ReadData(level);
 
             // Sorts the data by highest score
             SortScorebaord();
         }
+
 
 
         /// <summary>
@@ -87,7 +88,7 @@ namespace Atlantis.Menus
         /// Reads the data from .csv file, Makes a object with the collected data
         /// </summary>
         /// <returns></returns>
-        private List<HighscoreRecord> ReadData()
+        private List<HighscoreRecord> ReadData(int activelevel)
         {
             List<HighscoreRecord> records = [];
 
@@ -110,18 +111,37 @@ namespace Atlantis.Menus
                 values.Add(line.Substring(cursor));
 
                 int level = Convert.ToInt32(values[0]);
-                int score = Convert.ToInt32(values[1]);
-                string name = values[2];
-
-                records.Add(new HighscoreRecord()
+                if (level == activelevel)
                 {
-                    Level = level,
-                    Score = score,
-                    Name = name
-                });
+                    int score = Convert.ToInt32(values[1]);
+                    string name = values[2];
+
+                    records.Add(new HighscoreRecord()
+                    {
+                        Level = level,
+                        Score = score,
+                        Name = name
+                    });
+                }
             }
 
             return records;
+        }
+
+        /// <summary>
+        /// Comparing method of two HighscoreRecord objects
+        /// </summary>
+        /// <param name="record1"></param>
+        /// <param name="record2"></param>
+        /// <returns></returns>
+        private int CompareScores(HighscoreRecord record1, HighscoreRecord record2)
+        {
+            if (record1.Score > record2.Score) 
+                return -1;
+            if (record1.Score < record2.Score) 
+                return 1;
+            
+            return 0;
         }
 
         /// <summary>
@@ -130,20 +150,6 @@ namespace Atlantis.Menus
         private void SortScorebaord()
         {
             Scoreboard.Sort(CompareScores);
-        }
-
-        /// <summary>
-        /// Compares two HighscoreRecord objects
-        /// </summary>
-        /// <param name="record1"></param>
-        /// <param name="record2"></param>
-        /// <returns></returns>
-        private int CompareScores(HighscoreRecord record1, HighscoreRecord record2)
-        {
-            if (record1.Score > record2.Score) return -1;
-            if (record1.Score < record2.Score) return 1;
-            
-            return 0;
         }
 
         public List<HighscoreRecord> Scoreboard 
