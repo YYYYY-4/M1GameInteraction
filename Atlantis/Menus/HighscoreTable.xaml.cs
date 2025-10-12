@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Atlantis.Game;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -32,7 +33,8 @@ namespace Atlantis.Menus
             ActivePlayer player = new ActivePlayer(playerSave);
 
 
-            // Variabele
+            // Variabele, Have to get these from other people
+            // For now they are random
             int score = Random.Shared.Next(10000);
             string name = player.Save.Name;
             int level = Random.Shared.Next(1, 13);
@@ -113,6 +115,14 @@ namespace Atlantis.Menus
             return records;
         }
         public List<HighscoreRecord> Try1 { get; set; }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            PlayerSave playerSave = new PlayerSave("Ferry", 1);
+            ActivePlayer player = new ActivePlayer(playerSave);
+
+            AddRecord(Random.Shared.Next(1, 13), Random.Shared.Next(10000), player.Save.Name);
+        }
     }
 
 }
