@@ -25,8 +25,8 @@ namespace Atlantis
             // BOX2D ASSERTION: result.distanceSquared > 0.0f, C:\repos\box2d\src\manifold.c, line 848
 
             InitializeComponent();
-            Content = ((Page)Content).Content;
-            Scene = new(this);
+            //Content = ((Page)Content).Content;
+            //Scene = new(this);
 
             //LoadScene<TestPage>();
 
