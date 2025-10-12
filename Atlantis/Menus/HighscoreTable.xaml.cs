@@ -48,6 +48,7 @@ namespace Atlantis.Menus
             Try1 = ReadData();
         }
 
+
         /// <summary>
         /// Creates a file to keep record of the scores
         /// </summary>
@@ -114,7 +115,12 @@ namespace Atlantis.Menus
 
             return records;
         }
-        public List<HighscoreRecord> Try1 { get; set; }
+        public List<HighscoreRecord> Try1 
+        { 
+            get;
+
+            set;
+        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
