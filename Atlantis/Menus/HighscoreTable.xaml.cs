@@ -29,6 +29,10 @@ namespace Atlantis.Menus
         public HighscorePage()
         {
             InitializeComponent();
+
+            DataContext = this;
+
+
             PlayerSave playerSave = new PlayerSave("Ferry", 1);
             ActivePlayer player = new ActivePlayer(playerSave);
 
@@ -44,8 +48,11 @@ namespace Atlantis.Menus
             AddRecord(level, score, name);
 
 
-            //Haalt de data uit de .csv file
-            Try1 = ReadData();
+            //Gets the data from the .csv file
+            Scoreboard = ReadData();
+
+            //Sorts the data by highest score
+            SortScorebaord();
         }
 
 
@@ -115,7 +122,30 @@ namespace Atlantis.Menus
 
             return records;
         }
-        public List<HighscoreRecord> Try1 
+
+        /// <summary>
+        /// Sorts the scoreboard by highest score
+        /// </summary>
+        private void SortScorebaord()
+        {
+            Scoreboard.Sort(CompareScores);
+        }
+
+        /// <summary>
+        /// Compares two HighscoreRecord objects
+        /// </summary>
+        /// <param name="record1"></param>
+        /// <param name="record2"></param>
+        /// <returns></returns>
+        private int CompareScores(HighscoreRecord record1, HighscoreRecord record2)
+        {
+            if (record1.Score > record2.Score) return -1;
+            if (record1.Score < record2.Score) return 1;
+            
+            return 0;
+        }
+
+        public List<HighscoreRecord> Scoreboard 
         { 
             get;
 
