@@ -30,6 +30,7 @@ namespace Atlantis.Menus
         {
             InitializeComponent();
 
+            // Needed otherwise wpf can not find this namespace or whatever...
             DataContext = this;
 
 
@@ -48,10 +49,10 @@ namespace Atlantis.Menus
             AddRecord(level, score, name);
 
 
-            //Gets the data from the .csv file
+            // Gets the data from the .csv file
             Scoreboard = ReadData();
 
-            //Sorts the data by highest score
+            // Sorts the data by highest score
             SortScorebaord();
         }
 
