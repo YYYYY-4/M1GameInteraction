@@ -13,6 +13,7 @@ namespace Atlantis
     {
         private GameScene _scene;
         private TestPage _page;
+        private Canvas _canvas;
 
         public MainWindow()
         {
@@ -55,8 +56,8 @@ namespace Atlantis
         {
             _scene.Destroy();
             
-            Content = _page;
-            _scene = new GameScene(this, _page);
+            Content = _canvas;
+            _scene = new GameScene(this, _canvas);
         }
 
         static Matrix3x2 M3X2Inverse(Matrix3x2 m)
@@ -75,14 +76,19 @@ namespace Atlantis
             return Matrix3x2.Identity;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Start_Button_Click(object sender, RoutedEventArgs e)
         {
             _page = new TestPage();
+            _canvas = _page.GameCanvas; // GameCanvas is root element in TestPage
             
-            this.Content = _page;
-            _scene = new GameScene(this, _page);
+            this.Content = _canvas;
+            _scene = new GameScene(this, _canvas);
+        }
 
-            // LoadScene<TestPage>();
+        private void Quit_Button_Click(object sender, RoutedEventArgs e)
+        {
+            // Terminates process and tells underlying process quit
+            Environment.Exit(0);
         }
     }
 }
