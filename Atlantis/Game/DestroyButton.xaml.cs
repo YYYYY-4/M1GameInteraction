@@ -1,18 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows.Media;
 
 namespace Atlantis.Game
 {
@@ -46,6 +32,15 @@ namespace Atlantis.Game
         {
             SensorCount += 1;
             UpdateColor();
+
+            if (Targets != null)
+            {
+                foreach (var control in _targets)
+                {
+                    Scene.DestroyControl(control);
+                }
+                _targets = null;
+            }
         }
 
         public override void OnSensorEnd(GameShape sensor, GameShape visitor)
@@ -54,6 +49,29 @@ namespace Atlantis.Game
             UpdateColor();
         }
 
-        public string Targets { get; set; }
+        private List<GameControl> _targets = [];
+
+        public object? Targets
+        {
+            get
+            {
+                return _targets?.AsReadOnly();
+            }
+            set
+            {
+                if (value is GameControl c)
+                {
+                    _targets = [c];
+                }
+                else if (value is GameControl[] a)
+                {
+                    _targets = [..a];
+                }
+                else
+                {
+                    throw new ArgumentException("Invalid Targets value");
+                }
+            }
+        }
     }
 }

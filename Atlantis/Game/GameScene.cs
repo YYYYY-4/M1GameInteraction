@@ -26,13 +26,15 @@ namespace Atlantis.Game
     /// </summary>
     public class GameScene
     {
-        private bool ControlsChanged = true;
-        private readonly List<GameControl> Controls = [];
-        private readonly List<GameControl> AddedControls = [];
+        private bool _controlsChanged = true;
+        private readonly List<GameControl> _controls = [];
+        private readonly List<GameControl> _addedControls = [];
         //private readonly List<GameControl> RemovedControls = [];
 
-        // Copyy of Controls to iterate safely while supporting adding/removing objects
-        private List<GameControl> IterControls = [];
+        public List<GameControl> Controls => _controls;
+
+        // Copyy of _controls to iterate safely while supporting adding/removing objects
+        private List<GameControl> _iterControls = [];
 
         const float ScalingFactor = 25.0f;
 
@@ -47,7 +49,6 @@ namespace Atlantis.Game
         public Canvas Canvas;
 
         public DrawingBrush CanvasBrush;
-        public Page InternalScene;
 
         nint ShapeIdGen = 0;
 
@@ -55,7 +56,7 @@ namespace Atlantis.Game
         long ControlIdGen = 0;
 
         // When removing a Body from the Scene it must also be removed from the lookup
-        private Dictionary<nint, GameShape> ShapeLookup = [];
+        private Dictionary<nint, GameShape> _shapeLookUp = [];
 
         public Dictionary<Key, KeyState> Keys;
 
@@ -66,14 +67,34 @@ namespace Atlantis.Game
         /// </summary>
         public float Time { get; private set; } = 0.0f;
 
-        Stopwatch Watch = new();
+        private Stopwatch _watch = new();
 
-        TimeSpan LastElapsed = TimeSpan.Zero;
+        private TimeSpan _lastElapsed = TimeSpan.Zero;
 
-        public GameScene(MainWindow window)
+        private Vector2 _mousePosition = Vector2.Zero;
+
+        private bool _ms1DownThisFrame = false;
+
+        private GameControl? _dragging;
+        private Vector2 _worldMousePosition = Vector2.Zero;
+        private Vector2 _draggingOffset = Vector2.Zero;
+
+        private Vector2 _lastDragPosition = Vector2.Zero;
+        private Vector2 _lastMousePosition = Vector2.Zero;
+
+        private List<GameShape> _overlapCast;
+
+        private static bool _paused = false;
+        private static bool Paused
+        {
+            get => _paused;
+            set => _paused = value;
+        }
+
+        public GameScene(MainWindow window, Canvas canvas)
         {
             Window = window;
-            Canvas = (Canvas)window.Content;
+            Canvas = canvas;
 
             Camera = new Camera();
 
@@ -89,7 +110,7 @@ namespace Atlantis.Game
 
         public void Destroy()
         {
-            if (B2Api.b2World_IsValid(World))
+            if (World.IsValid())
             {
                 Unload(null, null!);
             }
@@ -112,7 +133,7 @@ namespace Atlantis.Game
                 Drawing = new GeometryDrawing(Brushes.Transparent, new Pen(Brushes.LightGray, 1), new GeometryGroup
                 {
                     Children = [new LineGeometry(new Point(0, 0), new Point(25, 0)), new LineGeometry(new Point(0, 0), new Point(0, 25))]
-                })
+                }),
             };
 
             Canvas.Background = CanvasBrush;
@@ -127,9 +148,9 @@ namespace Atlantis.Game
             LoadGameControls(Canvas, (float)Canvas.ActualHeight, 0.0, 0.0);
             InvisGroundBody();
 
-            
 
-            Watch.Start();
+
+            _watch.Start();
 
             Keys = [];
             foreach (var key in Enum.GetValues(typeof(Key)).Cast<Key>())
@@ -152,28 +173,20 @@ namespace Atlantis.Game
             Window.KeyDown -= MainWindow_KeyDown;
             Window.KeyUp -= MainWindow_KeyUp;
             Window.Closed -= Unload;
-
+            
             B2Api.b2DestroyWorld(World);
 
-            Watch.Stop();
+            _watch.Stop();
         }
 
         private void InvisGroundBody()
         {
-            var wall = new Wall();
-            wall.Width = 5e4f * ScalingFactor;
-            wall.Height = 50.0f;
+            var wall = new Wall
+            {
+                Width = 5e4f * ScalingFactor,
+                Height = 50.0f
+            };
             ProcessGameControl(wall, new b2Transform(new Vector2(-2.5e4f, 0.0f), b2Rot.Zero));
-
-            //b2BodyDef bodyDef = B2Api.b2DefaultBodyDef();
-            //bodyDef.position = new Vector2(0, 0);
-            //
-            //b2BodyId groundBody = B2Api.b2CreateBody(World, bodyDef);
-            //
-            //b2Polygon poly = B2Api.b2MakeBox(9.9e4f, 0.5f);
-            //
-            //b2ShapeDef shapeDef = B2Api.b2DefaultShapeDef();
-            //B2Api.b2CreatePolygonShape(groundBody, shapeDef, poly);
         }
 
         public void ProcessGameControl(GameControl control, b2Transform transform)
@@ -203,7 +216,8 @@ namespace Atlantis.Game
 
             if (shapes == null || shapes.Count == 0)
             {
-                throw new NotImplementedException();
+                //throw new NotImplementedException();
+                shapes = [];
             }
 
             var bodyDef = B2Api.b2DefaultBodyDef(); // probably WPF properties Body.<Properties> for loading the Body. And then Body.GetBodyDef(Shape shape).
@@ -304,9 +318,12 @@ namespace Atlantis.Game
                 shapeDef.filter.categoryBits = 0x1;
                 shapeDef.filter.groupIndex = 0;
 
+
                 // Body ShapeDef applied before direct ShapeDef
                 control.ModifyShapeDef(ref shapeDef);
-                ShapeDef.GetShapeDef(shape)?.ApplyShapeDef(ref shapeDef);
+                var bodyShapeDef = ShapeDef.GetShapeDef(control);
+                var wpfShapeDef = ShapeDef.GetShapeDef(shape);
+                wpfShapeDef?.ApplyShapeDef(ref shapeDef);
 
                 // Userdata is sacred
                 shapeDef.userData = ShapeIdGen++;
@@ -389,29 +406,29 @@ namespace Atlantis.Game
                         Control = control,
                         Shape = (b2ShapeId)physShape,
                         Element = shape,
-
+                        Destructible = bodyShapeDef?.Destructible ?? false,
                         Offset = offset,
                         HalfSize = halfSize,
                     };
 
-                    ShapeLookup.Add(shapeDef.userData, gameShape);
+                    _shapeLookUp.Add(shapeDef.userData, gameShape);
                     control.Shapes.Add(gameShape);
                 }
             }
 
-            AddedControls.Add(control);
+            _addedControls.Add(control);
         }
 
         public void DestroyControl(GameControl control)
         {
             Debug.Assert(control.Body.IsValid());
 
-            ControlsChanged = true;
-            Controls.Remove(control);
+            _controlsChanged = true;
+            _controls.Remove(control);
 
             foreach (var shape in control.Shapes)
             {
-                ShapeLookup.Remove(shape.Shape.GetUserData());
+                _shapeLookUp.Remove(shape.Shape.GetUserData());
             }
 
             B2Api.b2DestroyBody(control.Body);
@@ -453,6 +470,24 @@ namespace Atlantis.Game
                 processGameControl(control);
             }
 
+            void processLabel(Label label)
+            {
+                var control = new GameControl();
+
+                Canvas.SetTop(control, Canvas.GetTop(label));
+                Canvas.SetLeft(control, Canvas.GetLeft(label));
+                Canvas.SetTop(label, 0.0);
+                Canvas.SetLeft(label, 0.0);
+
+                // Note: RenderTransform is not handled and Angle might be wrong.
+
+                canvas.Children.Remove(label);
+                control.Content = label;
+
+                Canvas.Children.Add(control);
+                processGameControl(control);
+            }
+
             double NanToZero(double d)
             {
                 return double.IsNaN(d) ? 0.0 : d;
@@ -480,6 +515,10 @@ namespace Atlantis.Game
                 {
                     processGameControl(control);
                 }
+                else if (element is Label label)
+                {
+                    processLabel(label);
+                }
                 else
                 {
                     throw new NotImplementedException($"Unhandled Type: {element.GetType()}");
@@ -489,48 +528,51 @@ namespace Atlantis.Game
 
         private void OnRendering(object? sender, EventArgs e)
         {
-            var now = Watch.Elapsed;
-            float dt = (float)(now - LastElapsed).TotalSeconds;
-            LastElapsed = now;
+            var now = _watch.Elapsed;
+            float dt = (float)(now - _lastElapsed).TotalSeconds;
+            _lastElapsed = now;
 
             dt = Math.Min(dt, 1.0f / 30.0f);
-            Time += dt;
-
-            // Start new controls
-            if (AddedControls.Count > 0)
+            if (!Paused)
             {
-                ControlsChanged = true;
-                foreach (var control in AddedControls.ToList())
-                {
-                    Controls.Add(control);
-                    if (control.Parent == null) Canvas.Children.Add(control);
-                    control.OnStart();
-                }
-                AddedControls.Clear();
+                Time += dt;
             }
 
             // Start new controls
-            if (AddedControls.Count > 0)
+            if (_addedControls.Count > 0)
             {
-                ControlsChanged = true;
-                foreach (var control in AddedControls.ToList())
+                _controlsChanged = true;
+                foreach (var control in _addedControls.ToList())
                 {
-                    Controls.Add(control);
+                    _controls.Add(control);
                     if (control.Parent == null) Canvas.Children.Add(control);
                     control.OnStart();
                 }
-                AddedControls.Clear();
+                _addedControls.Clear();
             }
 
-            if (ControlsChanged)
+            // Start new controls
+            if (_addedControls.Count > 0)
             {
-                IterControls = [.. Controls];
+                _controlsChanged = true;
+                foreach (var control in _addedControls.ToList())
+                {
+                    _controls.Add(control);
+                    if (control.Parent == null) Canvas.Children.Add(control);
+                    control.OnStart();
+                }
+                _addedControls.Clear();
+            }
+
+            if (_controlsChanged)
+            {
+                _iterControls = [.. _controls];
             }
             GameUpdate(dt);
 
-            if (ControlsChanged)
+            if (_controlsChanged)
             {
-                IterControls = [.. Controls];
+                _iterControls = [.. _controls];
             }
             GameRender(dt);
 
@@ -544,13 +586,15 @@ namespace Atlantis.Game
         bool qfn(b2ShapeId shapeId, nint ctx)
         {
             var body = B2Api.b2Shape_GetBody(shapeId);
-            Dragging = Controls.FirstOrDefault(p => p.Body == body);
+            Dragging = _controls.FirstOrDefault(p => p.Body == body);
             DraggingOffset = body.GetPosition() - WorldMousePosition;
             return false;
         }
 
         public void GameUpdate(float dt)
         {
+            if (Paused) return;
+
             float speed = 1.0f;
 
             World.Step(dt / speed, 64);
@@ -560,7 +604,7 @@ namespace Atlantis.Game
 
             foreach (var ev in sensorEvents.beginEventsAsSpan)
             {
-                if (ShapeLookup.TryGetValue(ev.sensorShapeId.GetUserData(), out var sensorShape) && ShapeLookup.TryGetValue(ev.visitorShapeId.GetUserData(), out var visotorShape))
+                if (_shapeLookUp.TryGetValue(ev.sensorShapeId.GetUserData(), out var sensorShape) && _shapeLookUp.TryGetValue(ev.visitorShapeId.GetUserData(), out var visotorShape))
                 {
                     sensorShape.Control.OnSensorStart(sensorShape, visotorShape);
                 }
@@ -568,7 +612,7 @@ namespace Atlantis.Game
 
             foreach (var ev in sensorEvents.endEventsAsSpan)
             {
-                if (ShapeLookup.TryGetValue(ev.sensorShapeId.GetUserData(), out var sensorShape) && ShapeLookup.TryGetValue(ev.visitorShapeId.GetUserData(), out var visotorShape))
+                if (_shapeLookUp.TryGetValue(ev.sensorShapeId.GetUserData(), out var sensorShape) && _shapeLookUp.TryGetValue(ev.visitorShapeId.GetUserData(), out var visotorShape))
                 {
                     sensorShape.Control.OnSensorEnd(sensorShape, visotorShape);
                 }
@@ -578,9 +622,9 @@ namespace Atlantis.Game
             // - probleem voor later
 
             // update all controls
-            foreach (var control in IterControls)
+            foreach (var control in _iterControls)
             {
-                if (!ControlsChanged || Controls.Contains(control))
+                if (!_controlsChanged || _controls.Contains(control))
                 {
                     control.OnUpdate(dt);
                 }
@@ -684,13 +728,14 @@ namespace Atlantis.Game
             }
             state.isPressed = true;
 
-            if (e.Key == Key.Escape)
+            switch (e.Key)
             {
-                Window.Close();
-            }
-            else if (e.Key == Key.F1)
-            {
-                Window.LoadScene<TestPage>();
+                case Key.Escape:
+                    Paused = !Paused;
+                    break;
+                case Key.F1:
+                    Window.LoadScene<TestPage>();
+                    break;
             }
         }
 
@@ -704,6 +749,8 @@ namespace Atlantis.Game
             }
             state.isPressed = false;
         }
+
+        
 
         public void GameRender(float dt)
         {
@@ -725,7 +772,7 @@ namespace Atlantis.Game
 
             var halfCanvas = new Vector2((float)Canvas.ActualWidth / 2, (float)Canvas.ActualHeight / 2);
 
-            var subject = Controls.OfType<Player>().First();
+            var subject = _controls.OfType<Player>().First();
 
             //subj.BodyId.SetTransform(Camera.Position, b2Rot.Zero);
             Camera.Position = B2Api.b2Body_GetPosition(subject.Body);
@@ -733,7 +780,7 @@ namespace Atlantis.Game
             World.SetGravity(new Vector2(camRot90.c, -camRot90.s) * 10.0f);
 
             // Render GameControls
-            foreach (var control in IterControls)
+            foreach (var control in _iterControls)
             {
                 Debug.Assert(B2Api.b2Body_IsValid(control.Body));
 
@@ -746,8 +793,17 @@ namespace Atlantis.Game
                 Canvas.SetTop(control, (float)Canvas.ActualHeight - screenPosition.Y);
             }
 
+            // The grid rotation is correct but the calculation does not account for the shifting grid
+            // It does not preserve the grid where it should be.
+
             var pxCamera = Camera.Position * ScalingFactor;
-            CanvasBrush.Transform = new TranslateTransform(-pxCamera.X % ScalingFactor, pxCamera.Y % ScalingFactor);
+            CanvasBrush.Transform = new TransformGroup()
+            {
+                Children = [
+                    new TranslateTransform(-pxCamera.X % ScalingFactor, pxCamera.Y % ScalingFactor),
+                    new RotateTransform(-Camera.Angle.RadToDeg()),
+                ]
+            };
         }
 
         // Concept Overlap method.
@@ -757,7 +813,7 @@ namespace Atlantis.Game
 
         private bool OverlapCastFcn(b2ShapeId shapeId, IntPtr context)
         {
-            if (ShapeLookup.TryGetValue(shapeId.GetUserData(), out var result))
+            if (_shapeLookUp.TryGetValue(shapeId.GetUserData(), out var result))
             {
                 overlapCast.Add(result);
             }
@@ -771,6 +827,11 @@ namespace Atlantis.Game
             World.OverlapShape(proxy, filter, OverlapCastFcn, 0);
 
             return overlapCast;
+        }
+
+        public b2RayResult RayCastClosest(Vector2 origin, Vector2 translation, b2QueryFilter filter)
+        {
+            return World.CastRayClosest(origin, translation, filter);
         }
 
         // Instead of closing the application, an exception is thrown.

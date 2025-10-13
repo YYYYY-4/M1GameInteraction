@@ -21,11 +21,17 @@
                 <ImageBrush ImageSource="{StaticResource NOSPRITE}" Stretch="Uniform" TileMode="Tile" Viewport="8,8,32,32" ViewportUnits="Absolute"/>
             </Rectangle.Fill>
             <local:ShapeDef.ShapeDef>
-                <local:ShapeDef CategoryBits="1" EnableSensorEvents="True">
-                    <local:ShapeDef.Material>
-                        <local:Material Friction="0" Restitution="0" />
-                    </local:ShapeDef.Material>
-                </local:ShapeDef>
+                <local:ShapeDef CategoryBits="1" EnableSensorEvents="True" MatFriction="1" MatRestitution="0" />
+            </local:ShapeDef.ShapeDef>
+        </Rectangle>
+        <Rectangle Width="6" Height="100" Canvas.Top="-50" Canvas.Left="22" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <local:ShapeDef.ShapeDef>
+                <local:ShapeDef MatFriction="0" Density="0"/>
+            </local:ShapeDef.ShapeDef>
+        </Rectangle>
+        <Rectangle Width="6" Height="100" Canvas.Top="-50" Canvas.Left="-28" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <local:ShapeDef.ShapeDef>
+                <local:ShapeDef MatFriction="0" Density="0"/>
             </local:ShapeDef.ShapeDef>
         </Rectangle>
         <!--<Polygon Points="10,39, 0,161, 107,283, 214,175, 274,77, 186,0, 118,0, 44,6" Width="287" Height="288" Fill="AliceBlue" Stroke="Firebrick" Canvas.Left="99" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="113">

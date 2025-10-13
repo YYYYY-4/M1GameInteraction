@@ -285,37 +285,37 @@ public static partial class B2Extension
     }
 
     [DebuggerHidden]
-    public static void ApplyForce(this b2BodyId bodyId, Vector2 force, Vector2 point, bool wake)
+    public static void ApplyForce(this b2BodyId bodyId, Vector2 force, Vector2 point, bool wake = true)
     {
         B2Api.b2Body_ApplyForce(bodyId, force, point, wake);
     }
 
     [DebuggerHidden]
-    public static void ApplyForceToCenter(this b2BodyId bodyId, Vector2 force, bool wake)
+    public static void ApplyForceToCenter(this b2BodyId bodyId, Vector2 force, bool wake = true)
     {
         B2Api.b2Body_ApplyForceToCenter(bodyId, force, wake);
     }
 
     [DebuggerHidden]
-    public static void ApplyTorque(this b2BodyId bodyId, float torque, bool wake)
+    public static void ApplyTorque(this b2BodyId bodyId, float torque, bool wake = true)
     {
         B2Api.b2Body_ApplyTorque(bodyId, torque, wake);
     }
 
     [DebuggerHidden]
-    public static void ApplyLinearImpulse(this b2BodyId bodyId, Vector2 impulse, Vector2 point, bool wake)
+    public static void ApplyLinearImpulse(this b2BodyId bodyId, Vector2 impulse, Vector2 point, bool wake = true)
     {
         B2Api.b2Body_ApplyLinearImpulse(bodyId, impulse, point, wake);
     }
 
     [DebuggerHidden]
-    public static void ApplyLinearImpulseToCenter(this b2BodyId bodyId, Vector2 impulse, bool wake)
+    public static void ApplyLinearImpulseToCenter(this b2BodyId bodyId, Vector2 impulse, bool wake = true)
     {
         B2Api.b2Body_ApplyLinearImpulseToCenter(bodyId, impulse, wake);
     }
 
     [DebuggerHidden]
-    public static void ApplyAngularImpulse(this b2BodyId bodyId, float impulse, bool wake)
+    public static void ApplyAngularImpulse(this b2BodyId bodyId, float impulse, bool wake = true)
     {
         B2Api.b2Body_ApplyAngularImpulse(bodyId, impulse, wake);
     }
