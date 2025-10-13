@@ -10,15 +10,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\PlayerSprite.gif" />
     <None Remove="box2d.dll" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Box2dNet" Version="3.1.8.5" />
+    <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Assets\Brick1.png" />
+    <Resource Include="Assets\PlayerSprite.gif" />
     <Resource Include="Assets\Wall.png" />
   </ItemGroup>
 

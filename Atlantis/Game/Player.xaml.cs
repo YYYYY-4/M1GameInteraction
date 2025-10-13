@@ -4,6 +4,12 @@ using System.Numerics;
 using Atlantis.Box2dNet;
 using System.Windows.Shapes;
 using System.Diagnostics;
+using WpfAnimatedGif;
+using System.Windows.Media.Animation;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows;
 
 namespace Atlantis.Game
 {
@@ -12,6 +18,14 @@ namespace Atlantis.Game
         public Player()
         {
             InitializeComponent();
+
+            var img = (BitmapImage)Application.Current.FindResource("PlayerIdle");
+
+            var i = new Image()
+            {
+                Source = img
+            };
+            WpfAnimatedGif.ImageBehavior.SetRepeatBehavior(i, RepeatBehavior.Forever);
         }
 
         float Mass;
