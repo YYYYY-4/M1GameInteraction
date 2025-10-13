@@ -91,10 +91,10 @@ namespace Atlantis.Game
             set => _paused = value;
         }
 
-        public GameScene(MainWindow window)
+        public GameScene(MainWindow window, Canvas canvas)
         {
             Window = window;
-            Canvas = (Canvas)window.Content;
+            Canvas = canvas;
 
             Camera = new Camera();
 
@@ -173,7 +173,7 @@ namespace Atlantis.Game
             Window.KeyDown -= MainWindow_KeyDown;
             Window.KeyUp -= MainWindow_KeyUp;
             Window.Closed -= Unload;
-
+            
             B2Api.b2DestroyWorld(World);
 
             _watch.Stop();
