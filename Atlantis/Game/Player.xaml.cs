@@ -107,6 +107,11 @@ namespace Atlantis.Game
                 IsInWater = !IsInWater;
             }
 
+            if (Scene.Keys[Key.G].pressedNow)
+            {
+                Dynamite.SpawnDynamite(Scene);
+            }
+
             var input = new Vector2(IsKeyDown01(Key.D) - IsKeyDown01(Key.A), IsKeyDown01(Key.W) - IsKeyDown01(Key.S));
 
             //var r = Scene.RayCastClosest(Body.GetPosition() - new Vector2(0.0f, 1.95f), new Vector2(0.0f, -1.5f), new b2QueryFilter(0x1, 0xFFFFFFFu));
