@@ -53,10 +53,10 @@ namespace Atlantis
         /// <typeparam name="T">Scene which inherits Page and defines a Canvas at it's root.</typeparam>
         public void LoadScene<T>() where T : Page
         {
-            // _scene.Destroy();
-            //
-            // Content = _page.Content;
-            // _scene = new GameScene(this, _page);
+            _scene.Destroy();
+            
+            Content = _page;
+            _scene = new GameScene(this, _page);
         }
 
         static Matrix3x2 M3X2Inverse(Matrix3x2 m)
@@ -82,7 +82,7 @@ namespace Atlantis
             this.Content = _page;
             _scene = new GameScene(this, _page);
 
-            LoadScene<TestPage>();
+            // LoadScene<TestPage>();
         }
     }
 }

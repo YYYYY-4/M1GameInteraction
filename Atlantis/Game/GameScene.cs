@@ -171,7 +171,7 @@ namespace Atlantis.Game
             Window.KeyDown -= MainWindow_KeyDown;
             Window.KeyUp -= MainWindow_KeyUp;
             Window.Closed -= Unload;
-
+            
             B2Api.b2DestroyWorld(World);
 
             _watch.Stop();
