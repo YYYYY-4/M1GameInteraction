@@ -204,19 +204,24 @@ namespace Atlantis.Game
             control.CID = ++ControlIdGen;
             control.Scene = this;
 
-            List<Shape>? shapes = null;
-            if (control.Content is Shape cShape)
+            List<FrameworkElement>? shapes = null;
+            if (control.Content is Shape tmpShape)
             {
-                shapes = [cShape];
+                shapes = [tmpShape];
+            }
+            else if (control.Content is Image tmpImage)
+            {
+                shapes = [tmpImage]; 
             }
             else if (control.Content is Canvas canvas)
             {
-                shapes = canvas.Children.OfType<Shape>().ToList();
+                shapes = [];
+                shapes.AddRange(canvas.Children.OfType<Shape>().Cast<FrameworkElement>());
+                shapes.AddRange(canvas.Children.OfType<Image>());
             }
 
             if (shapes == null || shapes.Count == 0)
             {
-                //throw new NotImplementedException();
                 shapes = [];
             }
 
@@ -343,7 +348,7 @@ namespace Atlantis.Game
                 var offset = shapeLocalPosition + (directionX - directionY);
 
                 b2ShapeId? physShape = null;
-                if (shape is Rectangle)
+                if (shape is Rectangle || shape is Image)
                 {
                     var polygon = B2Api.b2MakeBox(halfSize.X, halfSize.Y);
 
@@ -452,7 +457,7 @@ namespace Atlantis.Game
                 ProcessGameControl(control, new b2Transform(p, q));
             }
 
-            void processShape(Shape shape)
+            void processShape(FrameworkElement shape)
             {
                 var control = new GameControl();
 
@@ -518,6 +523,10 @@ namespace Atlantis.Game
                 else if (element is Label label)
                 {
                     processLabel(label);
+                }
+                else if (element is Image imageShape)
+                {
+                    processShape(imageShape);
                 }
                 else
                 {
