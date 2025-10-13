@@ -7,6 +7,7 @@
         xmlns:a="clr-namespace:Atlantis"
         xmlns:game="clr-namespace:Atlantis.Game"
         xmlns:scene="clr-namespace:Atlantis.Scene"
+        xmlns:menu="clr-namespace:Atlantis.Menus"
         mc:Ignorable="d"
         Title="MainWindow"
         Height="800" 
