@@ -34,14 +34,14 @@ namespace Atlantis.Menus
             DataContext = this;
 
 
-            PlayerSave playerSave = new PlayerSave("Ferry", 1);
-            ActivePlayer player = new ActivePlayer(playerSave);
+            //PlayerSave playerSave = new PlayerSave("Ferry", 1);
+            //ActivePlayer player = new ActivePlayer(playerSave);
 
 
             // Variabele, Have to get these from other people
             // For now they are random
-            int score = Random.Shared.Next(10000);
-            string name = player.Save.Name;
+            //int score = Random.Shared.Next(10000);
+            //string name = player.Save.Name;
             int level = Random.Shared.Next(1, 13);
 
 
@@ -87,6 +87,7 @@ namespace Atlantis.Menus
         /// <summary>
         /// Reads the data from .csv file, Makes a object with the collected data
         /// </summary>
+        /// <param name="activelevel"></param>
         /// <returns></returns>
         private List<HighscoreRecord> ReadData(int activelevel)
         {
@@ -152,13 +153,14 @@ namespace Atlantis.Menus
             Scoreboard.Sort(CompareScores);
         }
 
+        // Object list om mee te geven aan de highscore list
         public List<HighscoreRecord> Scoreboard 
         { 
             get;
-
             set;
         }
 
+        //Temp
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             PlayerSave playerSave = new PlayerSave("Ferry", 1);
@@ -167,5 +169,4 @@ namespace Atlantis.Menus
             AddRecord(Random.Shared.Next(1, 13), Random.Shared.Next(10000), player.Save.Name);
         }
     }
-
 }
