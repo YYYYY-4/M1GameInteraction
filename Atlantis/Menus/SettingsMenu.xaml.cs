@@ -38,7 +38,7 @@ namespace Atlantis.Menus
             SfxSlider.Value = double.Parse(File.ReadAllText(SfxSettings));
             
         }
-        public void OpslaanSettings()
+        public void OpslaanSettings_Click(object sender, RoutedEventArgs e)
         {
             File.WriteAllText(MusicSettings, MusicSlider.Value.ToString());
             File.WriteAllText(SfxSettings, SfxSlider.Value.ToString());
