@@ -31,6 +31,8 @@ namespace Atlantis.Game
         private readonly List<GameControl> _addedControls = [];
         //private readonly List<GameControl> RemovedControls = [];
 
+        public List<GameControl> Controls => _controls;
+
         // Copyy of _controls to iterate safely while supporting adding/removing objects
         private List<GameControl> _iterControls = [];
 
@@ -54,7 +56,7 @@ namespace Atlantis.Game
         long ControlIdGen = 0;
 
         // When removing a Body from the Scene it must also be removed from the lookup
-        private Dictionary<nint, GameShape> _hapeLookup = [];
+        private Dictionary<nint, GameShape> _shapeLookUp = [];
 
         public Dictionary<Key, KeyState> Keys;
 
@@ -89,10 +91,10 @@ namespace Atlantis.Game
             set => _paused = value;
         }
 
-        public GameScene(MainWindow window)
+        public GameScene(MainWindow window, Canvas canvas)
         {
             Window = window;
-            Canvas = (Canvas)window.Content;
+            Canvas = canvas;
 
             Camera = new Camera();
 
@@ -171,7 +173,7 @@ namespace Atlantis.Game
             Window.KeyDown -= MainWindow_KeyDown;
             Window.KeyUp -= MainWindow_KeyUp;
             Window.Closed -= Unload;
-
+            
             B2Api.b2DestroyWorld(World);
 
             _watch.Stop();
@@ -202,19 +204,24 @@ namespace Atlantis.Game
             control.CID = ++ControlIdGen;
             control.Scene = this;
 
-            List<Shape>? shapes = null;
-            if (control.Content is Shape cShape)
+            List<FrameworkElement>? shapes = null;
+            if (control.Content is Shape tmpShape)
             {
-                shapes = [cShape];
+                shapes = [tmpShape];
+            }
+            else if (control.Content is Image tmpImage)
+            {
+                shapes = [tmpImage]; 
             }
             else if (control.Content is Canvas canvas)
             {
-                shapes = canvas.Children.OfType<Shape>().ToList();
+                shapes = [];
+                shapes.AddRange(canvas.Children.OfType<Shape>().Cast<FrameworkElement>());
+                shapes.AddRange(canvas.Children.OfType<Image>());
             }
 
             if (shapes == null || shapes.Count == 0)
             {
-                //throw new NotImplementedException();
                 shapes = [];
             }
 
@@ -316,9 +323,12 @@ namespace Atlantis.Game
                 shapeDef.filter.categoryBits = 0x1;
                 shapeDef.filter.groupIndex = 0;
 
+
                 // Body ShapeDef applied before direct ShapeDef
                 control.ModifyShapeDef(ref shapeDef);
-                ShapeDef.GetShapeDef(shape)?.ApplyShapeDef(ref shapeDef);
+                var bodyShapeDef = ShapeDef.GetShapeDef(control);
+                var wpfShapeDef = ShapeDef.GetShapeDef(shape);
+                wpfShapeDef?.ApplyShapeDef(ref shapeDef);
 
                 // Userdata is sacred
                 shapeDef.userData = ShapeIdGen++;
@@ -338,7 +348,7 @@ namespace Atlantis.Game
                 var offset = shapeLocalPosition + (directionX - directionY);
 
                 b2ShapeId? physShape = null;
-                if (shape is Rectangle)
+                if (shape is Rectangle || shape is Image)
                 {
                     var polygon = B2Api.b2MakeBox(halfSize.X, halfSize.Y);
 
@@ -401,12 +411,12 @@ namespace Atlantis.Game
                         Control = control,
                         Shape = (b2ShapeId)physShape,
                         Element = shape,
-
+                        Destructible = bodyShapeDef?.Destructible ?? false,
                         Offset = offset,
                         HalfSize = halfSize,
                     };
 
-                    _hapeLookup.Add(shapeDef.userData, gameShape);
+                    _shapeLookUp.Add(shapeDef.userData, gameShape);
                     control.Shapes.Add(gameShape);
                 }
             }
@@ -423,7 +433,7 @@ namespace Atlantis.Game
 
             foreach (var shape in control.Shapes)
             {
-                _hapeLookup.Remove(shape.Shape.GetUserData());
+                _shapeLookUp.Remove(shape.Shape.GetUserData());
             }
 
             B2Api.b2DestroyBody(control.Body);
@@ -447,7 +457,7 @@ namespace Atlantis.Game
                 ProcessGameControl(control, new b2Transform(p, q));
             }
 
-            void processShape(Shape shape)
+            void processShape(FrameworkElement shape)
             {
                 var control = new GameControl();
 
@@ -513,6 +523,10 @@ namespace Atlantis.Game
                 else if (element is Label label)
                 {
                     processLabel(label);
+                }
+                else if (element is Image imageShape)
+                {
+                    processShape(imageShape);
                 }
                 else
                 {
@@ -599,7 +613,7 @@ namespace Atlantis.Game
 
             foreach (var ev in sensorEvents.beginEventsAsSpan)
             {
-                if (_hapeLookup.TryGetValue(ev.sensorShapeId.GetUserData(), out var sensorShape) && _hapeLookup.TryGetValue(ev.visitorShapeId.GetUserData(), out var visotorShape))
+                if (_shapeLookUp.TryGetValue(ev.sensorShapeId.GetUserData(), out var sensorShape) && _shapeLookUp.TryGetValue(ev.visitorShapeId.GetUserData(), out var visotorShape))
                 {
                     sensorShape.Control.OnSensorStart(sensorShape, visotorShape);
                 }
@@ -607,7 +621,7 @@ namespace Atlantis.Game
 
             foreach (var ev in sensorEvents.endEventsAsSpan)
             {
-                if (_hapeLookup.TryGetValue(ev.sensorShapeId.GetUserData(), out var sensorShape) && _hapeLookup.TryGetValue(ev.visitorShapeId.GetUserData(), out var visotorShape))
+                if (_shapeLookUp.TryGetValue(ev.sensorShapeId.GetUserData(), out var sensorShape) && _shapeLookUp.TryGetValue(ev.visitorShapeId.GetUserData(), out var visotorShape))
                 {
                     sensorShape.Control.OnSensorEnd(sensorShape, visotorShape);
                 }
@@ -745,6 +759,8 @@ namespace Atlantis.Game
             state.isPressed = false;
         }
 
+        
+
         public void GameRender(float dt)
         {
             float SPD = 20.0f;
@@ -806,7 +822,7 @@ namespace Atlantis.Game
 
         private bool OverlapCastFcn(b2ShapeId shapeId, IntPtr context)
         {
-            if (_hapeLookup.TryGetValue(shapeId.GetUserData(), out var result))
+            if (_shapeLookUp.TryGetValue(shapeId.GetUserData(), out var result))
             {
                 overlapCast.Add(result);
             }
