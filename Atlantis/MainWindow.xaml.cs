@@ -56,7 +56,10 @@ namespace Atlantis
         {
             _scene.Destroy();
             
-            Content = _canvas;
+            _page = new TestPage();
+            _canvas = _page.GameCanvas; // GameCanvas is root element in TestPage
+            
+            this.Content = _canvas;
             _scene = new GameScene(this, _canvas);
         }
 
