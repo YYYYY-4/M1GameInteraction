@@ -25,6 +25,8 @@
         <game:Wall Canvas.Left="63" Canvas.Top="221" Height="178" Width="591" x:Name="Wall0" HorizontalAlignment="Left" VerticalAlignment="Center" />
         <game:Wall Width="578" Height="48" Canvas.Left="928" Canvas.Top="378" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
+
+
         <game:BasicPlatform Canvas.Left="25" Canvas.Top="269" Tag="5" HorizontalAlignment="Left" VerticalAlignment="Top" Width="254"/>
 
         <Canvas Width="50" Height="50" Background="HotPink">
@@ -51,6 +53,8 @@
                     </TransformGroup>
                 </Rectangle.RenderTransform>
             </Rectangle>
+
+            <Image Source="{StaticResource NOSPRITE}" Canvas.Left="216" Canvas.Top="546" Width="50" Height="50" />
 
             <Rectangle Width="100" Height="100" Fill="PowderBlue" Canvas.Top="-668" Canvas.Left="451" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <Rectangle.RenderTransform>
@@ -125,7 +129,15 @@
         <game:Wall x:Name="W0" Width="48" Height="214" Canvas.Left="1090" Canvas.Top="152" HorizontalAlignment="Center" VerticalAlignment="Top" />
         <game:Wall x:Name="W1" Width="48" Height="833" Canvas.Left="10" Canvas.Top="-204" HorizontalAlignment="Center" VerticalAlignment="Top" />
 
+        <game:Wall x:Name="W2" Width="48" Height="214" Canvas.Left="1250" Canvas.Top="152" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <game:ShapeDef.ShapeDef>
+                <game:ShapeDef Destructible="True"/>
+            </game:ShapeDef.ShapeDef>
+        </game:Wall>
+
         <game:DestroyButton Canvas.Left="313" Canvas.Top="201" Targets="{x:Reference W0}" />
+
+        <game:Dynamite Canvas.Left="492" Canvas.Top="94" />
 
     </Canvas>
 </Page>

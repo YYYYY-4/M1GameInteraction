@@ -4,6 +4,12 @@ using System.Numerics;
 using Atlantis.Box2dNet;
 using System.Windows.Shapes;
 using System.Diagnostics;
+using WpfAnimatedGif;
+using System.Windows.Media.Animation;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows;
 
 namespace Atlantis.Game
 {
@@ -72,6 +78,14 @@ namespace Atlantis.Game
             return null!;
         }
 
+        private bool _hasDynamite = false;
+        public bool HasDynamite 
+        { 
+            get { return _hasDynamite; }
+            set { _hasDynamite = value; }
+        }
+
+
         public override void OnUpdate(float dt)
         {
             UpdateGround();
@@ -79,6 +93,11 @@ namespace Atlantis.Game
             if (Scene.Keys[Key.T].pressedNow)
             {
                 IsInWater = !IsInWater;
+            }
+
+            if (Scene.Keys[Key.G].pressedNow)
+            {
+                Dynamite.SpawnDynamite(Scene);
             }
 
             var input = new Vector2(IsKeyDown01(Key.D) - IsKeyDown01(Key.A), IsKeyDown01(Key.W) - IsKeyDown01(Key.S));
@@ -137,6 +156,7 @@ namespace Atlantis.Game
                     float height = 6.0f;
                     var force = (height - Scene.World.GetGravity().Y * duration * (duration / 2)) / duration;
 
+                    //Trace.WriteLine("Mass = " + Mass);
                     Body.ApplyLinearImpulseToCenter(new Vector2(0.0f, force * Mass));
                 }
             }

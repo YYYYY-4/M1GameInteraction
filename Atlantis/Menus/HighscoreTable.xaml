@@ -6,9 +6,65 @@
       xmlns:local="clr-namespace:Atlantis.Menus"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Page1">
-
+      Title="Page1" OpacityMask="Black" Background="White">
     <Grid>
-       
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Button Grid.Column="1" Grid.Row="1" Click="Button_Click">Click Here to add a score</Button>
+        </Grid>
+        <Grid Grid.Column="2">
+
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="64"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            
+            <Label Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontFamily="Comic Sans MS">Level</Label>
+            <Label Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontFamily="Comic Sans MS">Score</Label>
+            <Label Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontFamily="Comic Sans MS">Name</Label>
+            
+
+            <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Scoreboard}">
+                <ListView.ItemTemplate>
+                    <DataTemplate DataType="local:HighscoreRecord">
+                        <Label Content="{Binding Level}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ListView Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Scoreboard}">
+                <ListView.ItemTemplate>
+                    <DataTemplate DataType="local:HighscoreRecord">
+                        <Label Content="{Binding Score}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ListView Grid.Row="1" Grid.Column="2" ItemsSource="{Binding Scoreboard}">
+                <ListView.ItemTemplate>
+                    <DataTemplate DataType="local:HighscoreRecord">
+                        <Label Content="{Binding Name}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
     </Grid>
 </Page>

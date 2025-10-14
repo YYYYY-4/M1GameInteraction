@@ -14,6 +14,7 @@ namespace Atlantis.Game
         public b2ShapeId Shape;
         public Vector2 Offset;
         public Vector2 HalfSize;
+        public bool Destructible;
         public Vector2 Size => HalfSize * 2.0f;
 
         // unused
