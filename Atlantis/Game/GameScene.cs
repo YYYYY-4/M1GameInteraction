@@ -1,4 +1,7 @@
-﻿using Box2dNet.Interop;
+﻿using Atlantis.Box2dNet;
+using Atlantis.Menus;
+using Atlantis.Scene;
+using Box2dNet.Interop;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,9 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
 using System.Xml.Linq;
-using Atlantis.Box2dNet;
-using Atlantis.Scene;
-using Atlantis.Menus;
+using static Atlantis.Box2dNet.B2Extension;
 
 namespace Atlantis.Game
 {
@@ -325,14 +326,14 @@ namespace Atlantis.Game
                 }
 
                 var shapeDef = B2Api.b2DefaultShapeDef(); // probably WPF properties Shape.<Properties> for loading the Shape. And then Shape.GetShapeDef(Shape shape).
-                shapeDef.filter.maskBits = 0x1;
-                shapeDef.filter.categoryBits = ulong.MaxValue;
+                shapeDef.filter.categoryBits = ((ulong)PhysicsCategory.Map);
+                shapeDef.filter.maskBits = ulong.MaxValue;
                 shapeDef.filter.groupIndex = 0;
-
 
                 // Body ShapeDef applied before direct ShapeDef
                 control.ModifyShapeDef(ref shapeDef);
                 var bodyShapeDef = ShapeDef.GetShapeDef(control);
+                bodyShapeDef?.ApplyShapeDef(ref shapeDef);
                 var wpfShapeDef = ShapeDef.GetShapeDef(shape);
                 wpfShapeDef?.ApplyShapeDef(ref shapeDef);
 
@@ -420,10 +421,16 @@ namespace Atlantis.Game
                         Destructible = bodyShapeDef?.Destructible ?? false,
                         Offset = offset,
                         HalfSize = halfSize,
+                        Index = control.Shapes.Count,
                     };
 
                     _shapeLookUp.Add(shapeDef.userData, gameShape);
                     control.Shapes.Add(gameShape);
+
+                    var a = Convert.ToString((long)shapeDef.filter.categoryBits, 2);
+                    var b = Convert.ToString((long)shapeDef.filter.maskBits, 2);
+
+                    Trace.WriteLine($"LOAD {control.GetType().Name}[{control.CID},{control.Shapes.Count-1}] : CATEGORY={a} MASK={b}");
                 }
             }
 
@@ -667,11 +674,7 @@ namespace Atlantis.Game
                     upperBound = worldPosition + Vector2.One
                 };
 
-                var queryFilter = new b2QueryFilter
-                {
-                    categoryBits = 0x1,
-                    maskBits = 0x1
-                };
+                var queryFilter = B2Util.QueryFilter(PhysicsCategory.All, PhysicsMask.All);
 
                 B2Api.b2World_OverlapAABB(World, ab, queryFilter, qfn, 0);
             }

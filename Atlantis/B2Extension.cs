@@ -817,4 +817,12 @@ public static partial class B2Extension
     {
         return B2Api.b2Shape_GetClosestPoint(shapeId, target);
     }
+
+    public static class B2Util
+    {
+        public static b2QueryFilter QueryFilter(PhysicsCategory category, PhysicsMask mask)
+        {
+            return new b2QueryFilter((ulong)category, (ulong)mask);
+        }
+    }
 }

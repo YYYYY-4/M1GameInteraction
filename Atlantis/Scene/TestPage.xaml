@@ -11,6 +11,9 @@
       Title="TestPage">
 
     <Canvas x:Name="GameCanvas" Width="750" Height="750" Background="{StaticResource TileBrush}">
+        <game:WaterArea Width="842" HorizontalAlignment="Left" VerticalAlignment="Top" Height="770" Canvas.Left="104" Canvas.Top="-114" />
+        <game:WaterArea Width="842" HorizontalAlignment="Left" VerticalAlignment="Top" Height="770" Canvas.Left="1511" Canvas.Top="-114" />
+
         <game:Player Canvas.Top="486" Canvas.Left="408">
             <game:Player.RenderTransform>
                 <RotateTransform Angle="0"/>
@@ -25,9 +28,7 @@
         <game:Wall Canvas.Left="63" Canvas.Top="221" Height="178" Width="591" x:Name="Wall0" HorizontalAlignment="Left" VerticalAlignment="Center" />
         <game:Wall Width="578" Height="48" Canvas.Left="928" Canvas.Top="378" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
-
-
-        <game:BasicPlatform Canvas.Left="25" Canvas.Top="269" Tag="5" HorizontalAlignment="Left" VerticalAlignment="Top" Width="254"/>
+        <game:BasicPlatform Canvas.Left="946" Canvas.Top="577" Tag="5" HorizontalAlignment="Left" VerticalAlignment="Top" Width="254"/>
 
         <Canvas Width="50" Height="50" Background="HotPink">
             <Canvas Width="50" Height="50" Background="HotPink" Canvas.Left="454" Canvas.Top="358">
@@ -138,6 +139,8 @@
         <game:DestroyButton Canvas.Left="313" Canvas.Top="201" Targets="{x:Reference W0}" />
 
         <game:Dynamite Canvas.Left="492" Canvas.Top="94" />
+
+
 
     </Canvas>
 </Page>
