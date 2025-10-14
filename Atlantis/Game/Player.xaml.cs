@@ -23,7 +23,6 @@ namespace Atlantis.Game
 
         bool OnGround = false;
 
-        //List<b2ShapeId> Overlap = [];
         public float CastResultFcn(b2ShapeId shapeId, Vector2 point, Vector2 normal, float fraction, IntPtr context)
         {
             if (Shapes.Any(s => s.Shape == shapeId))
@@ -34,17 +33,6 @@ namespace Atlantis.Game
             OnGround = true;
             return 0.0f;
         }
-
-        //List<b2ShapeId> Overlap = new List<b2ShapeId>();
-
-        //public bool OverlapResultFcn(b2ShapeId shapeId, IntPtr context)
-        //{
-        //    if (shapeId != Shapes[0].Shape)
-        //    {
-        //        Overlap.Add(shapeId);
-        //    }
-        //    return true;
-        //}
 
         private void UpdateGround()
         {
@@ -113,104 +101,18 @@ namespace Atlantis.Game
 
                 float inpDirX = inputDir.X;
 
-                int method = 3;
-                if (method == 1)
-                {
-                    // L1: f(x) = 5^x - 1
-                    float spdForm1(float x)
-                    {
-                        return MathF.Pow(5, x) - 1;
-                    }
+                float vX = velocity.X;
 
-                    float spdForm1Inv(float x)
-                    {
-                        return MathF.Log(x + 1, 5);
-                    }
+                float MoveForce = 1000.0f;
+                float AirResistance = 1.05f;
+                float AirDensity = 1.3f;
 
-                    // variables: vX, vY, dt, inputX
-                    // vX = -400 ~ 400
-                    // dt = ~0.016
-                    // inputX = -1, 0, 1
-                    // maxSpeed = n, using 15
-
-                    // find x in the graph of L1
-                    float vX = velocity.X;
-                    float invX = spdForm1Inv(MathF.Abs(vX));
-                    invX = MathF.CopySign(invX, vX);
-
-                    if (float.IsNaN(invX))
-                    {
-                        invX = 0.0f;
-                    }
-
-                    // increase/decrease x based on input, interpret x as seconds and y as Vx
-                    float tScale = 1.0f;
-                    float t = invX + (dt * inputDir.X * tScale);
-                    float x = spdForm1(MathF.Abs(t));
-                    x = MathF.CopySign(x, t);
-
-                    if (x > MaxSpd) x = MaxSpd;
-                    if (x < -MaxSpd) x = -MaxSpd;
-                    if (float.IsNaN(x)) x = 0.0f;
-
-                    velocity.X = x;
-
-                    Trace.WriteLine($"TIME:{Scene.Time} | T:{t} | INVX:{invX} | X:{x} | IDIRX:{inputDir.X}");
-                }
-                else if (method == 2)
-                {
-                    // this offset brings the x closer to 0.0, otherwise the Vx does not react
-                    float offset = 0.01584893f;
-                    float @base = 30.0f;
-
-                    // y = log (x + offset) + 1.8
-                    float spdForm2(float x)
-                    {
-                        return (MathF.Log(x + offset, @base) + 1.8f) * 6.0f;
-                    }
-
-                    float spdForm2Inv(float y)
-                    {
-                        return MathF.Pow(@base, y / 6.0f - 1.8f) - offset;
-                    }
-
-                    float vX = velocity.X;
-                    float invX = spdForm2Inv(MathF.Abs(vX));
-                    if (float.IsNaN(invX))
-                    {
-                        invX = 0.0f;
-                    }
-                    invX = MathF.CopySign(invX, vX);
-
-                    // if no input, slow down to 0.0
-                    Trace.WriteLine($"{Math.Sign(inpDirX)} {Math.Sign(vX)}");
-                    if (Math.Sign(inpDirX) != Math.Sign(vX))
-                    {
-                        Trace.WriteLine("ACTIVATE");
-                        inpDirX = Math.Clamp(0.0f - vX, -1.0f, 1.0f);
-                        //Trace.WriteLine($"{inpDirX}, {v}");
-                    }
-
-                    // increase/decrease x based on input, interpret x as seconds and y as Vx
-                    float tScale = 1.0f;
-                    float t = invX + (dt * inpDirX * tScale);
-                    float x = spdForm2(MathF.Abs(t));
-                    x = MathF.CopySign(x, t);
-
-                    if (x > MaxSpd) x = MaxSpd;
-                    if (x < -MaxSpd) x = -MaxSpd;
-                    if (float.IsNaN(x)) x = 0.0f;
-
-                    velocity.X = x;
-
-                    Trace.WriteLine($"TIME:{Scene.Time} | T:{t} | INVX:{invX} | X:{x} | IDIRX:{inpDirX}");
-                }
-                else if (method == 3)
-                {
-                    float vX = velocity.X;
-
-                    Body.ApplyForceToCenter(new Vector2(50f * inputDir.X, 0f));
-                }
+                var moveForce = new Vector2(MoveForce * inputDir.X);
+                
+                Body.ApplyForceToCenter(moveForce);
+                float Fdrag = 0.5f * AirResistance * AirDensity * Shape0.Size.Y * float.Pow(vX, 2f);
+                Fdrag *= float.Sign(vX);
+                Body.ApplyForceToCenter(new Vector2(-Fdrag, 0.0f));
 
                 if (inputDir.X != 0.0f)
                 {
@@ -226,14 +128,6 @@ namespace Atlantis.Game
                         friction = 1.0f,
                     });
                 }
-
-                // convert speed to f(x) range to something to add dt
-                // map the current |vX| = y to the x of f(x) by inverse of f(x)
-                // x = dt * TimeScale to inv f(x)
-                // vX = x => f(x)
-
-                // goal:
-                // mapToSpeed(f(speedToX(v.X) (+/-) dt*scale))
 
                 Body.SetLinearVelocity(velocity);
 
@@ -255,29 +149,25 @@ namespace Atlantis.Game
 
                 float density = 0.95f;
 
-                var g = Scene.World.GetGravity() * Body.GetGravityScale();
+                var playerGravity = Scene.World.GetGravity() * Body.GetGravityScale();
 
                 float waterSurface = 20.0f;
-                float y = Body.GetPosition().Y - 2.0f;
-                float underWater = waterSurface - y;
+                float bodyLowerY = Body.GetPosition().Y - 2.0f;
+                float underWater = waterSurface - bodyLowerY;
                 float submergeFactor = float.Clamp(underWater / Shape0.Size.Y, 0.0f, 1.0f);
                 
-
-                //Trace.WriteLine($"{waterSurface} {y} {underWater}");
-
-                var v = Body.GetLinearVelocity().Length();
+                var velocity = Body.GetLinearVelocity().Length();
                 var area = Shapes[0].Size.X * Shapes[0].Size.Y;
                 var submergedArea = area * submergeFactor;
 
+                var buoyancy = (-playerGravity) * submergedArea * density;
 
-                var buoyancy = (-g) * submergedArea * density;
-
-                float coDrag = (2.0f * -v) / (density * (v * v) * area);
+                float coDrag = (2.0f * -velocity) / (density * (velocity * velocity) * area);
                 if (float.IsNaN(coDrag))
                 {
                     coDrag = 0.0f;
                 }
-                var drag = 0.5f * density * (v * v) * coDrag * submergedArea;
+                var drag = 0.5f * density * (velocity * velocity) * coDrag * submergedArea;
 
                 Body.ApplyForceToCenter(buoyancy - (Body.GetLinearVelocity() * -drag));
 
@@ -290,72 +180,27 @@ namespace Atlantis.Game
 
             // something something character mover 
             // https://box2d.org/documentation/md_character.html
-            if (false)
-            {
-                var filter = Shape0.Shape.GetFilter();
-                var qf = new b2QueryFilter(filter.categoryBits, filter.maskBits);
-
-                var capsule = new b2Capsule(new Vector2(0, 1.0f), new Vector2(0, -1.0f), MathF.PI * 0.5f);
-                var t = Body.GetTransform().ToMatrix3x2();
-                capsule.center1 = Vector2.Transform(capsule.center1, t);
-                capsule.center2 = Vector2.Transform(capsule.center2, t);
-
-                List<b2CollisionPlane> planes = [];
-                Scene.World.CollideMover(capsule, qf, (b2ShapeId shapeId, in b2PlaneResult result, nint context) =>
-                {
-                    planes.Add(new b2CollisionPlane(result.plane, 1.0f, 1.0f, true));
-                    return true;
-                }, 0);
-
-                var solve = B2Api.b2SolvePlanes(Body.GetPosition(), planes.ToArray(), planes.Count);
-
-                var uh = B2Api.b2World_CastMover(Scene.World, capsule, Body.GetPosition(), qf);
-                Scene.World.CastMover(capsule, Body.GetPosition(), qf);
-
-                Trace.WriteLine(planes);
-            }
-
-            if (false)
-            {
-                var move = Vector2.Zero;
-
-                if (OnGround)
-                {
-                    move.X = input.X;
-                    move.Y += Scene.Keys[Key.W].pressedNow ? 2.0f : 0.0f;
-                }
-                else
-                {
-                    move.X = input.X * 0.1f;
-                }
-
-                var force = MathF.Abs(Mass * Scene.World.GetGravity().Y) * 1.0f;
-                B2Api.b2Body_ApplyForceToCenter(Body, new Vector2(move.X * 500.0f, move.Y * force), true);
-                Body.ApplyLinearImpulseToCenter(new Vector2(0.0f, move.Y * force), true);
-            }
-
-            // If the friction of player is 0, meaning velocity keeps scaling.
-            // It is 0 so that the player doesn't stick to walls when moving into them.
-
-            // Some ways to move the player:
-            // X:
-            // 1. Every frame apply a force on the X direction
-            // 2. Every frame set the X based on A/D input -1 0 1
-            //      A lot of control, character does not get pushed by physics
-            //      Maybe a variation of this concept that limites the max velocity?
-            // 3. Every frame apply a force on the X direction, but also apply a force to counter exceeding the move speed.
-            //      The player starts moving slowly when using this method.
-            //      This method makes more sense when resistance is needed like in water or a car.
-            // Y:
-            //    Jump applies a Impulse
-            //    Jump applies a Impulse but also allows holding the button
-            //    
-
-            /* Water movement:
-             *  Water resistance counters the velocity of the player (or any object...) - maybe this is called buoyancy
-             *  Gravity pulls objects down but the effect 
-             *  Buoyancy could be used but the player would be floaty
-             */
+            //var filter = Shape0.Shape.GetFilter();
+            //var qf = new b2QueryFilter(filter.categoryBits, filter.maskBits);
+            //
+            //var capsule = new b2Capsule(new Vector2(0, 1.0f), new Vector2(0, -1.0f), MathF.PI * 0.5f);
+            //var t = Body.GetTransform().ToMatrix3x2();
+            //capsule.center1 = Vector2.Transform(capsule.center1, t);
+            //capsule.center2 = Vector2.Transform(capsule.center2, t);
+            //
+            //List<b2CollisionPlane> planes = [];
+            //Scene.World.CollideMover(capsule, qf, (b2ShapeId shapeId, in b2PlaneResult result, nint context) =>
+            //{
+            //    planes.Add(new b2CollisionPlane(result.plane, 1.0f, 1.0f, true));
+            //    return true;
+            //}, 0);
+            //
+            //var solve = B2Api.b2SolvePlanes(Body.GetPosition(), planes.ToArray(), planes.Count);
+            //
+            //var uh = B2Api.b2World_CastMover(Scene.World, capsule, Body.GetPosition(), qf);
+            //Scene.World.CastMover(capsule, Body.GetPosition(), qf);
+            //
+            //Trace.WriteLine(planes);
         }
 
         private void GameControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
