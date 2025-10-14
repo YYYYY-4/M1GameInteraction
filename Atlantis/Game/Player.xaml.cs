@@ -126,9 +126,9 @@ namespace Atlantis.Game
                 float AirResistance = 1.05f;
                 float AirDensity = 1.3f;
 
-                var moveForce = new Vector2(MoveForce * inputDir.X);
-                
+                var moveForce = new Vector2(MoveForce * inputDir.X, 0.0f);
                 Body.ApplyForceToCenter(moveForce);
+                
                 float Fdrag = 0.5f * AirResistance * AirDensity * Shape0.Size.Y * float.Pow(vX, 2f);
                 Fdrag *= float.Sign(vX);
                 Body.ApplyForceToCenter(new Vector2(-Fdrag, 0.0f));
