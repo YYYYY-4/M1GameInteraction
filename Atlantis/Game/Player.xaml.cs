@@ -113,7 +113,7 @@ namespace Atlantis.Game
 
                 float inpDirX = inputDir.X;
 
-                int method = 1;
+                int method = 2;
                 if (method == 1)
                 {
                     // L1: f(x) = 5^x - 1
@@ -185,7 +185,7 @@ namespace Atlantis.Game
                     // if no input, slow down to 0.0
                     if (inpDirX == 0.0f)
                     {
-                        //inpDirX = Math.Clamp(0.0f - vX, -1.0f, 1.0f);
+                        inpDirX = Math.Clamp(0.0f - vX, -1.0f, 1.0f);
                         //Trace.WriteLine($"{inpDirX}, {v}");
                     }
 
@@ -338,6 +338,11 @@ namespace Atlantis.Game
              *  Gravity pulls objects down but the effect 
              *  Buoyancy could be used but the player would be floaty
              */
+        }
+
+        private void GameControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+
         }
     }
 }
