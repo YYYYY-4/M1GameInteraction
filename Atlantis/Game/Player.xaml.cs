@@ -4,6 +4,12 @@ using System.Numerics;
 using Atlantis.Box2dNet;
 using System.Windows.Shapes;
 using System.Diagnostics;
+using WpfAnimatedGif;
+using System.Windows.Media.Animation;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows;
 
 namespace Atlantis.Game
 {
@@ -125,13 +131,13 @@ namespace Atlantis.Game
                 v.X = inputDir.X * 15.0f;
 
                 Body.SetLinearVelocity(v);
-
                 if (OnGround && inputDir.Y > 0.0f)
                 {
                     float duration = 0.5f;
                     float height = 6.0f;
                     var force = (height - Scene.World.GetGravity().Y * duration * (duration / 2)) / duration;
 
+                    //Trace.WriteLine("Mass = " + Mass);
                     Body.ApplyLinearImpulseToCenter(new Vector2(0.0f, force * Mass));
                 }
             }

@@ -92,10 +92,10 @@ namespace Atlantis.Game
             set => _paused = value;
         }
 
-        public GameScene(MainWindow window)
+        public GameScene(MainWindow window, Canvas canvas)
         {
             Window = window;
-            Canvas = (Canvas)window.Content;
+            Canvas = canvas;
 
             Camera = new Camera();
 
@@ -174,7 +174,7 @@ namespace Atlantis.Game
             Window.KeyDown -= MainWindow_KeyDown;
             Window.KeyUp -= MainWindow_KeyUp;
             Window.Closed -= Unload;
-
+            
             B2Api.b2DestroyWorld(World);
 
             _watch.Stop();
@@ -205,19 +205,29 @@ namespace Atlantis.Game
             control.CID = ++ControlIdGen;
             control.Scene = this;
 
-            List<Shape>? shapes = null;
-            if (control.Content is Shape cShape)
+            List<FrameworkElement>? shapes = null;
+            if (control.Content is Shape tmpShape)
             {
-                shapes = [cShape];
+                shapes = [tmpShape];
+            }
+            else if (control.Content is Image tmpImage)
+            {
+                shapes = [tmpImage]; 
             }
             else if (control.Content is Canvas canvas)
             {
-                shapes = canvas.Children.OfType<Shape>().ToList();
+                shapes = [];
+                foreach (FrameworkElement child in canvas.Children)
+                {
+                    if (child is Shape || child is Image)
+                    {
+                        shapes.Add(child);
+                    }
+                }
             }
 
             if (shapes == null || shapes.Count == 0)
             {
-                //throw new NotImplementedException();
                 shapes = [];
             }
 
@@ -344,7 +354,7 @@ namespace Atlantis.Game
                 var offset = shapeLocalPosition + (directionX - directionY);
 
                 b2ShapeId? physShape = null;
-                if (shape is Rectangle)
+                if (shape is Rectangle || shape is Image)
                 {
                     var polygon = B2Api.b2MakeBox(halfSize.X, halfSize.Y);
 
@@ -453,7 +463,7 @@ namespace Atlantis.Game
                 ProcessGameControl(control, new b2Transform(p, q));
             }
 
-            void processShape(Shape shape)
+            void processShape(FrameworkElement shape)
             {
                 var control = new GameControl();
 
@@ -519,6 +529,10 @@ namespace Atlantis.Game
                 else if (element is Label label)
                 {
                     processLabel(label);
+                }
+                else if (element is Image imageShape)
+                {
+                    processShape(imageShape);
                 }
                 else
                 {
