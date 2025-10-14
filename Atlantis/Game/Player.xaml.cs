@@ -18,14 +18,6 @@ namespace Atlantis.Game
         public Player()
         {
             InitializeComponent();
-
-            var img = (BitmapImage)Application.Current.FindResource("PlayerIdle");
-
-            var i = new Image()
-            {
-                Source = img
-            };
-            WpfAnimatedGif.ImageBehavior.SetRepeatBehavior(i, RepeatBehavior.Forever);
         }
 
         float Mass;
@@ -131,13 +123,13 @@ namespace Atlantis.Game
                 v.X = inputDir.X * 15.0f;
 
                 Body.SetLinearVelocity(v);
-
                 if (OnGround && inputDir.Y > 0.0f)
                 {
                     float duration = 0.5f;
                     float height = 6.0f;
                     var force = (height - Scene.World.GetGravity().Y * duration * (duration / 2)) / duration;
 
+                    //Trace.WriteLine("Mass = " + Mass);
                     Body.ApplyLinearImpulseToCenter(new Vector2(0.0f, force * Mass));
                 }
             }

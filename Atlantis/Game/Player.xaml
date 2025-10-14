@@ -14,17 +14,14 @@
     </local:BodyDef.BodyDef>
 
     <Canvas Width="50" Height="100">
-        <Rectangle Width="50" Height="100">
-            <Rectangle.RenderTransform>
+        <Image Width="50" Height="100" gif:ImageBehavior.AnimatedSource="{StaticResource PlayerIdle}" Canvas.Left="-25" Canvas.Top="-50" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <Image.RenderTransform>
                 <RotateTransform Angle="0"/>
-            </Rectangle.RenderTransform>
-            <Rectangle.Fill>
-                <ImageBrush x:Name="IWantDie" ImageSource="{StaticResource PlayerIdle}" Stretch="Uniform" TileMode="None"/>
-            </Rectangle.Fill>
+            </Image.RenderTransform>
             <local:ShapeDef.ShapeDef>
                 <local:ShapeDef CategoryBits="1" EnableSensorEvents="True" MatFriction="1" MatRestitution="0" />
             </local:ShapeDef.ShapeDef>
-        </Rectangle>
+        </Image>
         <Rectangle Width="6" Height="100" Canvas.Top="-50" Canvas.Left="22" HorizontalAlignment="Center" VerticalAlignment="Top">
             <local:ShapeDef.ShapeDef>
                 <local:ShapeDef MatFriction="0" Density="0"/>
