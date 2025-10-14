@@ -245,7 +245,7 @@ namespace Atlantis.Game
                 // https://en.wikipedia.org/wiki/Drag_coefficient
                 // https://en.wikipedia.org/wiki/Buoyancy
 
-                float density = 1.95f;
+                float density = 0.95f;
 
                 var g = Scene.World.GetGravity() * Body.GetGravityScale();
 
