@@ -10,7 +10,7 @@
       Background="white">
 
     <!--Main Grid-->
-    <Grid>
+    <Grid x:Name="SettingsGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="87*"/>
             <RowDefinition Height="259*"/>
@@ -135,7 +135,7 @@
             <Button Grid.Column="1" 
                     FontFamily="Rockwell" 
                     FontWeight="Bold" 
-                    FontSize="20" Click="OpslaanSettings_Click">APPLY</Button>
+                    FontSize="20" Click="OpslaanSettings_Button_Click">APPLY</Button>
         </Grid>
         <!--end grid for apply button-->
         <Label Grid.Column="1" 

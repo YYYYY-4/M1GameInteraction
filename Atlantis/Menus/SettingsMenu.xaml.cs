@@ -21,11 +21,17 @@ namespace Atlantis.Menus
     /// </summary>
     public partial class SettingsMenu : Page
     {
+        //devines the paths for the txtfiles
         private string MusicSettings = "MusicSettings.txt";
         private string SfxSettings = "SfxSettings.txt";
+
         public SettingsMenu()
         {
             InitializeComponent();
+            //Creates txtfiles for the settings if they dont exist
+            //these files are universal and not per player
+            //it adds one txtfile per slider
+            //gives them a base value of 50
             if (!File.Exists(MusicSettings))
             {
                 File.WriteAllText(MusicSettings, "50");
@@ -34,11 +40,13 @@ namespace Atlantis.Menus
             {
                 File.WriteAllText(SfxSettings, "50");
             }
+            //Sets the value for the slider with what's in the txtfiles
             MusicSlider.Value = double.Parse(File.ReadAllText(MusicSettings));
             SfxSlider.Value = double.Parse(File.ReadAllText(SfxSettings));
-            
         }
-        public void OpslaanSettings_Click(object sender, RoutedEventArgs e)
+
+        //saves settings to the txtfiles
+        public void OpslaanSettings_Button_Click(object sender, RoutedEventArgs e)
         {
             File.WriteAllText(MusicSettings, MusicSlider.Value.ToString());
             File.WriteAllText(SfxSettings, SfxSlider.Value.ToString());

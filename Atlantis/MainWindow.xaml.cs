@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Atlantis.Game;
 using Atlantis.Scene;
+using Atlantis.Menus;
 
 namespace Atlantis
 {
@@ -14,6 +15,8 @@ namespace Atlantis
         private GameScene _scene;
         private TestPage _page;
         private Canvas _canvas;
+        private Grid _grid;
+        private SettingsMenu _menu;
 
         public MainWindow()
         {
@@ -87,6 +90,13 @@ namespace Atlantis
             this.Content = _canvas;
             _scene = new GameScene(this, _canvas);
         }
+
+        private void Settings_Button_Click(object sender, RoutedEventArgs e)
+        {
+            _menu = new SettingsMenu();
+            this.Content = _menu;
+        }
+
 
         private void Quit_Button_Click(object sender, RoutedEventArgs e)
         {
