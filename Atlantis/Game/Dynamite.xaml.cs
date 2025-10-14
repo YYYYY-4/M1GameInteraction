@@ -76,7 +76,7 @@ namespace Atlantis.Game
         public void ExplodeDynamite()
         {
             Vector2 position = Body.GetPosition();
-            b2Circle circle = new b2Circle(position, 5.0f);
+            b2Circle circle = new b2Circle(position, 10.0f);
             b2ShapeProxy proxy = B2Api.b2MakeProxy([position], 1, circle.radius);
             b2QueryFilter filter = new b2QueryFilter(1, 1);
             shapes = Scene.OverlapCast(proxy, filter);

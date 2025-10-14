@@ -14,10 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Atlantis.Menus
-{
-    /// <summary>
-    /// Interaction logic for DemoLevel.xaml
-    /// </summary>
+{ 
     public partial class DemoLevel : Page
     {
         public DemoLevel()

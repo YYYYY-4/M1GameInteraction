@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using System.Xml.Linq;
 using Atlantis.Box2dNet;
 using Atlantis.Scene;
+using Atlantis.Menus;
 
 namespace Atlantis.Game
 {
@@ -734,7 +735,7 @@ namespace Atlantis.Game
                     Paused = !Paused;
                     break;
                 case Key.F1:
-                    Window.LoadScene<TestPage>();
+                    Window.LoadScene<DemoLevel>();
                     break;
             }
         }
