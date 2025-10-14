@@ -25,7 +25,14 @@ namespace Atlantis.Game
         private List<GameShape> shapes = [];
 
         bool isExploding = false;
+        bool isSpawned = false;
         float timer = 0.0f;
+
+        public Dynamite(bool exploding)
+        {
+            InitializeComponent();
+            isExploding = exploding;
+        }
 
         public Dynamite()
         {
@@ -40,36 +47,36 @@ namespace Atlantis.Game
         public static void SpawnDynamite(GameScene scene)
         {
             Player player = scene.Controls.OfType<Player>().First();
-            Vector2 position = player.Body.GetPosition();
-            Dynamite dynamite = new Dynamite();
-            scene.ProcessGameControl(dynamite, new b2Transform(position, b2Rot.Zero));
-
+            if (player.HasDynamite == true)
+            {
+                Vector2 position = player.Body.GetPosition();
+                bool isExploding = true;
+                Dynamite dynamite = new Dynamite(isExploding);
+                dynamite.isSpawned = true;
+                scene.ProcessGameControl(dynamite, new b2Transform(position, b2Rot.Zero));
+                player.HasDynamite = false;
+            }
         }
 
         public override void OnUpdate(float dt)
         {
             base.OnUpdate(dt);
 
-            //if (isExploding)
-            //{
+            if (isExploding)
+            {
                 timer += dt;
 
                 if (timer >= 3.0f)
                 {
                     ExplodeDynamite();
                 }
-            //}
-
-            //if (Scene.Keys[Key.R].isPressed)
-            //{
-            //    isExploding = true;
-            //}
+            }
         }
 
         public void ExplodeDynamite()
         {
             Vector2 position = Body.GetPosition();
-            b2Circle circle = new b2Circle(position, 3.0f);
+            b2Circle circle = new b2Circle(position, 10.0f);
             b2ShapeProxy proxy = B2Api.b2MakeProxy([position], 1, circle.radius);
             b2QueryFilter filter = new b2QueryFilter(1, 1);
             shapes = Scene.OverlapCast(proxy, filter);
@@ -86,6 +93,26 @@ namespace Atlantis.Game
 
             timer = 0.0f;
             isExploding = false;
+        }
+
+        public int PickUp(Player player)
+        {
+            if (!isSpawned)
+            {
+                Scene.DestroyControl(this);
+                player.HasDynamite = true;
+                return 1;
+            }
+
+            return 0;
+        }
+
+        public override void OnSensorStart(GameShape sensor, GameShape visitor)
+        {
+            if (visitor.Control is Player player)
+            {
+                PickUp(player);
+            }
         }
     }
 }

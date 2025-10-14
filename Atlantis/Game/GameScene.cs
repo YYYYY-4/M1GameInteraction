@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using System.Xml.Linq;
 using Atlantis.Box2dNet;
 using Atlantis.Scene;
+using Atlantis.Menus;
 
 namespace Atlantis.Game
 {
@@ -325,7 +326,7 @@ namespace Atlantis.Game
 
                 var shapeDef = B2Api.b2DefaultShapeDef(); // probably WPF properties Shape.<Properties> for loading the Shape. And then Shape.GetShapeDef(Shape shape).
                 shapeDef.filter.maskBits = 0x1;
-                shapeDef.filter.categoryBits = 0x1;
+                shapeDef.filter.categoryBits = ulong.MaxValue;
                 shapeDef.filter.groupIndex = 0;
 
 
@@ -748,7 +749,7 @@ namespace Atlantis.Game
                     Paused = !Paused;
                     break;
                 case Key.F1:
-                    Window.LoadScene<TestPage>();
+                    Window.LoadScene<DemoLevel>();
                     break;
             }
         }
