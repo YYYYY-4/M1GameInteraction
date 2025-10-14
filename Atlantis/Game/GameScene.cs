@@ -216,8 +216,13 @@ namespace Atlantis.Game
             else if (control.Content is Canvas canvas)
             {
                 shapes = [];
-                shapes.AddRange(canvas.Children.OfType<Shape>().Cast<FrameworkElement>());
-                shapes.AddRange(canvas.Children.OfType<Image>());
+                foreach (FrameworkElement child in canvas.Children)
+                {
+                    if (child is Shape || child is Image)
+                    {
+                        shapes.Add(child);
+                    }
+                }
             }
 
             if (shapes == null || shapes.Count == 0)
