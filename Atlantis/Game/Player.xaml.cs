@@ -245,14 +245,21 @@ namespace Atlantis.Game
                 // https://en.wikipedia.org/wiki/Drag_coefficient
                 // https://en.wikipedia.org/wiki/Buoyancy
 
-                float density = 0.95f;
+                float density = 1.95f;
 
                 var g = Scene.World.GetGravity() * Body.GetGravityScale();
 
-                var v = Body.GetLinearVelocity().Length();
-                var a = Shapes[0].Size.X * Shapes[0].Size.Y;
+                float waterSurface = 20.0f;
+                float y = Body.GetPosition().Y - 2.0f;
+                float underWater = waterSurface - y;
+                float co = float.Min(1.0f, underWater / Shape0.Size.Y);
 
-                var buoyancy = (-g) * Mass * density;
+                Trace.WriteLine($"{waterSurface} {y} {underWater}");
+
+                var v = Body.GetLinearVelocity().Length();
+                var a = Shapes[0].Size.X * Shapes[0].Size.Y * co;
+
+                var buoyancy = (-g) * a * density;
 
                 float cd = (2.0f * -v) / (density * (v * v) * a);
                 if (float.IsNaN(cd))
