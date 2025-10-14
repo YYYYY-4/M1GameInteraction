@@ -252,29 +252,32 @@ namespace Atlantis.Game
                 float waterSurface = 20.0f;
                 float y = Body.GetPosition().Y - 2.0f;
                 float underWater = waterSurface - y;
-                float co = float.Min(1.0f, underWater / Shape0.Size.Y);
+                float submergeFactor = float.Clamp(underWater / Shape0.Size.Y, 0.0f, 1.0f);
+                
 
-                Trace.WriteLine($"{waterSurface} {y} {underWater}");
+                //Trace.WriteLine($"{waterSurface} {y} {underWater}");
 
                 var v = Body.GetLinearVelocity().Length();
-                var a = Shapes[0].Size.X * Shapes[0].Size.Y * co;
+                var area = Shapes[0].Size.X * Shapes[0].Size.Y;
+                var submergedArea = area * submergeFactor;
 
-                var buoyancy = (-g) * a * density;
 
-                float cd = (2.0f * -v) / (density * (v * v) * a);
-                if (float.IsNaN(cd))
+                var buoyancy = (-g) * submergedArea * density;
+
+                float coDrag = (2.0f * -v) / (density * (v * v) * area);
+                if (float.IsNaN(coDrag))
                 {
-                    cd = 0.0f;
+                    coDrag = 0.0f;
                 }
-                var drag = 0.5f * density * (v * v) * cd * a;
+                var drag = 0.5f * density * (v * v) * coDrag * submergedArea;
 
                 Body.ApplyForceToCenter(buoyancy - (Body.GetLinearVelocity() * -drag));
 
                 var moveForce = input * 100.0f;
                 Body.ApplyForceToCenter(moveForce);
 
-                Trace.WriteLine($"d: {drag}, cd: {cd}");
-                Trace.WriteLine($"FPS: {1.0f / dt}");
+                //Trace.WriteLine($"d: {drag}, cd: {coDrag}");
+                //Trace.WriteLine($"FPS: {1.0f / dt}");
             }
 
             // something something character mover 
