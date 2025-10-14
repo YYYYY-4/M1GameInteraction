@@ -107,13 +107,13 @@ namespace Atlantis.Game
             if (!IsInWater)
             {
                 var inputDir = new Vector2(input.X, Scene.Keys[Key.W].pressedNow ? 1.0f : 0.0f);
-                var v = Body.GetLinearVelocity();
+                var velocity = Body.GetLinearVelocity();
 
                 const float MaxSpd = 15.0f;
 
                 float inpDirX = inputDir.X;
 
-                int method = 2;
+                int method = 3;
                 if (method == 1)
                 {
                     // L1: f(x) = 5^x - 1
@@ -134,7 +134,7 @@ namespace Atlantis.Game
                     // maxSpeed = n, using 15
 
                     // find x in the graph of L1
-                    float vX = v.X;
+                    float vX = velocity.X;
                     float invX = spdForm1Inv(MathF.Abs(vX));
                     invX = MathF.CopySign(invX, vX);
 
@@ -153,7 +153,7 @@ namespace Atlantis.Game
                     if (x < -MaxSpd) x = -MaxSpd;
                     if (float.IsNaN(x)) x = 0.0f;
 
-                    v.X = x;
+                    velocity.X = x;
 
                     Trace.WriteLine($"TIME:{Scene.Time} | T:{t} | INVX:{invX} | X:{x} | IDIRX:{inputDir.X}");
                 }
@@ -174,7 +174,7 @@ namespace Atlantis.Game
                         return MathF.Pow(@base, y / 6.0f - 1.8f) - offset;
                     }
 
-                    float vX = v.X;
+                    float vX = velocity.X;
                     float invX = spdForm2Inv(MathF.Abs(vX));
                     if (float.IsNaN(invX))
                     {
@@ -183,8 +183,10 @@ namespace Atlantis.Game
                     invX = MathF.CopySign(invX, vX);
 
                     // if no input, slow down to 0.0
-                    if (inpDirX == 0.0f)
+                    Trace.WriteLine($"{Math.Sign(inpDirX)} {Math.Sign(vX)}");
+                    if (Math.Sign(inpDirX) != Math.Sign(vX))
                     {
+                        Trace.WriteLine("ACTIVATE");
                         inpDirX = Math.Clamp(0.0f - vX, -1.0f, 1.0f);
                         //Trace.WriteLine($"{inpDirX}, {v}");
                     }
@@ -199,9 +201,15 @@ namespace Atlantis.Game
                     if (x < -MaxSpd) x = -MaxSpd;
                     if (float.IsNaN(x)) x = 0.0f;
 
-                    v.X = x;
+                    velocity.X = x;
 
                     Trace.WriteLine($"TIME:{Scene.Time} | T:{t} | INVX:{invX} | X:{x} | IDIRX:{inpDirX}");
+                }
+                else if (method == 3)
+                {
+                    float vX = velocity.X;
+
+                    Body.ApplyForceToCenter(new Vector2(50f * inputDir.X, 0f));
                 }
 
                 if (inputDir.X != 0.0f)
@@ -227,7 +235,7 @@ namespace Atlantis.Game
                 // goal:
                 // mapToSpeed(f(speedToX(v.X) (+/-) dt*scale))
 
-                Body.SetLinearVelocity(v);
+                Body.SetLinearVelocity(velocity);
 
                 if (OnGround && inputDir.Y > 0.0f)
                 {
