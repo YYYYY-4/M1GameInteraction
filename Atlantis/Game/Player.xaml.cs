@@ -84,6 +84,14 @@ namespace Atlantis.Game
             return null!;
         }
 
+        private bool _hasDynamite = false;
+        public bool HasDynamite 
+        { 
+            get { return _hasDynamite; }
+            set { _hasDynamite = value; }
+        }
+
+
         public override void OnUpdate(float dt)
         {
             UpdateGround();

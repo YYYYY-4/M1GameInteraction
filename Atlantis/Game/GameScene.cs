@@ -315,7 +315,7 @@ namespace Atlantis.Game
 
                 var shapeDef = B2Api.b2DefaultShapeDef(); // probably WPF properties Shape.<Properties> for loading the Shape. And then Shape.GetShapeDef(Shape shape).
                 shapeDef.filter.maskBits = 0x1;
-                shapeDef.filter.categoryBits = 0x1;
+                shapeDef.filter.categoryBits = ulong.MaxValue;
                 shapeDef.filter.groupIndex = 0;
 
 

@@ -12,6 +12,10 @@
         <local:BodyDef LinearVelocity="0, -50" Name="player" Type="b2_dynamicBody" MotionLocks="Z" GravityScale="2.5" />
     </local:BodyDef.BodyDef>
 
+    <local:ShapeDef.ShapeDef>
+        <local:ShapeDef MaskBits="2" CategoryBits="3" />
+    </local:ShapeDef.ShapeDef>
+
     <Canvas Width="50" Height="100">
         <Rectangle Width="50" Height="100" Canvas.Top="-50" Canvas.Left="-25">
             <Rectangle.RenderTransform>
