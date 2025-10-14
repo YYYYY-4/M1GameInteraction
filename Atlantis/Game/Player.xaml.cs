@@ -43,7 +43,8 @@ namespace Atlantis.Game
             }
             b2ShapeProxy proxy = B2Api.b2MakeOffsetProxy(points, points.Length, 0.0f, Body.GetPosition() + new Vector2(0, -Shapes[0].HalfSize.Y), b2Rot.Zero);
 
-            filter.categoryBits = ulong.MaxValue & ~((ulong)PhysicsMask.WaterArea);
+            filter.categoryBits = ((ulong)PhysicsCategory.Map);
+            filter.maskBits = (ulong)(PhysicsCategory.All & ~PhysicsCategory.WaterArea);
 
             var overlap = Scene.OverlapCast(proxy, filter);
 
