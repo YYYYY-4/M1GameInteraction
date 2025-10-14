@@ -614,7 +614,8 @@ namespace Atlantis.Game
             }
 
             // process contact events
-            // - probleem voor later
+            // - probleem voor nu
+            World.GetContactEvents();
 
             // update all controls
             foreach (var control in _iterControls)

@@ -28,7 +28,7 @@
         <game:BasicPlatform Canvas.Left="25" Canvas.Top="269" Tag="5" HorizontalAlignment="Left" VerticalAlignment="Top" Width="254"/>
 
         <Canvas Width="50" Height="50" Background="HotPink">
-            <Canvas Width="50" Height="50" Background="HotPink" Canvas.Left="454" Canvas.Top="358">
+            <Canvas Width="50" Height="50" Background="HotPink" Canvas.Left="454" Canvas.Top="358" RenderTransformOrigin="0.75,1.31">
                 <Rectangle Width="50" Height="402" Fill="LawnGreen" Canvas.Left="478" Canvas.Top="3" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <Rectangle.RenderTransform>
                         <RotateTransform Angle="45" />
@@ -126,6 +126,11 @@
         <game:Wall x:Name="W1" Width="48" Height="833" Canvas.Left="10" Canvas.Top="-204" HorizontalAlignment="Center" VerticalAlignment="Top" />
 
         <game:DestroyButton Canvas.Left="313" Canvas.Top="201" Targets="{x:Reference W0}" />
+        <game:Wall x:Name="W0_Copy" Width="48" Height="125" Canvas.Left="744" Canvas.Top="221" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <game:ShapeDef.ShapeDef>
+                <game:ShapeDef Deadly="True" />
+            </game:ShapeDef.ShapeDef>
+        </game:Wall>
 
     </Canvas>
 </Page>

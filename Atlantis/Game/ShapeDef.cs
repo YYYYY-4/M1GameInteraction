@@ -21,6 +21,7 @@ namespace Atlantis.Game
         public bool? EnablePreSolveEvents { get; set; }
         public bool? InvokeContactCreation { get; set; }
         public bool? UpdateBodyMass { get; set; }
+        public bool? Deadly { get; set; }
 
         // Filter
         public ulong? CategoryBits { get; set; }

@@ -15,6 +15,7 @@ namespace Atlantis.Game
         public Vector2 Offset;
         public Vector2 HalfSize;
         public Vector2 Size => HalfSize * 2.0f;
+        public bool Deadly;
 
         // unused
         public FrameworkElement Element;
