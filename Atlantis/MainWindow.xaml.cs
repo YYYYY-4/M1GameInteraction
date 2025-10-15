@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using Atlantis.Game;
+using Atlantis.Menus;
 using Atlantis.Scene;
 
 namespace Atlantis
@@ -12,7 +13,7 @@ namespace Atlantis
     public partial class MainWindow : Window
     {
         private GameScene _scene;
-        private TestPage _page;
+        private Page _page;
         private Canvas _canvas;
 
         public MainWindow()
@@ -54,12 +55,12 @@ namespace Atlantis
         /// <typeparam name="T">Scene which inherits Page and defines a Canvas at it's root.</typeparam>
         public void LoadScene<T>() where T : Page
         {
-            _scene.Destroy();
+            _scene?.Destroy();
             
-            _page = new TestPage();
-            _canvas = _page.GameCanvas; // GameCanvas is root element in TestPage
+            _page = new DemoLevel();
+            _canvas = (Canvas)_page.Content; // GameCanvas is root element in TestPage
             
-            this.Content = _canvas;
+            Content = _canvas;
             _scene = new GameScene(this, _canvas);
         }
 
@@ -81,11 +82,7 @@ namespace Atlantis
 
         private void Start_Button_Click(object sender, RoutedEventArgs e)
         {
-            _page = new TestPage();
-            _canvas = _page.GameCanvas; // GameCanvas is root element in TestPage
-            
-            this.Content = _canvas;
-            _scene = new GameScene(this, _canvas);
+            LoadScene<DemoLevel>();
         }
 
         private void Quit_Button_Click(object sender, RoutedEventArgs e)
