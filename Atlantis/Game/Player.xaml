@@ -10,11 +10,11 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <local:BodyDef.BodyDef>
-        <local:BodyDef Name="player" Type="b2_dynamicBody" MotionLocks="Z" GravityScale="2.5" />
+        <local:BodyDef Type="b2_dynamicBody" MotionLocks="Z" GravityScale="2.5" />
     </local:BodyDef.BodyDef>
     
     <local:ShapeDef.ShapeDef>
-        <local:ShapeDef Category="Player" Mask="Player" />
+        <local:ShapeDef Category="Player" Mask="Player" EnableSensorEvents="True" />
     </local:ShapeDef.ShapeDef>
 
     <Canvas Width="50" Height="100">
@@ -23,7 +23,7 @@
                 <RotateTransform Angle="0"/>
             </Image.RenderTransform>
             <local:ShapeDef.ShapeDef>
-                <local:ShapeDef EnableSensorEvents="True" EnableContactEvents="True" MatFriction="1" MatRestitution="0" />
+                <local:ShapeDef MatFriction="1" MatRestitution="0" />
             </local:ShapeDef.ShapeDef>
         </Image>
         <Rectangle Width="6" Height="100" Canvas.Top="-50" Canvas.Left="22" HorizontalAlignment="Center" VerticalAlignment="Top">

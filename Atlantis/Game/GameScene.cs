@@ -805,10 +805,13 @@ namespace Atlantis.Game
 
             var halfCanvas = new Vector2((float)Canvas.ActualWidth / 2, (float)Canvas.ActualHeight / 2);
 
-            var subject = _controls.OfType<Player>().First();
+            var subject = _controls.OfType<Player>().FirstOrDefault();
 
-            //subj.BodyId.SetTransform(Camera.Position, b2Rot.Zero);
-            Camera.Position = B2Api.b2Body_GetPosition(subject.Body);
+            if (subject != null)
+            {
+                //subj.BodyId.SetTransform(Camera.Position, b2Rot.Zero);
+                Camera.Position = B2Api.b2Body_GetPosition(subject.Body);
+            }
 
             World.SetGravity(new Vector2(camRot90.c, -camRot90.s) * 10.0f);
 

@@ -10,19 +10,14 @@
             InitializeComponent();
         }
 
-        public override void OnContactStart(GameShape shape, GameShape contact)
+        public override void OnSensorStart(GameShape sensor, GameShape visitor)
         {
-            base.OnContactStart(shape, contact);
+            base.OnSensorStart(sensor, visitor);
 
-            if (contact.Control is Player player)
+            if (visitor.Control is Player player)
             {
                 Scene.DestroyControl(player);
             }
-        }
-
-        public override void OnContactEnd(GameShape shape, GameShape contact)
-        {
-            base.OnContactEnd(shape, contact);
         }
     }
 }
