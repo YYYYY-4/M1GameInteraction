@@ -718,8 +718,6 @@ namespace Atlantis.Game
                 }
             }
 
-            Trace.WriteLine($"MS1: {MouseButton1.isPressed}, Now: {MouseButton1.pressedNow}");
-
             DragUpdate();
         }
 
