@@ -1,9 +1,11 @@
 ﻿using System.Numerics;
+using System.Windows.Controls;
 
 namespace Atlantis
 {
     public static class Util
     {
+        public static List<Page> PageHistory { get; set; } = new List<Page>();
         public static float DegToRad(this float degrees)
         {
             return degrees * (MathF.PI / 180.0f);

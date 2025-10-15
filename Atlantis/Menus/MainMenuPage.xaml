@@ -1,0 +1,28 @@
+<Page x:Class="Atlantis.Scene.MainMenuPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Atlantis.Scene"
+      mc:Ignorable="d"
+      Title="MainMenu" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="1" FontSize="72" HorizontalAlignment="Center" FontFamily="Old English Text MT">Atlantis</TextBlock>
+        <Button Grid.Row="1" Grid.Column="0" Click="Start_Button_Click">Start</Button>
+        <Button Grid.Row="3" Grid.Column="0" Click="Quit_Button_Click">Quit</Button>
+    </Grid>
+</Page>
