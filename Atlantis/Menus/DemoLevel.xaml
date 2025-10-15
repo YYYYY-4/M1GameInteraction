@@ -33,5 +33,10 @@
         <game:Dynamite Canvas.Left="1630" Canvas.Top="316"/>
         <game:Dynamite Canvas.Left="450" Canvas.Top="900" Width="50"/>
         <game:DestroyButton Canvas.Left="1630" Canvas.Top="1049" Width="50" Height="50" Targets="{x:Reference ButtonWall}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <game:Wall Tag="RW" Width="100" Height="500" Canvas.Left="410" Canvas.Top="670" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <game:Wall.RenderTransform>
+                <RotateTransform Angle="100" />
+            </game:Wall.RenderTransform>
+        </game:Wall>
     </Canvas>
 </Page>

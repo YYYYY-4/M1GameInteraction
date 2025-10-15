@@ -173,7 +173,7 @@ namespace Atlantis.Game
             Window.KeyDown -= MainWindow_KeyDown;
             Window.KeyUp -= MainWindow_KeyUp;
             Window.Closed -= Unload;
-            
+
             B2Api.b2DestroyWorld(World);
 
             _watch.Stop();
@@ -201,6 +201,13 @@ namespace Atlantis.Game
                 Canvas.SetLeft(control, 0.0);
             }
 
+            if (control.RenderTransformOrigin.X != 0.0 || control.RenderTransformOrigin.Y != 0.0)
+            {
+                // RenderTransformOrigin is set by the designer sometimes, which causes visual problems and potentially unnecessary debugging.
+                // If the usage of RenderTransformOrigin is desired maybe Tag == "AllowRTO" could be used.
+                throw new Exception($"{control.GetType()} Near ID={ControlIdGen} has non-zero RenderTransformOrigin");
+            }
+
             control.CID = ++ControlIdGen;
             control.Scene = this;
 
@@ -211,7 +218,7 @@ namespace Atlantis.Game
             }
             else if (control.Content is Image tmpImage)
             {
-                shapes = [tmpImage]; 
+                shapes = [tmpImage];
             }
             else if (control.Content is Canvas canvas)
             {
@@ -428,7 +435,7 @@ namespace Atlantis.Game
                     var a = Convert.ToString((long)shapeDef.filter.categoryBits, 2);
                     var b = Convert.ToString((long)shapeDef.filter.maskBits, 2);
 
-                    Trace.WriteLine($"LOAD {control.GetType().Name}[{control.CID},{control.Shapes.Count-1}] : CATEGORY={a} MASK={b}");
+                    Trace.WriteLine($"LOAD {control.GetType().Name}[{control.CID},{control.Shapes.Count - 1}] : CATEGORY={a} MASK={b}");
                 }
             }
 
@@ -458,12 +465,13 @@ namespace Atlantis.Game
         {
             void processGameControl(GameControl control)
             {
-                var designerBodyAngle = RotateUtil.GetRotateTransform(control)?.Angle ?? 0.0;
+                // inverted because WPF renders angles inverted.
+                var designerBodyAngle = -(RotateUtil.GetRotateTransform(control)?.Angle ?? 0.0).DegToRad();
 
                 // Origin of Body, it is the top left translated to physics coordiante space
                 double bottom = canvasActualHeight - (top + Canvas.GetTop(control));
                 var p = new Vector2((float)(left + Canvas.GetLeft(control)), (float)bottom) / ScalingFactor;
-                var q = b2Rot.FromAngle(((float)designerBodyAngle));
+                var q = b2Rot.FromAngle((float)designerBodyAngle);
 
                 ProcessGameControl(control, new b2Transform(p, q));
             }
@@ -603,14 +611,6 @@ namespace Atlantis.Game
             }
         }
 
-        bool qfn(b2ShapeId shapeId, nint ctx)
-        {
-            var body = B2Api.b2Shape_GetBody(shapeId);
-            Dragging = _controls.FirstOrDefault(p => p.Body == body);
-            DraggingOffset = body.GetPosition() - WorldMousePosition;
-            return false;
-        }
-
         public void GameUpdate(float dt)
         {
             if (Paused) return;
@@ -691,7 +691,31 @@ namespace Atlantis.Game
 
                 var queryFilter = B2Util.QueryFilter(PhysicsCategory.All, PhysicsMask.All);
 
-                B2Api.b2World_OverlapAABB(World, ab, queryFilter, qfn, 0);
+                List<GameShape> shapes = [];
+                World.OverlapAABB(ab, queryFilter, (b2ShapeId shape, nint ctx) =>
+                {
+                    if (_shapeLookUp.TryGetValue(shape.GetUserData(), out var sh))
+                    {
+                        shapes.Add(sh);
+                    }
+                    return false;
+                }, 0);
+
+                Dragging = shapes.Aggregate((current, sh) =>
+                {
+                    if (current == null)
+                    {
+                        return current;
+                    }
+                    float a = current.Size.LengthSquared();
+                    float b = sh.Size.LengthSquared();
+                    return a < b ? current : sh;
+                })?.Control;
+
+                if (Dragging != null)
+                {
+                    DraggingOffset = Dragging.Body.GetPosition() - WorldMousePosition;
+                }
             }
             else if (!Ms1DownThisFrame && Ms1DownThisFrame != ms1LastFrame)
             {
@@ -783,7 +807,7 @@ namespace Atlantis.Game
             state.isPressed = false;
         }
 
-        
+
 
         public void GameRender(float dt)
         {
@@ -795,7 +819,7 @@ namespace Atlantis.Game
             var camRot90 = b2Rot.FromAngle(Camera.Angle + MathF.PI * 0.5f);
             var camDir = new Vector2(camRot.c, camRot90.s);
             camDir = camDir.Length() > 0.0 ? Vector2.Normalize(camDir) : camDir;
-            camDir *= inputDir * SPD;
+            camDir *= inputDir * SPD * dt;
             Camera.Position += camDir;
 
             //Console.WriteLine($"{camRot.c},{camRot.s} | {camRot90.c},{camRot90.s}");
