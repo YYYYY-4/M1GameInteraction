@@ -31,6 +31,7 @@
         <game:Wall Width="3981" Height="100" HorizontalAlignment="Left" Canvas.Top="423" VerticalAlignment="Top" Canvas.Left="1374"/>
         <game:DeadlyThing Canvas.Top="513" Height="25" Canvas.Left="488" Width="25" />
         <game:Dynamite Canvas.Left="1630" Canvas.Top="316"/>
+        <game:Dynamite Canvas.Left="450" Canvas.Top="900" Width="50"/>
         <game:DestroyButton Canvas.Left="1630" Canvas.Top="1049" Width="50" Height="50" Targets="{x:Reference ButtonWall}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
     </Canvas>
 </Page>

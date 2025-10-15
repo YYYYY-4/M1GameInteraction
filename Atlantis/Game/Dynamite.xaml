@@ -10,11 +10,11 @@
         <local:BodyDef Type="b2_dynamicBody"/>
     </local:BodyDef.BodyDef>
     <Canvas Width="50" Height="50">
-        <Rectangle x:Name="dynamite" Width="10" Height="30" Fill="Red" Canvas.Left="20" Canvas.Top="10">
+        <Image Source="/Assets/Dynamite/DynamiteIdle.png" x:Name="dynamite" Width="12" Height="36" Canvas.Left="19" Canvas.Top="7">
             <local:ShapeDef.ShapeDef>
                 <local:ShapeDef Category="Dynamite" Mask="Dynamite" />
             </local:ShapeDef.ShapeDef>
-        </Rectangle>
+        </Image>
         <Rectangle Width="50" Height="50">
             <local:ShapeDef.ShapeDef>
                 <local:ShapeDef EnableSensorEvents="True" IsSensor="True"/>
