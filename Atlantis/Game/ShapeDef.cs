@@ -22,6 +22,7 @@ namespace Atlantis.Game
         public bool? InvokeContactCreation { get; set; }
         public bool? UpdateBodyMass { get; set; }
         public bool Destructible { get; set; }
+        public bool? Deadly { get; set; }
 
         // Filter, prefer the Category/Mask setter
         public ulong? CategoryBits { get; set; }

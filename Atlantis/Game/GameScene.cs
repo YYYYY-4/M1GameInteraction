@@ -641,7 +641,24 @@ namespace Atlantis.Game
             }
 
             // process contact events
-            // - probleem voor later
+            // - probleem voor nu
+            var contactEvents = World.GetContactEvents();
+
+            foreach (var ev in contactEvents.endEventsAsSpan)
+            {
+                if (_hapeLookup.TryGetValue(ev.shapeIdA.GetUserData(), out var sensorShape) && _hapeLookup.TryGetValue(ev.shapeIdB.GetUserData(), out var visotorShape))
+                {
+                    sensorShape.Control.OnContactEnd(sensorShape, visotorShape);
+                }
+            }
+
+            foreach (var ev in contactEvents.beginEventsAsSpan)
+            {
+                if (_hapeLookup.TryGetValue(ev.shapeIdA.GetUserData(), out var sensorShape) && _hapeLookup.TryGetValue(ev.shapeIdB.GetUserData(), out var visotorShape))
+                {
+                    sensorShape.Control.OnContactStart(sensorShape, visotorShape);
+                }
+            }
 
             // update all controls
             foreach (var control in _iterControls)

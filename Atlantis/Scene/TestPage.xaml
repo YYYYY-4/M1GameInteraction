@@ -20,6 +20,14 @@
             </game:Player.RenderTransform>
         </game:Player>
 
+        <game:DeadlyThing Canvas.Top="513" Height="73" Canvas.Left="488" Width="118">
+            <Rectangle Fill="Red" Margin="0,0,59,0">
+                <game:ShapeDef.ShapeDef>
+                    <game:ShapeDef EnableContactEvents="True" InvokeContactCreation="True" />
+                </game:ShapeDef.ShapeDef>
+            </Rectangle>
+        </game:DeadlyThing>
+
         <game:BoxSpawner SpawnType="{x:Type game:Wall}" Width="336" Height="230" Canvas.Left="986" Canvas.Top="-204" SpawnDelay="0.1" SpawnWidth="50" SpawnHeight="50" />
 
         <Label FontSize="20" Foreground="#00FF00" Content="Support Text in 2D space &#xA;T to toggle swim/walk" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="92" Canvas.Top="481" />
@@ -31,7 +39,7 @@
         <game:BasicPlatform Canvas.Left="946" Canvas.Top="577" Tag="5" HorizontalAlignment="Left" VerticalAlignment="Top" Width="254"/>
 
         <Canvas Width="50" Height="50" Background="HotPink">
-            <Canvas Width="50" Height="50" Background="HotPink" Canvas.Left="454" Canvas.Top="358">
+            <Canvas Width="50" Height="50" Background="HotPink" Canvas.Left="454" Canvas.Top="358" RenderTransformOrigin="0.75,1.31">
                 <Rectangle Width="50" Height="402" Fill="LawnGreen" Canvas.Left="478" Canvas.Top="3" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <Rectangle.RenderTransform>
                         <RotateTransform Angle="45" />
@@ -137,6 +145,11 @@
         </game:Wall>
 
         <game:DestroyButton Canvas.Left="313" Canvas.Top="201" Targets="{x:Reference W0}" />
+        <game:Wall x:Name="W0_Copy" Width="48" Height="125" Canvas.Left="744" Canvas.Top="221" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <game:ShapeDef.ShapeDef>
+                <game:ShapeDef Deadly="True" />
+            </game:ShapeDef.ShapeDef>
+        </game:Wall>
 
         <game:Dynamite Canvas.Left="492" Canvas.Top="94" />
 

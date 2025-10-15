@@ -16,6 +16,7 @@ namespace Atlantis.Game
         public Vector2 HalfSize;
         public bool Destructible;
         public Vector2 Size => HalfSize * 2.0f;
+        public bool Deadly;
 
         public int Index;
 
