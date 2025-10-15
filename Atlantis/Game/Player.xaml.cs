@@ -13,7 +13,7 @@ using System.Windows;
 
 namespace Atlantis.Game
 {
-    public partial class Player : GameControl
+    public partial class Player : WaterGameControl
     {
         public Player()
         {
@@ -29,17 +29,6 @@ namespace Atlantis.Game
 
         bool OnGround = false;
 
-        public float CastResultFcn(b2ShapeId shapeId, Vector2 point, Vector2 normal, float fraction, IntPtr context)
-        {
-            if (Shapes.Any(s => s.Shape == shapeId))
-            {
-                return 1.0f;
-            }
-
-            OnGround = true;
-            return 0.0f;
-        }
-
         private void UpdateGround()
         {
             b2QueryFilter filter = B2Api.b2DefaultQueryFilter();
@@ -54,6 +43,9 @@ namespace Atlantis.Game
             }
             b2ShapeProxy proxy = B2Api.b2MakeOffsetProxy(points, points.Length, 0.0f, Body.GetPosition() + new Vector2(0, -Shapes[0].HalfSize.Y), b2Rot.Zero);
 
+            filter.categoryBits = ((ulong)PhysicsCategory.Map);
+            filter.maskBits = (ulong)(PhysicsCategory.All & ~PhysicsCategory.WaterArea);
+
             var overlap = Scene.OverlapCast(proxy, filter);
 
             OnGround = overlap.Any(s => !Shapes.Contains(s));
@@ -61,8 +53,6 @@ namespace Atlantis.Game
             //Trace.WriteLine($"{CID} {s}");
             //Trace.WriteLine($"{CID} OnGround {OnGround}");
         }
-
-        bool IsInWater = false;
 
         // Concept utility
         // This is not typed with ? because the caller knows the argument they provide.
@@ -90,11 +80,6 @@ namespace Atlantis.Game
         {
             UpdateGround();
 
-            if (Scene.Keys[Key.T].pressedNow)
-            {
-                IsInWater = !IsInWater;
-            }
-
             if (Scene.Keys[Key.G].pressedNow)
             {
                 Dynamite.SpawnDynamite(Scene);
@@ -111,7 +96,31 @@ namespace Atlantis.Game
             // vector2 cross apparently
             //var moveDir = new Vector2(normal.Y, -normal.X);
 
-            if (!IsInWater)
+            //Trace.WriteLine($"FPS: {1.0f / dt}");
+
+            if (IsInWater())
+            {
+                // I tried looking into water physics but I don't know if I did it correctly. (I didn't do it correctly)
+                // https://en.wikipedia.org/wiki/Drag_equation
+                // https://en.wikipedia.org/wiki/Drag_coefficient
+                // https://en.wikipedia.org/wiki/Buoyancy
+
+                UpdateWaterForces(Shape0);
+            }
+
+            bool inWaterMovement = IsInWater();
+
+            if (inWaterMovement && OnGround && _submergeFactor < 0.4f)
+            {
+                inWaterMovement = false;
+            }
+
+            if (inWaterMovement)
+            {
+                var moveForce = input * 100.0f;
+                Body.ApplyForceToCenter(moveForce);
+            }
+            else
             {
                 var inputDir = new Vector2(input.X, Scene.Keys[Key.W].pressedNow ? 1.0f : 0.0f);
                 var velocity = Body.GetLinearVelocity();
@@ -128,7 +137,7 @@ namespace Atlantis.Game
 
                 var moveForce = new Vector2(MoveForce * inputDir.X, 0.0f);
                 Body.ApplyForceToCenter(moveForce);
-                
+
                 float Fdrag = 0.5f * AirResistance * AirDensity * Shape0.Size.Y * float.Pow(vX, 2f);
                 Fdrag *= float.Sign(vX);
                 Body.ApplyForceToCenter(new Vector2(-Fdrag, 0.0f));
@@ -160,43 +169,6 @@ namespace Atlantis.Game
                     Body.ApplyLinearImpulseToCenter(new Vector2(0.0f, force * Mass));
                 }
             }
-            else
-            {
-                // I tried looking into water physics but I don't know if I did it correctly. (I didn't do it correctly)
-                // https://en.wikipedia.org/wiki/Drag_equation
-                // https://en.wikipedia.org/wiki/Drag_coefficient
-                // https://en.wikipedia.org/wiki/Buoyancy
-
-                float density = 0.95f;
-
-                var playerGravity = Scene.World.GetGravity() * Body.GetGravityScale();
-
-                float waterSurface = 20.0f;
-                float bodyLowerY = Body.GetPosition().Y - 2.0f;
-                float underWater = waterSurface - bodyLowerY;
-                float submergeFactor = float.Clamp(underWater / Shape0.Size.Y, 0.0f, 1.0f);
-                
-                var velocity = Body.GetLinearVelocity().Length();
-                var area = Shapes[0].Size.X * Shapes[0].Size.Y;
-                var submergedArea = area * submergeFactor;
-
-                var buoyancy = (-playerGravity) * submergedArea * density;
-
-                float coDrag = (2.0f * -velocity) / (density * (velocity * velocity) * area);
-                if (float.IsNaN(coDrag))
-                {
-                    coDrag = 0.0f;
-                }
-                var drag = 0.5f * density * (velocity * velocity) * coDrag * submergedArea;
-
-                Body.ApplyForceToCenter(buoyancy - (Body.GetLinearVelocity() * -drag));
-
-                var moveForce = input * 100.0f;
-                Body.ApplyForceToCenter(moveForce);
-
-                //Trace.WriteLine($"d: {drag}, cd: {coDrag}");
-                //Trace.WriteLine($"FPS: {1.0f / dt}");
-            }
 
             // something something character mover 
             // https://box2d.org/documentation/md_character.html
@@ -221,11 +193,6 @@ namespace Atlantis.Game
             //Scene.World.CastMover(capsule, Body.GetPosition(), qf);
             //
             //Trace.WriteLine(planes);
-        }
-
-        private void GameControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
-        {
-
         }
     }
 }
