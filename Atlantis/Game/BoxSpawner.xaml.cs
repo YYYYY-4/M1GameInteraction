@@ -45,6 +45,10 @@ namespace Atlantis.Game
 
         public float SpawnAngle1 { get; set; }
 
+        public float SpawnWidth { get; set; } = 50.0f;
+
+        public float SpawnHeight { get; set; } = 50.0f;
+
         /// <summary>
         /// Seconds to wait between spawns
         /// </summary>
@@ -70,26 +74,37 @@ namespace Atlantis.Game
             {
                 Watch.Restart();
 
-                var control = (GameControl)SpawnType.GetConstructor([])!.Invoke(null);
-                Scene.ProcessGameControl(control, Body.GetTransform());
+                var t = Body.GetTransform();
 
-                var v = new Vector2((Random.Shared.NextSingle() - 0.5f) * 1000.0f, (Random.Shared.NextSingle() - 0.5f) * 1000.0f);
+                var offset = Shapes[0].HalfSize * 2.0f * new Vector2(Random.Shared.NextSingle(), Random.Shared.NextSingle());
+                offset.Y = -offset.Y;
+
+                t.p += offset;
+
+                var control = (GameControl)SpawnType.GetConstructor([])!.Invoke(null);
+
+                control.Width = SpawnWidth;
+                control.Height = SpawnHeight;
+
+                Scene.ProcessGameControl(control, t);
+
+                var v = new Vector2((Random.Shared.NextSingle() - 0.5f) * 1.0f, (Random.Shared.NextSingle() - 0.5f) * 1.0f);
+                v = Vector2.Zero;
                 control.Body.SetLinearVelocity(v);
 
                 Spawned.Add(control, Scene.Time);
             }
 
-            List<GameControl> Rm = [];
+            List<GameControl> rm = [];
             foreach (var pair in Spawned)
             {
                 if (Scene.Time - pair.Value > 1.0f)
                 {
-                    Rm.Add(pair.Key);
+                    rm.Add(pair.Key);
                 }
             }
 
-            Rm.ForEach(el => {
-                Debug.WriteLine($"REMOVE {el}");
+            rm.ForEach(el => {
                 Spawned.Remove(el);
                 Scene.DestroyControl(el);
             });

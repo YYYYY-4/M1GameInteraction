@@ -11,67 +11,73 @@
       Title="TestPage">
 
     <Canvas x:Name="GameCanvas" Width="750" Height="750" Background="{StaticResource TileBrush}">
-        <game:Player Canvas.Top="486" Canvas.Left="210">
+        <game:WaterArea Width="842" HorizontalAlignment="Left" VerticalAlignment="Top" Height="770" Canvas.Left="104" Canvas.Top="-114" />
+        <game:WaterArea Width="842" HorizontalAlignment="Left" VerticalAlignment="Top" Height="770" Canvas.Left="1511" Canvas.Top="-114" />
+
+        <game:Player Canvas.Top="486" Canvas.Left="408">
             <game:Player.RenderTransform>
                 <RotateTransform Angle="0"/>
             </game:Player.RenderTransform>
         </game:Player>
 
-        <game:BoxSpawner SpawnType="{x:Type game:Player}" Width="336" Height="230" Canvas.Left="210" Canvas.Top="-311" SpawnDelay="0.1" />
+        <game:DeadlyThing Canvas.Top="513" Height="73" Canvas.Left="488" Width="118">
+            <Rectangle Fill="Red" Margin="0,0,59,0">
+                <game:ShapeDef.ShapeDef>
+                    <game:ShapeDef EnableContactEvents="True" InvokeContactCreation="True" />
+                </game:ShapeDef.ShapeDef>
+            </Rectangle>
+        </game:DeadlyThing>
 
-        <!--<game:Player Canvas.Top="-213" Canvas.Left="398">
-            <game:Player.RenderTransform>
-                <RotateTransform Angle="0"/>
-            </game:Player.RenderTransform>
-        </game:Player>
+        <game:BoxSpawner SpawnType="{x:Type game:Wall}" Width="336" Height="230" Canvas.Left="986" Canvas.Top="-204" SpawnDelay="0.1" SpawnWidth="50" SpawnHeight="50" />
 
-        <game:Player Canvas.Top="-300" Canvas.Left="549">
-            <game:Player.RenderTransform>
-                <RotateTransform Angle="0"/>
-            </game:Player.RenderTransform>
-        </game:Player>-->
+        <Label FontSize="20" Foreground="#00FF00" Content="Support Text in 2D space &#xA;T to toggle swim/walk" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="92" Canvas.Top="481" />
 
         <game:Wall Canvas.Left="10" Canvas.Top="629" Height="53" Width="675" HorizontalAlignment="Left" VerticalAlignment="Center" />
-        <game:Wall Canvas.Left="23" Canvas.Top="357" Height="42" Width="631" x:Name="Wall0" HorizontalAlignment="Left" VerticalAlignment="Center" />
-        <game:Wall Width="578" Height="47" Canvas.Left="708" Canvas.Top="629" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <game:Wall Canvas.Left="63" Canvas.Top="221" Height="178" Width="591" x:Name="Wall0" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <game:Wall Width="578" Height="48" Canvas.Left="928" Canvas.Top="378" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
-        <game:DestroyButton Canvas.Left="299" Canvas.Top="609" Targets="Wall0" />
-
-        <game:BasicPlatform Canvas.Left="-204" Canvas.Top="619" Tag="5"/>
+        <game:BasicPlatform Canvas.Left="946" Canvas.Top="577" Tag="5" HorizontalAlignment="Left" VerticalAlignment="Top" Width="254"/>
 
         <Canvas Width="50" Height="50" Background="HotPink">
-            <Canvas Width="50" Height="50" Background="HotPink" Canvas.Left="454" Canvas.Top="358">
-                <Rectangle Width="50" Height="402" Fill="LawnGreen" Canvas.Left="438" Canvas.Top="-130" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Canvas Width="50" Height="50" Background="HotPink" Canvas.Left="454" Canvas.Top="358" RenderTransformOrigin="0.75,1.31">
+                <Rectangle Width="50" Height="402" Fill="LawnGreen" Canvas.Left="478" Canvas.Top="3" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <Rectangle.RenderTransform>
                         <RotateTransform Angle="45" />
                     </Rectangle.RenderTransform>
                 </Rectangle>
             </Canvas>
-            <Rectangle Width="100" Height="100" Fill="PowderBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="817" Canvas.Top="76">
+            <Rectangle Width="100" Height="100" Fill="PowderBlue" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="565" Canvas.Top="-686">
                 <Rectangle.RenderTransform>
                     <RotateTransform Angle="45"/>
                 </Rectangle.RenderTransform>
             </Rectangle>
 
-            <Rectangle Width="50" Height="402" Fill="LawnGreen" Canvas.Left="1158" Canvas.Top="-64" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Rectangle Width="50" Height="402" Fill="LawnGreen" Canvas.Left="933" Canvas.Top="103" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Rectangle.RenderTransform>
-                    <RotateTransform Angle="45" />
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="137.695"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
                 </Rectangle.RenderTransform>
             </Rectangle>
 
-            <Rectangle Width="100" Height="100" Fill="PowderBlue" Canvas.Top="104" Canvas.Left="708" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Image Source="{StaticResource NOSPRITE}" Canvas.Left="216" Canvas.Top="546" Width="50" Height="50" />
+
+            <Rectangle Width="100" Height="100" Fill="PowderBlue" Canvas.Top="-668" Canvas.Left="451" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <Rectangle.RenderTransform>
                     <RotateTransform Angle="90"/>
                 </Rectangle.RenderTransform>
             </Rectangle>
 
-            <Rectangle Width="41" Height="331" Fill="Black" Canvas.Left="-37" Canvas.Top="346" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="-0.173,0.151">
+            <Rectangle Width="341" Height="35" Fill="Black" Canvas.Left="216" Canvas.Top="140" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="-0.173,0.151">
                 <Rectangle.RenderTransform>
                     <RotateTransform Angle="0"/>
                 </Rectangle.RenderTransform>
             </Rectangle>
 
-            <Rectangle Width="100" Height="100" Fill="Red" Canvas.Top="201" Canvas.Left="499" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Rectangle Width="100" Height="100" Fill="Red" Canvas.Top="-529" Canvas.Left="354" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <game:BodyDef.BodyDef>
                     <game:BodyDef Type="b2_dynamicBody" />
                 </game:BodyDef.BodyDef>
@@ -80,19 +86,19 @@
                 </Rectangle.RenderTransform>
             </Rectangle>
 
-            <Rectangle Width="100" Height="100" Fill="Red" Canvas.Top="163" Canvas.Left="169">
+            <Rectangle Width="100" Height="100" Fill="Red" Canvas.Top="-669" Canvas.Left="216" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <Rectangle.RenderTransform>
                     <RotateTransform Angle="0"/>
                 </Rectangle.RenderTransform>
             </Rectangle>
 
-            <Rectangle Width="100" Height="100" Fill="Red" Canvas.Top="26" Canvas.Left="129" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Rectangle Width="100" Height="100" Fill="Red" Canvas.Top="-669" Canvas.Left="77" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <Rectangle.RenderTransform>
                     <RotateTransform Angle="0"/>
                 </Rectangle.RenderTransform>
             </Rectangle>
 
-            <Rectangle Width="100" Height="100" Fill="Green" Canvas.Top="26" Canvas.Left="475" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Rectangle Width="100" Height="100" Fill="Green" Canvas.Top="-529" Canvas.Left="216" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <Rectangle.RenderTransform>
                     <TransformGroup>
                         <RotateTransform Angle="0" CenterX="50" CenterY="50"/>
@@ -100,23 +106,54 @@
                 </Rectangle.RenderTransform>
             </Rectangle>
 
-            <Rectangle Width="262" Height="28" Fill="Purple" Canvas.Top="276" Canvas.Left="203">
+            <Rectangle Width="262" Height="28" Fill="Purple" Canvas.Top="108" Canvas.Left="4">
                 <Rectangle.RenderTransform>
                     <TransformGroup>
-                        <RotateTransform Angle="0"/>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="28.397"/>
+                        <TranslateTransform/>
                     </TransformGroup>
                 </Rectangle.RenderTransform>
             </Rectangle>
 
-            <Rectangle Width="100" Height="100" Fill="Red" Canvas.Top="97" Canvas.Left="316">
+            <Rectangle Width="100" Height="100" Fill="Red" Canvas.Top="-529" Canvas.Left="77" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <Rectangle.RenderTransform>
                     <RotateTransform Angle="0"/>
                 </Rectangle.RenderTransform>
             </Rectangle>
 
-            <Ellipse Fill="Yellow" Width="100" Height="100" Canvas.Left="26" Canvas.Top="201"/>
+            <Ellipse Fill="Yellow" Width="40" Height="40" Canvas.Left="320" Canvas.Top="77">
+                <game:BodyDef.BodyDef>
+                    <game:BodyDef Type="b2_dynamicBody" />
+                </game:BodyDef.BodyDef>
+                <game:ShapeDef.ShapeDef>
+                    <game:ShapeDef EnableSensorEvents="True"/>
+                </game:ShapeDef.ShapeDef>
+            </Ellipse>
         </Canvas>
-        <game:Wall Width="488" Height="85" Canvas.Left="798" Canvas.Top="544" HorizontalAlignment="Left" VerticalAlignment="Top" />
-        <game:Wall Canvas.Left="1625" Canvas.Top="137" Height="284" Width="405"/>
+
+        <game:Wall Width="612" Height="62" Canvas.Left="894" Canvas.Top="78" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <game:Wall Canvas.Left="63" Canvas.Top="-204" Height="54" Width="600" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <game:Wall x:Name="W0" Width="48" Height="214" Canvas.Left="1090" Canvas.Top="152" HorizontalAlignment="Center" VerticalAlignment="Top" />
+        <game:Wall x:Name="W1" Width="48" Height="833" Canvas.Left="10" Canvas.Top="-204" HorizontalAlignment="Center" VerticalAlignment="Top" />
+
+        <game:Wall x:Name="W2" Width="48" Height="214" Canvas.Left="1250" Canvas.Top="152" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <game:ShapeDef.ShapeDef>
+                <game:ShapeDef Destructible="True"/>
+            </game:ShapeDef.ShapeDef>
+        </game:Wall>
+
+        <game:DestroyButton Canvas.Left="313" Canvas.Top="201" Targets="{x:Reference W0}" />
+        <game:Wall x:Name="W0_Copy" Width="48" Height="125" Canvas.Left="744" Canvas.Top="221" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <game:ShapeDef.ShapeDef>
+                <game:ShapeDef Deadly="True" />
+            </game:ShapeDef.ShapeDef>
+        </game:Wall>
+
+        <game:Dynamite Canvas.Left="492" Canvas.Top="94" />
+
+
+
     </Canvas>
 </Page>

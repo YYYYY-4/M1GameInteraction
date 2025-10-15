@@ -2,6 +2,8 @@
 using System.Windows;
 using System.Windows.Controls;
 using Atlantis.Game;
+using Atlantis.Menus;
+using Atlantis.Scene;
 
 namespace Atlantis
 {
@@ -11,14 +13,16 @@ namespace Atlantis
     public partial class MainWindow : Window
     {
         private GameScene _scene;
+        private Page _page;
+        private Canvas _canvas;
 
         public MainWindow()
         {
             // BOX2D ASSERTION: result.distanceSquared > 0.0f, C:\repos\box2d\src\manifold.c, line 848
 
             InitializeComponent();
-            Content = ((Page)Content).Content;
-            _scene = new(this);
+            //Content = ((Page)Content).Content;
+            //_scene = new(this);
 
             //LoadScene<TestPage>();
 
@@ -51,13 +55,13 @@ namespace Atlantis
         /// <typeparam name="T">Scene which inherits Page and defines a Canvas at it's root.</typeparam>
         public void LoadScene<T>() where T : Page
         {
-            _scene.Destroy();
-
-            // Creates an empty window based on the type given in the LoadScene.
-            var page = (Page)typeof(T).GetConstructors().First().Invoke(null);
-
-            Content = page.Content;
-            _scene = new GameScene(this);
+            _scene?.Destroy();
+            
+            _page = new DemoLevel();
+            _canvas = (Canvas)_page.Content; // GameCanvas is root element in TestPage
+            
+            Content = _canvas;
+            _scene = new GameScene(this, _canvas);
         }
 
         static Matrix3x2 M3X2Inverse(Matrix3x2 m)
@@ -74,6 +78,17 @@ namespace Atlantis
         static Matrix3x2 ToLocal(Matrix3x2 self, Matrix3x2 b)
         {
             return Matrix3x2.Identity;
+        }
+
+        private void Start_Button_Click(object sender, RoutedEventArgs e)
+        {
+            LoadScene<DemoLevel>();
+        }
+
+        private void Quit_Button_Click(object sender, RoutedEventArgs e)
+        {
+            // Terminates process and tells underlying process quit
+            Environment.Exit(0);
         }
     }
 }

@@ -2,7 +2,9 @@
 
 namespace Atlantis.Game
 {
-    public class Material
+    // This struct should be removed, unless materials are going to be re-used as wpf resources.
+    // It has been replaced by Mat[Name] properties in ShapeDef
+    public struct Material
     {
         public float? Friction { get; set; }
         public float? Restitution { get; set; }
