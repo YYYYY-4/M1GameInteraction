@@ -1,4 +1,7 @@
-﻿using Box2dNet.Interop;
+﻿using Atlantis.Box2dNet;
+using Atlantis.Menus;
+using Atlantis.Scene;
+using Box2dNet.Interop;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,9 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
 using System.Xml.Linq;
-using Atlantis.Box2dNet;
-using Atlantis.Scene;
-using Atlantis.Menus;
+using static Atlantis.Box2dNet.B2Extension;
 
 namespace Atlantis.Game
 {
@@ -148,8 +149,6 @@ namespace Atlantis.Game
 
             LoadGameControls(Canvas, (float)Canvas.ActualHeight, 0.0, 0.0);
             InvisGroundBody();
-
-
 
             _watch.Start();
 
@@ -325,14 +324,14 @@ namespace Atlantis.Game
                 }
 
                 var shapeDef = B2Api.b2DefaultShapeDef(); // probably WPF properties Shape.<Properties> for loading the Shape. And then Shape.GetShapeDef(Shape shape).
-                shapeDef.filter.maskBits = 0x1;
-                shapeDef.filter.categoryBits = ulong.MaxValue;
+                shapeDef.filter.categoryBits = ((ulong)PhysicsCategory.Map);
+                shapeDef.filter.maskBits = ulong.MaxValue;
                 shapeDef.filter.groupIndex = 0;
-
 
                 // Body ShapeDef applied before direct ShapeDef
                 control.ModifyShapeDef(ref shapeDef);
                 var bodyShapeDef = ShapeDef.GetShapeDef(control);
+                bodyShapeDef?.ApplyShapeDef(ref shapeDef);
                 var wpfShapeDef = ShapeDef.GetShapeDef(shape);
                 wpfShapeDef?.ApplyShapeDef(ref shapeDef);
 
@@ -420,10 +419,16 @@ namespace Atlantis.Game
                         Destructible = bodyShapeDef?.Destructible ?? false,
                         Offset = offset,
                         HalfSize = halfSize,
+                        Index = control.Shapes.Count,
                     };
 
                     _shapeLookUp.Add(shapeDef.userData, gameShape);
                     control.Shapes.Add(gameShape);
+
+                    var a = Convert.ToString((long)shapeDef.filter.categoryBits, 2);
+                    var b = Convert.ToString((long)shapeDef.filter.maskBits, 2);
+
+                    Trace.WriteLine($"LOAD {control.GetType().Name}[{control.CID},{control.Shapes.Count-1}] : CATEGORY={a} MASK={b}");
                 }
             }
 
@@ -634,7 +639,24 @@ namespace Atlantis.Game
             }
 
             // process contact events
-            // - probleem voor later
+            // - probleem voor nu
+            var contactEvents = World.GetContactEvents();
+
+            foreach (var ev in contactEvents.endEventsAsSpan)
+            {
+                if (_shapeLookUp.TryGetValue(ev.shapeIdA.GetUserData(), out var sensorShape) && _shapeLookUp.TryGetValue(ev.shapeIdB.GetUserData(), out var visotorShape))
+                {
+                    sensorShape.Control.OnContactEnd(sensorShape, visotorShape);
+                }
+            }
+
+            foreach (var ev in contactEvents.beginEventsAsSpan)
+            {
+                if (_shapeLookUp.TryGetValue(ev.shapeIdA.GetUserData(), out var sensorShape) && _shapeLookUp.TryGetValue(ev.shapeIdB.GetUserData(), out var visotorShape))
+                {
+                    sensorShape.Control.OnContactStart(sensorShape, visotorShape);
+                }
+            }
 
             // update all controls
             foreach (var control in _iterControls)
@@ -667,11 +689,7 @@ namespace Atlantis.Game
                     upperBound = worldPosition + Vector2.One
                 };
 
-                var queryFilter = new b2QueryFilter
-                {
-                    categoryBits = 0x1,
-                    maskBits = 0x1
-                };
+                var queryFilter = B2Util.QueryFilter(PhysicsCategory.All, PhysicsMask.All);
 
                 B2Api.b2World_OverlapAABB(World, ab, queryFilter, qfn, 0);
             }
@@ -787,10 +805,13 @@ namespace Atlantis.Game
 
             var halfCanvas = new Vector2((float)Canvas.ActualWidth / 2, (float)Canvas.ActualHeight / 2);
 
-            var subject = _controls.OfType<Player>().First();
+            var subject = _controls.OfType<Player>().FirstOrDefault();
 
-            //subj.BodyId.SetTransform(Camera.Position, b2Rot.Zero);
-            Camera.Position = B2Api.b2Body_GetPosition(subject.Body);
+            if (subject != null)
+            {
+                //subj.BodyId.SetTransform(Camera.Position, b2Rot.Zero);
+                Camera.Position = B2Api.b2Body_GetPosition(subject.Body);
+            }
 
             World.SetGravity(new Vector2(camRot90.c, -camRot90.s) * 10.0f);
 

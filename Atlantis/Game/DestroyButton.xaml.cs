@@ -1,4 +1,5 @@
-﻿using System.Windows.Media;
+﻿using Atlantis.Box2dNet;
+using System.Windows.Media;
 
 namespace Atlantis.Game
 {
@@ -28,8 +29,18 @@ namespace Atlantis.Game
             RButton.Fill = SensorCount == 0 ? Brushes.Green : Brushes.Red;
         }
 
+        private bool IsVisitor(GameShape visitor)
+        {
+            return visitor.Control is not WaterArea;
+        }
+
         public override void OnSensorStart(GameShape sensor, GameShape visitor)
         {
+            if (!IsVisitor(visitor))
+            {
+                return;
+            }
+
             SensorCount += 1;
             UpdateColor();
 
@@ -39,12 +50,17 @@ namespace Atlantis.Game
                 {
                     Scene.DestroyControl(control);
                 }
-                _targets = null;
+                _targets = null!;
             }
         }
 
         public override void OnSensorEnd(GameShape sensor, GameShape visitor)
         {
+            if (!IsVisitor(visitor))
+            {
+                return;
+            }
+
             SensorCount -= 1;
             UpdateColor();
         }

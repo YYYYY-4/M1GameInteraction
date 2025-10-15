@@ -12,7 +12,7 @@
     <Canvas Width="50" Height="50">
         <Rectangle x:Name="dynamite" Width="10" Height="30" Fill="Red" Canvas.Left="20" Canvas.Top="10">
             <local:ShapeDef.ShapeDef>
-                <local:ShapeDef MaskBits="4" CategoryBits="5"/>
+                <local:ShapeDef Category="Dynamite" Mask="Dynamite" />
             </local:ShapeDef.ShapeDef>
         </Rectangle>
         <Rectangle Width="50" Height="50">
