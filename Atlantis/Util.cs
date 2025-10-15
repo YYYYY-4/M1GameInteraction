@@ -29,5 +29,10 @@ namespace Atlantis
             return new Vector2(MathF.Cos(angleRadians), MathF.Sin(angleRadians));
         }
 
+        public static double NanToZero(double d)
+        {
+            return double.IsNaN(d) ? 0.0 : d;
+        }
+
     }
 }
