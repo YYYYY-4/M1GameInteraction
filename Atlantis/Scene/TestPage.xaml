@@ -17,6 +17,14 @@
             </game:Player.RenderTransform>
         </game:Player>
 
+        <game:DeadlyThing Canvas.Top="513" Height="73" Canvas.Left="488" Width="118">
+            <Rectangle Fill="Red" Margin="0,0,59,0">
+                <game:ShapeDef.ShapeDef>
+                    <game:ShapeDef EnableContactEvents="True" InvokeContactCreation="True" />
+                </game:ShapeDef.ShapeDef>
+            </Rectangle>
+        </game:DeadlyThing>
+
         <game:BoxSpawner SpawnType="{x:Type game:Wall}" Width="336" Height="230" Canvas.Left="986" Canvas.Top="-204" SpawnDelay="0.1" SpawnWidth="50" SpawnHeight="50" />
 
         <Label FontSize="20" Foreground="#00FF00" Content="Support Text in 2D space &#xA;T to toggle swim/walk" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="92" Canvas.Top="481" />
