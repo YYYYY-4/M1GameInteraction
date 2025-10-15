@@ -28,15 +28,20 @@ namespace Atlantis.Game
         bool isSpawned = false;
         float timer = 0.0f;
 
+        private BitmapImage _dynamiteSprite = new BitmapImage();
+
         public Dynamite(bool exploding)
         {
             InitializeComponent();
             isExploding = exploding;
+            DataContext = this;
+            
         }
 
         public Dynamite()
         {
             InitializeComponent();
+            DataContext = this;
         }
 
         public string Type()
@@ -54,6 +59,7 @@ namespace Atlantis.Game
                 Dynamite dynamite = new Dynamite(isExploding);
                 dynamite.isSpawned = true;
                 scene.ProcessGameControl(dynamite, new b2Transform(position, b2Rot.Zero));
+                dynamite._dynamiteSprite = (BitmapImage)Application.Current.FindResource("DynamiteIdle");
                 player.HasDynamite = false;
             }
         }
@@ -66,17 +72,23 @@ namespace Atlantis.Game
             {
                 timer += dt;
 
-                if (timer >= 3.0f)
-                {
-                    ExplodeDynamite();
-                }
+                if (timer >= 0.0f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite0");
+                if (timer >= 0.5f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite1");
+                if (timer >= 1.0f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite2");
+                if (timer >= 1.5f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite3");
+                if (timer >= 2.0f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite4");
+                if (timer >= 2.5f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite5");
+
+                dynamite.Source = _dynamiteSprite;
+
+                if (timer >= 3.0f) ExplodeDynamite();
             }
         }
 
         public void ExplodeDynamite()
         {
             Vector2 position = Body.GetPosition();
-            b2Circle circle = new b2Circle(position, 10.0f);
+            b2Circle circle = new b2Circle(position, 4.0f);
             b2ShapeProxy proxy = B2Api.b2MakeProxy([position], 1, circle.radius);
             b2QueryFilter filter = new b2QueryFilter(1, 1);
             shapes = Scene.OverlapCast(proxy, filter);
