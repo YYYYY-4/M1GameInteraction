@@ -17,11 +17,6 @@
                 <RotateTransform Angle="0"/>
             </game:Player.RenderTransform>
         </game:Player>
-        <game:Player Canvas.Top="900" Canvas.Left="200">
-            <game:Player.RenderTransform>
-                <RotateTransform Angle="0"/>
-            </game:Player.RenderTransform>
-        </game:Player>
         <game:Wall Width="100" Height="1080" Canvas.Left="0" Canvas.Top="0"/>
         <game:Wall Width="100" Height="400" Canvas.Left="1374" Canvas.Top="465" x:Name="ButtonWall"/>
         <game:Wall Width="100" Height="500" Canvas.Left="1900" Canvas.Top="0"/>
