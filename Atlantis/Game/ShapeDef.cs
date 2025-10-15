@@ -9,7 +9,7 @@ namespace Atlantis.Game
     {
         public static readonly DependencyProperty ShapeDefProperty = DependencyProperty.RegisterAttached("ShapeDef", typeof(ShapeDef), typeof(ShapeDef), new PropertyMetadata(null));
         public static void SetShapeDef(UIElement element, ShapeDef value) => element.SetValue(ShapeDefProperty, value);
-        public static ShapeDef GetShapeDef(UIElement element) => (ShapeDef)element.GetValue(ShapeDefProperty);
+        public static ShapeDef? GetShapeDef(UIElement element) => (ShapeDef)element.GetValue(ShapeDefProperty);
 
         public Material? Material { get; set; }
         public float? Density { get; set; }
@@ -23,7 +23,7 @@ namespace Atlantis.Game
         public bool? UpdateBodyMass { get; set; }
         public bool Destructible { get; set; }
 
-        // Filter
+        // Filter, prefer the Category/Mask setter
         public ulong? CategoryBits { get; set; }
         public ulong? MaskBits { get; set; }
         public int? GroupIndex { get; set; }
@@ -36,6 +36,26 @@ namespace Atlantis.Game
         public float? MatTangentSpeed { get; set; }
         public int? MatUserMaterialId { get; set; }
         public uint? MatCustomColor { get; set; }
+
+        // See https://box2d.org/documentation/group__shape.html#structb2_filter
+
+        // Typically 1 bit set
+        public PhysicsCategory Category
+        {
+            set
+            {
+                CategoryBits = (ulong)value;
+            }
+        }
+
+        // The categories this shape interacts with (collide/sensor)
+        public PhysicsMask Mask
+        {
+            set
+            {
+                MaskBits = (ulong)value;
+            }
+        }
 
         public void ApplyShapeDef(ref b2ShapeDef def)
         {
