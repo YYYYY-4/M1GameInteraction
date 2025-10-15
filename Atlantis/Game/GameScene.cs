@@ -150,8 +150,6 @@ namespace Atlantis.Game
             LoadGameControls(Canvas, (float)Canvas.ActualHeight, 0.0, 0.0);
             InvisGroundBody();
 
-
-
             _watch.Start();
 
             Keys = [];
@@ -646,7 +644,7 @@ namespace Atlantis.Game
 
             foreach (var ev in contactEvents.endEventsAsSpan)
             {
-                if (_hapeLookup.TryGetValue(ev.shapeIdA.GetUserData(), out var sensorShape) && _hapeLookup.TryGetValue(ev.shapeIdB.GetUserData(), out var visotorShape))
+                if (_shapeLookUp.TryGetValue(ev.shapeIdA.GetUserData(), out var sensorShape) && _shapeLookUp.TryGetValue(ev.shapeIdB.GetUserData(), out var visotorShape))
                 {
                     sensorShape.Control.OnContactEnd(sensorShape, visotorShape);
                 }
@@ -654,7 +652,7 @@ namespace Atlantis.Game
 
             foreach (var ev in contactEvents.beginEventsAsSpan)
             {
-                if (_hapeLookup.TryGetValue(ev.shapeIdA.GetUserData(), out var sensorShape) && _hapeLookup.TryGetValue(ev.shapeIdB.GetUserData(), out var visotorShape))
+                if (_shapeLookUp.TryGetValue(ev.shapeIdA.GetUserData(), out var sensorShape) && _shapeLookUp.TryGetValue(ev.shapeIdB.GetUserData(), out var visotorShape))
                 {
                     sensorShape.Control.OnContactStart(sensorShape, visotorShape);
                 }

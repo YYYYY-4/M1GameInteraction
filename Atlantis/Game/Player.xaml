@@ -23,14 +23,12 @@
                 <RotateTransform Angle="0"/>
             </Image.RenderTransform>
             <local:ShapeDef.ShapeDef>
-                <local:ShapeDef EnableSensorEvents="True" MatFriction="1" MatRestitution="0" />
+                <local:ShapeDef EnableSensorEvents="True" EnableContactEvents="True" MatFriction="1" MatRestitution="0" />
             </local:ShapeDef.ShapeDef>
         </Image>
         <Rectangle Width="6" Height="100" Canvas.Top="-50" Canvas.Left="22" HorizontalAlignment="Center" VerticalAlignment="Top">
             <local:ShapeDef.ShapeDef>
-
                 <local:ShapeDef MatFriction="0" Density="0"/>
-
             </local:ShapeDef.ShapeDef>
         </Rectangle>
         <Rectangle Width="6" Height="98" Canvas.Top="-50" Canvas.Left="-28" HorizontalAlignment="Center" VerticalAlignment="Top">
