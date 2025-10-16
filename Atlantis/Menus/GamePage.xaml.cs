@@ -21,7 +21,7 @@ public partial class GamePage : Page
         InitializeComponent();
         
         _window = window;
-        LoadScene<TestPage>();
+        LoadScene<DemoLevel>();
     }
     
     /// <typeparam name="T">Scene which inherits Page and defines a Canvas at it's root.</typeparam>
@@ -29,16 +29,12 @@ public partial class GamePage : Page
     {
         if (_scene != null)
             _scene.Destroy();
-            
-        _page = new TestPage();
+        
+        _page = new DemoLevel();
         _canvas = (Canvas) _page.Content;
         _scene = new GameScene(_window, this, _canvas);
         
         _page.Content = null;
         Content = _canvas;
-    }
-
-    public void Back()
-    {
     }
 }

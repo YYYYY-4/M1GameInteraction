@@ -14,7 +14,6 @@ namespace Atlantis
     {
         private Page _page;
         private Canvas _canvas;
-        private GameScene _scene;
 
         public MainWindow()
         {

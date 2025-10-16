@@ -16,6 +16,9 @@ namespace Atlantis.Game
         public Vector2 HalfSize;
         public bool Destructible;
         public Vector2 Size => HalfSize * 2.0f;
+        public bool Deadly;
+
+        public int Index;
 
         // unused
         public FrameworkElement Element;
@@ -27,7 +30,7 @@ namespace Atlantis.Game
         {
             get
             {
-                return $"Control[{Control.CID}] S[{Shape.index1} : {Shape.generation}]";
+                return $"GameControl.{GetType().Name}[{Control.CID}] S[{Shape.index1} : {Shape.generation}]";
             }
         }
     }

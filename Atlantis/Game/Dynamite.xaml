@@ -6,5 +6,19 @@
              xmlns:local="clr-namespace:Atlantis.Game"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Rectangle x:Name="dynamite" Width="10" Height="30" Fill="Red"></Rectangle>
+    <local:BodyDef.BodyDef>
+        <local:BodyDef Type="b2_dynamicBody"/>
+    </local:BodyDef.BodyDef>
+    <Canvas Width="50" Height="50">
+        <Image Source="/Assets/Dynamite/DynamiteIdle.png" x:Name="dynamite" Width="12" Height="36" Canvas.Left="19" Canvas.Top="7">
+            <local:ShapeDef.ShapeDef>
+                <local:ShapeDef Category="Dynamite" Mask="Dynamite" />
+            </local:ShapeDef.ShapeDef>
+        </Image>
+        <Rectangle Width="50" Height="50">
+            <local:ShapeDef.ShapeDef>
+                <local:ShapeDef EnableSensorEvents="True" IsSensor="True"/>
+            </local:ShapeDef.ShapeDef>
+        </Rectangle>
+    </Canvas>
 </local:GameControl>

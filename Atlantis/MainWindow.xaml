@@ -10,7 +10,7 @@
         xmlns:menu="clr-namespace:Atlantis.Menus"
         mc:Ignorable="d"
         Title="MainWindow"
-        Height="800" 
+        Height="800"
         Width="1200"
         Background="#295D8A">
 </Window>
