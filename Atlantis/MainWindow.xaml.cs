@@ -80,22 +80,18 @@ namespace Atlantis
 
             if (PageHistory.Count != 1)
             {
-                //Content = PageHistory.Last();
                 PageHistory.RemoveAt(PageHistory.Count - 1);
             }
 
-            Trace.WriteLine("AftwrBack", string.Join(", ", PageHistory));
+            Trace.WriteLine("AftwrBack: " + string.Join(", ", PageHistory));
         }
 
         public void PushPage(Page page)
         {
-            if (PageHistory.Contains(page))
-                throw new Exception("Page already in history");
-
             PageHistory.Add(page);
             Content = page;
 
-            Trace.WriteLine("PushAfter", string.Join(", ", PageHistory));
+            Trace.WriteLine("PushAfter: " + string.Join(", ", PageHistory));
         }
     }
 }
