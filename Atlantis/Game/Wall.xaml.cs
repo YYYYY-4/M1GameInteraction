@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿
+using System.Windows;
+using System.Windows.Shapes;
 
 namespace Atlantis.Game
 {
@@ -8,9 +10,13 @@ namespace Atlantis.Game
     
     public partial class Wall : GameControl
     {
+        private Rectangle WallRect;
+
         public Wall()
         {
             InitializeComponent();
+
+            WallRect = (Rectangle)Content;
 
             WallRect.Width = Width;
             WallRect.Height = Height;

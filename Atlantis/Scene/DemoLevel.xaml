@@ -21,7 +21,13 @@
             </game:Player.RenderTransform>
         </game:Player>
         <game:Wall Width="100" Height="1080" Canvas.Left="0" Canvas.Top="0"/>
-        <game:Wall Width="100" Height="400" Canvas.Left="1374" Canvas.Top="465" x:Name="ButtonWall"/>
+        <game:Wall Width="100" Height="400" Canvas.Left="1374" Canvas.Top="465" x:Name="ButtonWall">
+            <Rectangle>
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="{StaticResource WallMoveable}" Stretch="Fill" TileMode="Tile" Viewport="0,0,64,64" ViewportUnits="Absolute"/>
+                </Rectangle.Fill>
+            </Rectangle>
+        </game:Wall>
         <game:Wall Width="100" Height="500" Canvas.Left="1900" Canvas.Top="0"/>
         <game:Wall Width="100" Height="300" Canvas.Left="1900" Canvas.Top="850"/>
         <game:Wall Width="100" Height="400" Canvas.Left="1011" Canvas.Top="800" HorizontalAlignment="Left" VerticalAlignment="Center">
