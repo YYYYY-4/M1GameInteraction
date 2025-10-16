@@ -10,7 +10,7 @@ using System.IO;
 
 namespace Atlantis
 {
-    internal class PlayerSave
+    public class PlayerSave
     {
         private string _name;
         private int _clearedLevels = 0;
@@ -22,7 +22,27 @@ namespace Atlantis
             get { return _name; }
             set { _name = value; }
         }
+        public int ClearedLevels
+        {
+            get { return _clearedLevels; }
+            set { _clearedLevels = value; }
+        }
+        public int SaveSlot
+        {
+            get { return _saveSlot; }
+            set { _saveSlot = value; }
+        }
+        public string Path
+        {
+            get { return _path; }
+            set { _path = value; }
+        }
         
+        public PlayerSave()
+        {
+
+        }
+
         /// <summary>
         /// Creates playerSave object with a name and save slot
         /// </summary>
@@ -34,14 +54,14 @@ namespace Atlantis
             if (name.Contains(","))
             {
                 name.Replace(",", ".");
-                this._name = name;
+                _name = name;
             }
             else
             {
-                this._name = name;
+                _name = name;
             }
            
-            this._saveSlot = saveSlot;
+            _saveSlot = saveSlot;
             _path = GetSavePath(saveSlot);
         }
 
@@ -51,11 +71,12 @@ namespace Atlantis
         public void Save()
         {
             string cl = _clearedLevels.ToString();
-            List<string> data = new List<string>() { _name, cl };
-            string json = JsonSerializer.Serialize(data);
+            //List<string> data = new List<string>() { _name, cl };
+            string json = JsonSerializer.Serialize(this);
             if (!File.Exists(_path))
             {
-                var file = File.Create(_path).Dispose;
+                var file = File.Create(_path);
+                file.Close();
                 File.WriteAllText(_path, json);
             }
             else 
@@ -69,11 +90,15 @@ namespace Atlantis
         /// </summary>
         /// <param name="saveIndex"></param>
         /// <returns>PlayerSave object</returns>
-        static public PlayerSave Load(int saveIndex)
+        static public PlayerSave? Load(int saveIndex)
         {
             string path = GetSavePath(saveIndex);
-            PlayerSave json = JsonSerializer.Deserialize<PlayerSave>(File.ReadAllText(path));
-            return json;
+            if (File.Exists(path))
+            { 
+                PlayerSave json = JsonSerializer.Deserialize<PlayerSave>(File.ReadAllText(path));
+                return json;
+            }
+            return null;
         }
 
         public void Delete()

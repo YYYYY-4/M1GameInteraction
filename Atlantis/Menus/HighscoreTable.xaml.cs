@@ -164,9 +164,8 @@ namespace Atlantis.Menus
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             PlayerSave playerSave = new PlayerSave("Ferry", 1);
-            ActivePlayer player = new ActivePlayer(playerSave);
 
-            AddRecord(Random.Shared.Next(1, 13), Random.Shared.Next(10000), player.Save.Name);
+            AddRecord(Random.Shared.Next(1, 13), Random.Shared.Next(10000), playerSave.Name);
         }
     }
 }

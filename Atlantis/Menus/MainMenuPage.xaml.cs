@@ -21,7 +21,7 @@ public partial class MainMenuPage : Page
     private void Start_Button_Click(object sender, RoutedEventArgs e)
     {
         _window.PageHistory.Add(this);
-        _window.Content = new GamePage(_window);
+        _window.Content = new PlayerSelect(_window);
     }
 
     private void Quit_Button_Click(object sender, RoutedEventArgs e)

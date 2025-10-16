@@ -12,6 +12,9 @@
 
     <Canvas Width="1920" Height="1080" Background="{StaticResource TileBrush}">
         <game:WaterArea Width="6062" Height="5096" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="-2136" Canvas.Top="-1920"/>
+
+        <game:Collectible Width="50" Height="50" Canvas.Top="950" Canvas.Left="670" />
+
         <game:Player Canvas.Top="900" Canvas.Left="200">
             <game:Player.RenderTransform>
                 <RotateTransform Angle="0"/>

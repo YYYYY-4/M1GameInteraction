@@ -34,7 +34,7 @@ namespace Atlantis.Game
         private bool _controlsChanged = true;
         private readonly List<GameControl> _controls = [];
         private readonly List<GameControl> _addedControls = [];
-        private readonly GamePage _page;
+        public readonly GamePage GamePage;
         //private readonly List<GameControl> RemovedControls = [];
 
         public List<GameControl> Controls => _controls;
@@ -97,7 +97,7 @@ namespace Atlantis.Game
 
         public GameScene(MainWindow window, GamePage page, Canvas canvas)
         {
-            _page = page;
+            GamePage = page;
             Window = window;
             Canvas = canvas;
 
@@ -813,7 +813,7 @@ namespace Atlantis.Game
                     Paused = !Paused;
                     break;
                 case Key.F1:
-                    _page.LoadScene<DemoLevel>();
+                    GamePage.LoadScene<DemoLevel>();
                     break;
             }
         }
@@ -870,7 +870,7 @@ namespace Atlantis.Game
             }
             else if (MouseButton1.releasedNow)
             {
-                if (Dragging != null)
+                if (Dragging != null && Controls.Contains(Dragging))
                 {
                     var delta = WorldMousePosition - LastDragPosition;
                     var msDelta = MousePosition - LastMousePosition;
