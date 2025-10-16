@@ -59,6 +59,7 @@
     <Resource Include="Assets\MenuBackground.png" />
     <Resource Include="Assets\placeholder.png" />
     <Resource Include="Assets\PlaceholderCollectable.jpg" />
+    <Resource Include="Assets\Fish\Fish5_1.png" />
     <Resource Include="Assets\Wall\WallMoveable.png" />
   </ItemGroup>
 
