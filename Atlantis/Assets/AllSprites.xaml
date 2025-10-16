@@ -18,6 +18,9 @@
     <BitmapImage x:Key="Dynamite4" UriSource="/Atlantis;component/Assets/Dynamite/DynamiteFrame4.png"/>
     <BitmapImage x:Key="Dynamite5" UriSource="/Atlantis;component/Assets/Dynamite/DynamiteFrame5.png"/>
     <BitmapImage x:Key="Explosion" UriSource="/Atlantis;component/Assets/Explosion.png"/>
+    <BitmapImage x:Key="MenuBackground" UriSource="/Atlantis;component/Assets/MenuBackground.png"/>
+    <BitmapImage x:Key="Placeholder" UriSource="/Atlantis;component/Assets/placeholder.png"/>
+    <BitmapImage x:Key="Collectable" UriSource="/Atlantis;component/Assets/PlaceholderCollectable.jpg"/>
     <!--<ImageBrush x:Key="PlayerIdle" gif:ImageBehavior.AnimatedSource="/Atlantis;component/Assets/PlayerSprite.gif" />-->
 
     <BitmapImage x:Key="Fish0_0.png" UriSource="/Atlantis;component/Assets/Fish/Fish0_0.png"/>

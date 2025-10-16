@@ -23,7 +23,7 @@ public partial class GamePage : Page
     public GamePage(MainWindow window, PlayerSave save)
     {
         InitializeComponent();
-        
+        window.ChangeBackground("/Assets/placeholder.png");
         _window = window;
         _save = save;
         LoadScene<DemoLevel>();
