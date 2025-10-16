@@ -15,12 +15,14 @@ public partial class GamePage : Page
     Page _page;
     Canvas _canvas;
     GameScene? _scene;
+    private PlayerSave _save;
     
-    public GamePage(MainWindow window)
+    public GamePage(MainWindow window, PlayerSave save)
     {
         InitializeComponent();
         
         _window = window;
+        _save = save;
         LoadScene<DemoLevel>();
     }
     
