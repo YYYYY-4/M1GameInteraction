@@ -131,9 +131,15 @@ namespace Atlantis.Game
 
                 float vX = velocity.X;
 
-                float MoveForce = 1000.0f;
+                
                 float AirResistance = 1.05f;
                 float AirDensity = 1.3f;
+                float MoveForce = 500.0f;
+                if (OnGround)
+                { 
+                    MoveForce = 1000.0f;
+                }
+
 
                 var moveForce = new Vector2(MoveForce * inputDir.X, 0.0f);
                 Body.ApplyForceToCenter(moveForce);
@@ -162,7 +168,7 @@ namespace Atlantis.Game
                 if (OnGround && inputDir.Y > 0.0f)
                 {
                     float duration = 0.5f;
-                    float height = 6.0f;
+                    float height = 9.0f;
                     var force = (height - Scene.World.GetGravity().Y * duration * (duration / 2)) / duration;
 
                     //Trace.WriteLine("Mass = " + Mass);
