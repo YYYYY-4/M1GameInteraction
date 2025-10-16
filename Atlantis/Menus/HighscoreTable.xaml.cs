@@ -36,7 +36,7 @@ namespace Atlantis.Menus
 
             //PlayerSave playerSave = new PlayerSave("Ferry", 1);
             //ActivePlayer player = new ActivePlayer(playerSave);
-
+          
 
             // Variabele, Have to get these from other people
             // For now they are random
@@ -44,7 +44,7 @@ namespace Atlantis.Menus
             //string name = player.Save.Name;
             int level = Random.Shared.Next(1, 13);
 
-
+            int score = 0;
             // Puts the score in the file, if file does not exist creates the file
             //AddRecord(level, score, name);
 
@@ -165,7 +165,7 @@ namespace Atlantis.Menus
         {
             PlayerSave playerSave = new PlayerSave("Ferry", 1);
 
-            AddRecord(Random.Shared.Next(1, 13), Random.Shared.Next(10000), playerSave.Name);
+            AddRecord(Random.Shared.Next(1, 13), 9999 , playerSave.Name);
         }
     }
 }

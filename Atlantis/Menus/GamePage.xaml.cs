@@ -16,7 +16,7 @@ public partial class GamePage : Page
     Canvas _canvas;
     GameScene? _scene;
 
-    public int CollectibleCount = 0;
+    public GameScore Score = new GameScore();
 
     private PlayerSave _save;
     
@@ -27,6 +27,18 @@ public partial class GamePage : Page
         _window = window;
         _save = save;
         LoadScene<DemoLevel>();
+    }
+
+
+    /// <summary>
+    /// Everything that happens when you win a level
+    /// </summary>
+    /// <param name="level"></param>
+    /// <param name="name"></param>
+    public void win(int level, string name)
+    {
+        int score = Score.Calculation();
+        HighscorePage.AddRecord(level, score, name);
     }
     
     /// <typeparam name="T">Scene which inherits Page and defines a Canvas at it's root.</typeparam>

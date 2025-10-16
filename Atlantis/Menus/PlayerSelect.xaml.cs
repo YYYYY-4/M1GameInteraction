@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -69,29 +70,26 @@ namespace Atlantis.Menus
 
         private void SaveFile0_Click(object sender, RoutedEventArgs e)
         {
-            _window.PageHistory.Add(this);
             if (PlayerSave.Load(0) == null)
-                _window.Content = new PlayerNameInput(_window , 0);
+                _window.PushPage(new PlayerNameInput(_window, 0));
             else
-                _window.Content = new LevelSelect(_window, _save0);
+                _window.PushPage(new LevelSelect(_window, _save0));
         }
 
         private void SaveFile1_Click(object sender, RoutedEventArgs e)
         {
-            _window.PageHistory.Add(this);
             if (PlayerSave.Load(1) == null)
-                _window.Content = new PlayerNameInput(_window, 1);
+                _window.PushPage(new PlayerNameInput(_window, 1));
             else
-                _window.Content = new LevelSelect(_window, _save1);
+                _window.PushPage(new LevelSelect(_window, _save1));
         }
 
         private void SaveFile2_Click(object sender, RoutedEventArgs e)
         {
-            _window.PageHistory.Add(this);
             if (PlayerSave.Load(2) == null)
-                _window.Content = new PlayerNameInput(_window, 2);
+                _window.PushPage(new PlayerNameInput(_window, 2));
             else
-                _window.Content = new LevelSelect(_window, _save2);
+                _window.PushPage(new LevelSelect(_window, _save2));
         }
 
         private void DeleteSave0_Click(object sender, RoutedEventArgs e)
@@ -120,6 +118,11 @@ namespace Atlantis.Menus
                 var e = new PropertyChangedEventArgs(propertyName);
                 handler(this, e);
             }
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            _window.GoBack();
         }
     }
 }

@@ -20,8 +20,12 @@ public partial class MainMenuPage : Page
     
     private void Start_Button_Click(object sender, RoutedEventArgs e)
     {
-        _window.PageHistory.Add(this);
-        _window.Content = new PlayerSelect(_window);
+        _window.PushPage(new PlayerSelect(_window));
+    }
+
+    private void SettingsButton_Click(object sender, RoutedEventArgs e)
+    {
+        _window.PushPage(new SettingsMenu(_window));
     }
 
     private void Quit_Button_Click(object sender, RoutedEventArgs e)
