@@ -51,5 +51,6 @@
                 <Label Content="Delete"/>
             </Button>
         </Grid>
+        <Button Click="BackButton_Click">Back</Button>
     </Grid>
 </Page>

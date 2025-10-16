@@ -42,9 +42,12 @@ namespace Atlantis.Menus
             {
                 PlayerSave save = new PlayerSave(_name, _saveSlot);
                 save.Save();
-                _window.PageHistory.Add(this);
-                _window.Content = new LevelSelect(_window, save);
+                _window.PushPage(new LevelSelect(_window, save));
             }
+        }
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            _window.GoBack();
         }
     }
 }

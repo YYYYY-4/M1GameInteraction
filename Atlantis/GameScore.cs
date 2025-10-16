@@ -20,7 +20,7 @@ namespace Atlantis
         }
 
         public int Collectables
-        {
+        { 
             get { return collectables; }
             set { collectables = value; }
         }

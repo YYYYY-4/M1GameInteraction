@@ -1,10 +1,12 @@
-﻿using System.Numerics;
-using System.Windows;
-using System.Windows.Controls;
-using Atlantis.Game;
+﻿using Atlantis.Game;
+using Atlantis.Menus;
 using Atlantis.Menus;
 using Atlantis.Scene;
-using Atlantis.Menus;
+using System.Diagnostics;
+using System.Numerics;
+using System.Runtime.Intrinsics.Arm;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Atlantis
 {
@@ -23,9 +25,8 @@ namespace Atlantis
             // BOX2D ASSERTION: result.distanceSquared > 0.0f, C:\repos\box2d\src\manifold.c, line 848
 
             InitializeComponent();
-            
-            _page = new MainMenuPage(this);
-            Content = _page.Content;
+
+            PushPage(new MainMenuPage(this));
             
             // Page is not added to PageHistory, because you shouldn't be able to leave MainMenu
 
@@ -73,12 +74,28 @@ namespace Atlantis
         
         public List<Page> PageHistory { get; } = new List<Page>();
 
-        public void NavigateBack()
+        public void GoBack()
         {
-            Page? previousPage = PageHistory.LastOrDefault();
-            
-            if (previousPage != null)
-                Content = previousPage.Content;
+            Content = PageHistory[PageHistory.Count - 2];
+
+            if (PageHistory.Count != 1)
+            {
+                //Content = PageHistory.Last();
+                PageHistory.RemoveAt(PageHistory.Count - 1);
+            }
+
+            Trace.WriteLine("AftwrBack", string.Join(", ", PageHistory));
+        }
+
+        public void PushPage(Page page)
+        {
+            if (PageHistory.Contains(page))
+                throw new Exception("Page already in history");
+
+            PageHistory.Add(page);
+            Content = page;
+
+            Trace.WriteLine("PushAfter", string.Join(", ", PageHistory));
         }
     }
 }
