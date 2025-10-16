@@ -15,7 +15,10 @@ public partial class GamePage : Page
     Page _page;
     Canvas _canvas;
     GameScene? _scene;
-    
+
+    public int CollectibleCount = 0;
+
+
     public GamePage(MainWindow window)
     {
         InitializeComponent();
