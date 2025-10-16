@@ -33,6 +33,8 @@
     <None Remove="Assets\Fish\Fish4_1.png" />
     <None Remove="Assets\Fish\Fish5_0.png" />
     <None Remove="Assets\Fish\FIsh5_1.png" />
+    <None Remove="Assets\placeholder.png" />
+    <None Remove="Assets\PlaceholderCollectable.jpg" />
     <None Remove="Assets\PlayerSprite.gif" />
     <None Remove="Assets\WallBase.png" />
     <None Remove="Assets\WallBreakable.png" />
@@ -54,6 +56,9 @@
     <Resource Include="Assets\Fish\Fish4_1.png" />
     <Resource Include="Assets\Fish\Fish5_0.png" />
     <Resource Include="Assets\Fish\FIsh5_1.png" />
+    <Resource Include="Assets\MenuBackground.png" />
+    <Resource Include="Assets\placeholder.png" />
+    <Resource Include="Assets\PlaceholderCollectable.jpg" />
     <Resource Include="Assets\Wall\WallMoveable.png" />
   </ItemGroup>
 
