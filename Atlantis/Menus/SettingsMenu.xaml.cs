@@ -24,10 +24,12 @@ namespace Atlantis.Menus
         //devines the paths for the txtfiles
         private string MusicSettings = "MusicSettings.txt";
         private string SfxSettings = "SfxSettings.txt";
+        private MainWindow _window;
 
-        public SettingsMenu()
+        public SettingsMenu(MainWindow window)
         {
             InitializeComponent();
+            _window = window;
             //Creates txtfiles for the settings if they dont exist
             //these files are universal and not per player
             //it adds one txtfile per slider
@@ -43,6 +45,7 @@ namespace Atlantis.Menus
             //Sets the value for the slider with what's in the txtfiles
             MusicSlider.Value = double.Parse(File.ReadAllText(MusicSettings));
             SfxSlider.Value = double.Parse(File.ReadAllText(SfxSettings));
+            _window = window;
         }
 
         //saves settings to the txtfiles
@@ -50,6 +53,7 @@ namespace Atlantis.Menus
         {
             File.WriteAllText(MusicSettings, MusicSlider.Value.ToString());
             File.WriteAllText(SfxSettings, SfxSlider.Value.ToString());
+            _window.GoBack();
         }
     }
 }
