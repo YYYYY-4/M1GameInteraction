@@ -71,17 +71,16 @@ namespace Atlantis.Game
             if (isExploding)
             {
                 timer += dt;
-
-                if (timer >= 0.0f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite0");
-                if (timer >= 0.5f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite1");
-                if (timer >= 1.0f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite2");
-                if (timer >= 1.5f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite3");
-                if (timer >= 2.0f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite4");
-                if (timer >= 2.5f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite5");
+                if (timer >= 3.5f) Scene.DestroyControl(this);
+                else if (timer >= 3.0f) ExplodeDynamite();
+                else if (timer >= 2.5f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite5");
+                else if (timer >= 2.0f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite4");
+                else if (timer >= 1.5f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite3");
+                else if (timer >= 1.0f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite2");
+                else if (timer >= 0.5f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite1");
+                else _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite0");
 
                 dynamite.Source = _dynamiteSprite;
-
-                if (timer >= 3.0f) ExplodeDynamite();
             }
         }
 
@@ -92,6 +91,10 @@ namespace Atlantis.Game
             b2ShapeProxy proxy = B2Api.b2MakeProxy([position], 1, circle.radius);
             b2QueryFilter filter = new b2QueryFilter(1, 1);
             shapes = Scene.OverlapCast(proxy, filter);
+            _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Explosion");
+            Explosion.Visibility = Visibility.Visible;
+            dynamite.Visibility = Visibility.Hidden;
+            Body.Disable();
 
             foreach (GameShape shape in shapes)
             {
@@ -101,10 +104,10 @@ namespace Atlantis.Game
                 }
             }
 
-            Scene.DestroyControl(this);
+            //Scene.DestroyControl(this);
 
-            timer = 0.0f;
-            isExploding = false;
+            //timer = 0.0f;
+            //isExploding = false;
         }
 
         public int PickUp(Player player)

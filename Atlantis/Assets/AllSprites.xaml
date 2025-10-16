@@ -17,6 +17,7 @@
     <BitmapImage x:Key="Dynamite3" UriSource="/Atlantis;component/Assets/Dynamite/DynamiteFrame3.png"/>
     <BitmapImage x:Key="Dynamite4" UriSource="/Atlantis;component/Assets/Dynamite/DynamiteFrame4.png"/>
     <BitmapImage x:Key="Dynamite5" UriSource="/Atlantis;component/Assets/Dynamite/DynamiteFrame5.png"/>
+    <BitmapImage x:Key="Explosion" UriSource="/Atlantis;component/Assets/Explosion.png"/>
     <!--<ImageBrush x:Key="PlayerIdle" gif:ImageBehavior.AnimatedSource="/Atlantis;component/Assets/PlayerSprite.gif" />-->
 
 </ResourceDictionary>
