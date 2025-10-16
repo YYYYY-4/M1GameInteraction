@@ -45,8 +45,8 @@
     <Resource Include="Assets\NOSPRITE.png">
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Assets\WallBase.png" />
-    <Resource Include="Assets\WallBreakable.png" />
+    <Resource Include="Assets\Wall\WallBase.png" />
+    <Resource Include="Assets\Wall\WallBreakable.png" />
   </ItemGroup>
 
   <ItemGroup>
