@@ -18,8 +18,6 @@ public partial class GamePage : Page
 
     public int CollectibleCount = 0;
 
-
-    public GamePage(MainWindow window)
     private PlayerSave _save;
     
     public GamePage(MainWindow window, PlayerSave save)
