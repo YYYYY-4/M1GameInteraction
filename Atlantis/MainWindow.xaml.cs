@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using Atlantis.Game;
 using Atlantis.Menus;
 using Atlantis.Scene;
+using Atlantis.Menus;
 
 namespace Atlantis
 {
@@ -14,6 +15,8 @@ namespace Atlantis
     {
         private Page _page;
         private Canvas _canvas;
+        private Grid _grid;
+        private SettingsMenu _menu;
 
         public MainWindow()
         {
