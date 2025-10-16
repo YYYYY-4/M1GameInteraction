@@ -6,28 +6,34 @@ using System.Threading.Tasks;
 
 namespace Atlantis
 {
-    internal class Score
+    internal class GameScore
     {
         private string _level;
         private int _score;
         private int tijd = 60; //temp
         private int collectables = 4; //temp
 
-        public int score
+        public int Score
         {
             get { return _score; }
             set { _score = value; }
         }
 
-        public Score(string level)
+        public int Collectables
+        {
+            get { return collectables; }
+            set { collectables = value; }
+        }
+
+        public GameScore(string level)
         {
         _level = level;
         }
 
         public void Calculation ()
         {
-            int MaxScore = 10000;
-            _score = MaxScore - tijd * 10 + collectables * 100;
+            int maxScore = 10000;
+            _score = maxScore - tijd * 10 + collectables * 100;
         }
     }
 }
