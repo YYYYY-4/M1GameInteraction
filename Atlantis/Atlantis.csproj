@@ -53,7 +53,7 @@
     <Resource Include="Assets\Fish\Fish4_0.png" />
     <Resource Include="Assets\Fish\Fish4_1.png" />
     <Resource Include="Assets\Fish\Fish5_0.png" />
-    <Resource Include="Assets\Fish\FIsh5_1.png" />
+    <Resource Include="Assets\Fish\Fish5_1.png" />
     <Resource Include="Assets\Wall\WallMoveable.png" />
   </ItemGroup>
 
