@@ -12,6 +12,9 @@
 
     <Canvas Width="1920" Height="1080" Background="{StaticResource TileBrush}">
         <game:WaterArea Width="6062" Height="5096" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="-2136" Canvas.Top="-1920"/>
+
+        <game:Collectible Width="50" Height="50" Canvas.Top="950" Canvas.Left="670" />
+
         <game:Player Canvas.Top="900" Canvas.Left="200">
             <game:Player.RenderTransform>
                 <RotateTransform Angle="0"/>
@@ -29,19 +32,14 @@
         <game:Wall Width="7944" Height="100" HorizontalAlignment="Left" Canvas.Top="0" VerticalAlignment="Center" Canvas.Left="-2742"/>
         <game:Wall Width="3981" Height="100" HorizontalAlignment="Left" Canvas.Top="765" VerticalAlignment="Center" Canvas.Left="1011"/>
         <game:Wall Width="3981" Height="100" HorizontalAlignment="Left" Canvas.Top="423" VerticalAlignment="Top" Canvas.Left="1374"/>
-        <game:DeadlyThing Canvas.Top="513" Height="25" Canvas.Left="488" Width="25">
-            <game:BodyDef.BodyDef>
-                <game:BodyDef Type="b2_dynamicBody" />
-            </game:BodyDef.BodyDef>
-            <Canvas>
-                <Rectangle Fill="Red" Width="50" Height="50">
-                    <game:ShapeDef.ShapeDef>
-                        <game:ShapeDef EnableContactEvents="True" InvokeContactCreation="True" Category="All" Mask="All" />
-                    </game:ShapeDef.ShapeDef>
-                </Rectangle>
-            </Canvas>
-        </game:DeadlyThing>
+        <game:DeadlyThing Canvas.Top="513" Height="25" Canvas.Left="488" Width="25" />
         <game:Dynamite Canvas.Left="1630" Canvas.Top="316"/>
+        <game:Dynamite Canvas.Left="450" Canvas.Top="900" Width="50"/>
         <game:DestroyButton Canvas.Left="1630" Canvas.Top="1049" Width="50" Height="50" Targets="{x:Reference ButtonWall}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <game:Wall Tag="RW" Width="100" Height="500" Canvas.Left="410" Canvas.Top="670" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <game:Wall.RenderTransform>
+                <RotateTransform Angle="100" />
+            </game:Wall.RenderTransform>
+        </game:Wall>
     </Canvas>
 </Page>
