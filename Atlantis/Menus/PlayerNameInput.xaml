@@ -15,6 +15,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBox Grid.Row="1" Name="nameInput" TextChanged="TextBox_TextChanged"/>
-        <Button Grid.Row="2" Click="Submit_click"/>
+        <Button Grid.Row="2" Click="Submit_click">Submit</Button>
+        <Button Click="BackButton_Click">Back</Button>
     </Grid>
 </Page>
