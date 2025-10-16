@@ -20,10 +20,14 @@ public partial class GamePage : Page
 
 
     public GamePage(MainWindow window)
+    private PlayerSave _save;
+    
+    public GamePage(MainWindow window, PlayerSave save)
     {
         InitializeComponent();
         
         _window = window;
+        _save = save;
         LoadScene<DemoLevel>();
     }
     
