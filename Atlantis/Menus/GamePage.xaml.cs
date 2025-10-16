@@ -21,7 +21,6 @@ public partial class GamePage : Page
         InitializeComponent();
         
         _window = window;
-        
         LoadScene<TestPage>();
     }
     
@@ -37,5 +36,9 @@ public partial class GamePage : Page
         
         _page.Content = null;
         Content = _canvas;
+    }
+
+    public void Back()
+    {
     }
 }

@@ -20,8 +20,7 @@ public partial class MainMenuPage : Page
     
     private void Start_Button_Click(object sender, RoutedEventArgs e)
     {
-        Util.PageHistory.Add(this);
-        
+        _window.PageHistory.Add(this);
         _window.Content = new GamePage(_window);
     }
 

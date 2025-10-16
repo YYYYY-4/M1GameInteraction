@@ -68,6 +68,16 @@ namespace Atlantis
         {
             return Matrix3x2.Identity;
         }
+        
+        public List<Page> PageHistory { get; } = new List<Page>();
+
+        public void NavigateBack()
+        {
+            Page? previousPage = PageHistory.LastOrDefault();
+            
+            if (previousPage != null)
+                Content = previousPage.Content;
+        }
     }
 }
 
