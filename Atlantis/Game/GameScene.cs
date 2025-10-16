@@ -19,6 +19,9 @@ using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
 using System.Xml.Linq;
 using static Atlantis.Box2dNet.B2Extension;
+using Atlantis.Box2dNet;
+using Atlantis.Menus;
+using Atlantis.Scene;
 
 namespace Atlantis.Game
 {
@@ -31,6 +34,8 @@ namespace Atlantis.Game
         private bool _controlsChanged = true;
         private readonly List<GameControl> _controls = [];
         private readonly List<GameControl> _addedControls = [];
+        private readonly GamePage _page;
+        //private readonly List<GameControl> RemovedControls = [];
 
         public List<GameControl> Controls => _controls;
 
@@ -90,8 +95,9 @@ namespace Atlantis.Game
             set => _paused = value;
         }
 
-        public GameScene(MainWindow window, Canvas canvas)
+        public GameScene(MainWindow window, GamePage page, Canvas canvas)
         {
+            _page = page;
             Window = window;
             Canvas = canvas;
 
@@ -807,7 +813,7 @@ namespace Atlantis.Game
                     Paused = !Paused;
                     break;
                 case Key.F1:
-                    Window.LoadScene<DemoLevel>();
+                    _page.LoadScene<DemoLevel>();
                     break;
             }
         }

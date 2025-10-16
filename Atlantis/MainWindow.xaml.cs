@@ -12,7 +12,6 @@ namespace Atlantis
     /// </summary>
     public partial class MainWindow : Window
     {
-        private GameScene _scene;
         private Page _page;
         private Canvas _canvas;
 
@@ -21,10 +20,11 @@ namespace Atlantis
             // BOX2D ASSERTION: result.distanceSquared > 0.0f, C:\repos\box2d\src\manifold.c, line 848
 
             InitializeComponent();
-            //Content = ((Page)Content).Content;
-            //_scene = new(this);
-
-            //LoadScene<TestPage>();
+            
+            _page = new MainMenuPage(this);
+            Content = _page.Content;
+            
+            // Page is not added to PageHistory, because you shouldn't be able to leave MainMenu
 
             // Expanding upon the designer to use it for Game Design:
             //  - To design a level 'elements' need to be placed
@@ -51,18 +51,6 @@ namespace Atlantis
             //    b2ShapeId shapeId = B2Api.b2CreatePolygonShape(groundId, groundShapeDef, poly);
             //}
         }
-        
-        /// <typeparam name="T">Scene which inherits Page and defines a Canvas at it's root.</typeparam>
-        public void LoadScene<T>() where T : Page
-        {
-            _scene?.Destroy();
-            
-            _page = new DemoLevel();
-            _canvas = (Canvas)_page.Content; // GameCanvas is root element in TestPage
-            
-            Content = _canvas;
-            _scene = new GameScene(this, _canvas);
-        }
 
         static Matrix3x2 M3X2Inverse(Matrix3x2 m)
         {
@@ -79,16 +67,15 @@ namespace Atlantis
         {
             return Matrix3x2.Identity;
         }
+        
+        public List<Page> PageHistory { get; } = new List<Page>();
 
-        private void Start_Button_Click(object sender, RoutedEventArgs e)
+        public void NavigateBack()
         {
-            LoadScene<DemoLevel>();
-        }
-
-        private void Quit_Button_Click(object sender, RoutedEventArgs e)
-        {
-            // Terminates process and tells underlying process quit
-            Environment.Exit(0);
+            Page? previousPage = PageHistory.LastOrDefault();
+            
+            if (previousPage != null)
+                Content = previousPage.Content;
         }
     }
 }
