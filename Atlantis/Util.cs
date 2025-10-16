@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using System.Windows.Controls;
 
 namespace Atlantis
 {
@@ -14,9 +15,24 @@ namespace Atlantis
             return radians * (180.0f / MathF.PI);
         }
 
+        public static double DegToRad(this double degrees)
+        {
+            return degrees * (Math.PI / 180.0);
+        }
+
+        public static double RadToDeg(this double radians)
+        {
+            return radians * (180.0 / Math.PI);
+        }
+
         public static Vector2 AngleToDirection(this float angleRadians)
         {
             return new Vector2(MathF.Cos(angleRadians), MathF.Sin(angleRadians));
+        }
+
+        public static double NanToZero(double d)
+        {
+            return double.IsNaN(d) ? 0.0 : d;
         }
 
     }

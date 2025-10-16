@@ -10,26 +10,7 @@
         xmlns:menu="clr-namespace:Atlantis.Menus"
         mc:Ignorable="d"
         Title="MainWindow"
-        Height="800" 
+        Height="800"
         Width="1200"
         Background="#295D8A">
-    <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Grid.Column="1" FontSize="72" HorizontalAlignment="Center" FontFamily="Old English Text MT">Atlantis</TextBlock>
-            <Button Grid.Row="1" Grid.Column="0" Click="Start_Button_Click">Start</Button>
-            <Button Grid.Row="2" Grid.Column="0" Click="Settings_Button_Click">Settings</Button>
-            <Button Grid.Row="3" Grid.Column="0" Click="Quit_Button_Click">Quit</Button>
-        </Grid>
 </Window>

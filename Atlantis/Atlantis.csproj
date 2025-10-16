@@ -10,15 +10,45 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Door\DoorClosed.png" />
+    <None Remove="Assets\Door\DoorOpen.png" />
+    <None Remove="Assets\Door\DoorOpening.png" />
+    <None Remove="Assets\Dynamite\DynamiteFrame0.png" />
+    <None Remove="Assets\Dynamite\DynamiteFrame1.png" />
+    <None Remove="Assets\Dynamite\DynamiteFrame2.png" />
+    <None Remove="Assets\Dynamite\DynamiteFrame3.png" />
+    <None Remove="Assets\Dynamite\DynamiteFrame4.png" />
+    <None Remove="Assets\Dynamite\DynamiteFrame5.png" />
+    <None Remove="Assets\Dynamite\DynamiteIdle.png" />
+    <None Remove="Assets\PlayerSprite.gif" />
+    <None Remove="Assets\WallBase.png" />
+    <None Remove="Assets\WallBreakable.png" />
+    <None Remove="Assets\Wall\WallMoveable.png" />
     <None Remove="box2d.dll" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\Wall\WallMoveable.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Box2dNet" Version="3.1.8.5" />
+    <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Assets\Brick1.png" />
+    <Resource Include="Assets\Door\DoorClosed.png" />
+    <Resource Include="Assets\Door\DoorOpen.png" />
+    <Resource Include="Assets\Door\DoorOpening.png" />
+    <Resource Include="Assets\Dynamite\DynamiteFrame0.png" />
+    <Resource Include="Assets\Dynamite\DynamiteFrame1.png" />
+    <Resource Include="Assets\Dynamite\DynamiteFrame2.png" />
+    <Resource Include="Assets\Dynamite\DynamiteFrame3.png" />
+    <Resource Include="Assets\Dynamite\DynamiteFrame4.png" />
+    <Resource Include="Assets\Dynamite\DynamiteFrame5.png" />
+    <Resource Include="Assets\Dynamite\DynamiteIdle.png" />
+    <Resource Include="Assets\PlayerSprite.gif" />
     <Resource Include="Assets\Wall.png" />
   </ItemGroup>
 
@@ -26,6 +56,8 @@
     <Resource Include="Assets\NOSPRITE.png">
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Assets\Wall\WallBase.png" />
+    <Resource Include="Assets\Wall\WallBreakable.png" />
   </ItemGroup>
 
   <ItemGroup>

@@ -160,5 +160,13 @@ namespace Atlantis.Game
         public virtual void OnSensorEnd(GameShape sensor, GameShape visitor)
         {
         }
+
+        public virtual void OnContactStart(GameShape shape, GameShape contact)
+        {
+        }
+
+        public virtual void OnContactEnd(GameShape shape, GameShape contact)
+        {
+        }
     }
 }
