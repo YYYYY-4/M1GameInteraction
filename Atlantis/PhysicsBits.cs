@@ -9,6 +9,7 @@ namespace Atlantis
     [Flags]
     public enum PhysicsCategory : ulong
     {
+        None = 0,
         Map = 0x1,
         Player = 0x2,
         Dynamite = 0x4,
