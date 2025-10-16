@@ -42,29 +42,25 @@ namespace Atlantis.Game
         // Copyy of _controls to iterate safely while supporting adding/removing objects
         private List<GameControl> _iterControls = [];
 
+        // Scaling of wpf-xaml sizes to a unit in the physics simulation 1:ScalingFactor
         const float ScalingFactor = 25.0f;
 
         public b2WorldId World;
-
-        /// <summary>
-        /// (Concept) Static control at identity transform (0,0,0) to hold shapes defined in the root canvas.
-        /// </summary>
-        public GameControl WorldBody;
 
         public MainWindow Window;
         public Canvas Canvas;
 
         public DrawingBrush CanvasBrush;
 
+        // Unique ID for shape lookup, incremented for each shape
         nint ShapeIdGen = 0;
 
         // see GameControl.CID
         long ControlIdGen = 0;
 
-        // When removing a Body from the Scene it must also be removed from the lookup
+        // The UserData of b2ShapeId is used to find GameShape
+        // When removing a Body from the Scene it must also be removed from this lookup
         private Dictionary<nint, GameShape> _shapeLookUp = [];
-
-        public Dictionary<Key, KeyState> Keys;
 
         public Camera Camera { get; set; }
 
@@ -74,21 +70,23 @@ namespace Atlantis.Game
         public float Time { get; private set; } = 0.0f;
 
         private Stopwatch _watch = new();
-
         private TimeSpan _lastElapsed = TimeSpan.Zero;
 
-        private Vector2 _mousePosition = Vector2.Zero;
+        // Input tracking
+        public Dictionary<Key, KeyState> Keys;
 
-        private bool _ms1DownThisFrame = false;
+        public KeyState MouseButton1 = new();
+        public KeyState MouseButton2 = new();
+        public Vector2 MousePosition = Vector2.Zero;
 
-        private GameControl? _dragging;
-        private Vector2 _worldMousePosition = Vector2.Zero;
-        private Vector2 _draggingOffset = Vector2.Zero;
+        const float CameraSpeed = 20.0f;
 
-        private Vector2 _lastDragPosition = Vector2.Zero;
-        private Vector2 _lastMousePosition = Vector2.Zero;
-
-        private List<GameShape> _overlapCast;
+        // Dragging members
+        GameControl? Dragging;
+        Vector2 WorldMousePosition = Vector2.Zero;
+        Vector2 DraggingOffset = Vector2.Zero;
+        Vector2 LastDragPosition = Vector2.Zero;
+        Vector2 LastMousePosition = Vector2.Zero;
 
         private static bool _paused = false;
         private static bool Paused
@@ -153,7 +151,7 @@ namespace Atlantis.Game
             B2Api.b2SetAssertFcn(AssertFcn);
 
             LoadGameControls(Canvas, (float)Canvas.ActualHeight, 0.0, 0.0);
-            InvisGroundBody();
+            LargeGroundBody();
 
             _watch.Start();
 
@@ -178,13 +176,13 @@ namespace Atlantis.Game
             Window.KeyDown -= MainWindow_KeyDown;
             Window.KeyUp -= MainWindow_KeyUp;
             Window.Closed -= Unload;
-            
+
             B2Api.b2DestroyWorld(World);
 
             _watch.Stop();
         }
 
-        private void InvisGroundBody()
+        private void LargeGroundBody()
         {
             var wall = new Wall
             {
@@ -206,6 +204,13 @@ namespace Atlantis.Game
                 Canvas.SetLeft(control, 0.0);
             }
 
+            if (control.RenderTransformOrigin.X != 0.0 || control.RenderTransformOrigin.Y != 0.0)
+            {
+                // RenderTransformOrigin is set by the designer sometimes, which causes visual problems and potentially unnecessary debugging.
+                // If the usage of RenderTransformOrigin is desired maybe Tag == "AllowRTO" could be used.
+                throw new Exception($"{control.GetType()} Near ID={ControlIdGen} has non-zero RenderTransformOrigin");
+            }
+
             control.CID = ++ControlIdGen;
             control.Scene = this;
 
@@ -216,7 +221,7 @@ namespace Atlantis.Game
             }
             else if (control.Content is Image tmpImage)
             {
-                shapes = [tmpImage]; 
+                shapes = [tmpImage];
             }
             else if (control.Content is Canvas canvas)
             {
@@ -259,8 +264,7 @@ namespace Atlantis.Game
 
             foreach (var shape in shapes)
             {
-
-                // Automatically set Width and Height, they are not needed in the designer for Polygon and Line
+                // Automatically set Width and Height for polygons and lines so they are not needed in the designer
                 if (shape is Polygon polyFix && polyFix.Points.Count > 0)
                 {
                     var p1 = polyFix.Points.First();
@@ -349,6 +353,7 @@ namespace Atlantis.Game
 
                 var shapeRotate = RotateUtil.GetRotateTransform(shape);
                 float definedAngleDeg = (float)(shapeRotate?.Angle ?? 0.0);
+
                 // WPF clockwise rotation is defined as ccw, or shapes are rendered backwards
                 float dirAngle = (360.0f - definedAngleDeg).DegToRad();
                 var directionX = (dirAngle + MathF.PI * 0.0f).AngleToDirection() * halfSize.X;
@@ -433,7 +438,7 @@ namespace Atlantis.Game
                     var a = Convert.ToString((long)shapeDef.filter.categoryBits, 2);
                     var b = Convert.ToString((long)shapeDef.filter.maskBits, 2);
 
-                    Trace.WriteLine($"LOAD {control.GetType().Name}[{control.CID},{control.Shapes.Count-1}] : CATEGORY={a} MASK={b}");
+                    Trace.WriteLine($"LOAD {control.GetType().Name}[{control.CID},{control.Shapes.Count - 1}] : CATEGORY={a} MASK={b}");
                 }
             }
 
@@ -458,17 +463,19 @@ namespace Atlantis.Game
             Canvas.Children.Remove(control);
         }
 
-        // left and top are in wpf units the absolute distances from 0,0. therefore 0,0 is initally the root.
+        // Recursively load children from canvas into the scene
+        // left and top are in wpf units the absolute distances from 0,0
         private void LoadGameControls(Canvas canvas, double canvasActualHeight, double left, double top)
         {
             void processGameControl(GameControl control)
             {
-                var designerBodyAngle = RotateUtil.GetRotateTransform(control)?.Angle ?? 0.0;
+                // inverted because WPF renders angles inverted.
+                var designerBodyAngle = -(RotateUtil.GetRotateTransform(control)?.Angle ?? 0.0).DegToRad();
 
                 // Origin of Body, it is the top left translated to physics coordiante space
                 double bottom = canvasActualHeight - (top + Canvas.GetTop(control));
                 var p = new Vector2((float)(left + Canvas.GetLeft(control)), (float)bottom) / ScalingFactor;
-                var q = b2Rot.FromAngle(((float)designerBodyAngle));
+                var q = b2Rot.FromAngle((float)designerBodyAngle);
 
                 ProcessGameControl(control, new b2Transform(p, q));
             }
@@ -509,14 +516,9 @@ namespace Atlantis.Game
                 processGameControl(control);
             }
 
-            double NanToZero(double d)
-            {
-                return double.IsNaN(d) ? 0.0 : d;
-            }
-
             void processCanvas(Canvas c)
             {
-                LoadGameControls(c, canvasActualHeight, left + NanToZero(Canvas.GetLeft(c)), top + NanToZero(Canvas.GetTop(c)));
+                LoadGameControls(c, canvasActualHeight, left + Util.NanToZero(Canvas.GetLeft(c)), top + Util.NanToZero(Canvas.GetTop(c)));
                 canvas.Children.Remove(c);
             }
 
@@ -551,6 +553,7 @@ namespace Atlantis.Game
             }
         }
 
+        // Updates and renders the scene
         private void OnRendering(object? sender, EventArgs e)
         {
             var now = _watch.Elapsed;
@@ -606,22 +609,71 @@ namespace Atlantis.Game
                 state.Value.pressedNow = false;
                 state.Value.releasedNow = false;
             }
+
+            MouseButton1.pressedNow = false;
+            MouseButton1.releasedNow = false;
+            MouseButton2.pressedNow = false;
+            MouseButton2.releasedNow = false;
         }
 
-        bool qfn(b2ShapeId shapeId, nint ctx)
+        private void MainWindow_MouseMove(object sender, MouseEventArgs ev)
         {
-            var body = B2Api.b2Shape_GetBody(shapeId);
-            Dragging = _controls.FirstOrDefault(p => p.Body == body);
-            DraggingOffset = body.GetPosition() - WorldMousePosition;
-            return false;
+            var position = ev.GetPosition(Canvas);
+            MousePosition = new Vector2((float)position.X, (float)position.Y);
         }
 
+        private void UpdateMouseButton(KeyState state, MouseButtonState mouseState)
+        {
+            bool wasPressed = state.isPressed;
+            state.isPressed = mouseState == MouseButtonState.Pressed;
+
+            if (wasPressed != state.isPressed)
+            {
+                if (mouseState == MouseButtonState.Pressed)
+                {
+                    state.pressedNow = true;
+                    state.pressedAt = Time;
+                }
+                else
+                {
+                    state.releasedNow = true;
+                    state.pressedAt = Time;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Update Mouse state and position
+        /// </summary>
+        private void UpdateMouse()
+        {
+            UpdateMouseButton(MouseButton1, Mouse.LeftButton);
+            UpdateMouseButton(MouseButton2, Mouse.RightButton);
+
+            // The reverse of rendering to the screen, TODO support Camera rotation.
+            var halfCanvas = new Vector2((float)Canvas.ActualWidth / 2, (float)Canvas.ActualHeight / 2) / ScalingFactor;
+            var screenPosition = new Vector2(MousePosition.X / ScalingFactor, (float)(Canvas.ActualHeight - MousePosition.Y) / ScalingFactor);
+
+            // X/Y range mapped to -Half X/Y to Half X/Y, if the position is in the center of the screen this is 0,0
+            var centerRelative = screenPosition - halfCanvas;
+
+            // Rotate the around center, then add camera position
+            var translated = Vector2.Transform(centerRelative, Matrix3x2.CreateRotation(-Camera.Angle)) + Camera.Position;
+
+            WorldMousePosition = translated;
+        }
+
+        /// <summary>
+        /// Simulate Physics, process events, update controls, 
+        /// </summary>
+        /// <param name="dt"></param>
         public void GameUpdate(float dt)
         {
             if (Paused) return;
 
-            float speed = 1.0f;
+            UpdateMouse();
 
+            float speed = 1.0f;
             World.Step(dt / speed, 64);
 
             // process sensor events, note one shape must be a Sensor and the both must enable sensor events in ShapeDef.
@@ -672,74 +724,63 @@ namespace Atlantis.Game
                 }
             }
 
-            // The reverse of rendering to the screen, TODO support Camera rotation.
-
-            // TODO fixme: When dragging a control while it gets remove it should not get accessed
-
-            var worldCoords = new Vector2(MousePosition.X / ScalingFactor, (float)(Canvas.ActualHeight - MousePosition.Y) / ScalingFactor);
-            var halfCanvas = new Vector2((float)Canvas.ActualWidth / 2, (float)Canvas.ActualHeight / 2) / ScalingFactor;
-            worldCoords += Camera.Position - halfCanvas;
-
-            var worldPosition = worldCoords;
-            WorldMousePosition = worldPosition;
-
-            bool ms1LastFrame = Ms1DownThisFrame;
-            Ms1DownThisFrame = Mouse.LeftButton == MouseButtonState.Pressed;
-
-            if (Ms1DownThisFrame && Ms1DownThisFrame != ms1LastFrame)
-            {
-                var ab = new b2AABB()
-                {
-                    lowerBound = worldPosition - Vector2.One,
-                    upperBound = worldPosition + Vector2.One
-                };
-
-                var queryFilter = B2Util.QueryFilter(PhysicsCategory.All, PhysicsMask.All);
-
-                B2Api.b2World_OverlapAABB(World, ab, queryFilter, qfn, 0);
-            }
-            else if (!Ms1DownThisFrame && Ms1DownThisFrame != ms1LastFrame)
-            {
-                if (Dragging != null)
-                {
-                    var delta = worldPosition - LastDragPosition;
-                    var msDelta = MousePosition - LastMousePosition;
-
-                    B2Api.b2Body_SetLinearVelocity(Dragging.Body, delta * msDelta.Length());
-                }
-
-                Dragging = null;
-            }
-
-            if (Dragging != null)
-            {
-                var body = Dragging.Body;
-
-                LastDragPosition = worldPosition;
-                LastMousePosition = MousePosition;
-
-                B2Api.b2Body_SetLinearVelocity(body, Vector2.Zero);
-                B2Api.b2Body_SetAngularVelocity(body, 0.0f);
-                B2Api.b2Body_SetTransform(body, worldPosition + DraggingOffset, B2Api.b2Body_GetTransform(body).q);
-            }
+            DragUpdate();
         }
 
-        private void MainWindow_MouseMove(object sender, MouseEventArgs e)
+        public void GameRender(float dt)
         {
-            var point = e.GetPosition(Canvas);
-            MousePosition = new Vector2((float)point.X, (float)point.Y);
+            var inputDir = new Vector2(IsKeyDown01(Key.D) - IsKeyDown01(Key.A), IsKeyDown01(Key.W) - IsKeyDown01(Key.S));
+
+            var camRot = b2Rot.FromAngle(Camera.Angle);
+            var camRot90 = b2Rot.FromAngle(Camera.Angle + MathF.PI * 0.5f);
+            var camDir = new Vector2(camRot.c, camRot90.s);
+            camDir = camDir.Length() > 0.0 ? Vector2.Normalize(camDir) : camDir;
+            camDir *= inputDir * CameraSpeed * dt;
+            Camera.Position += camDir;
+
+            //Console.WriteLine($"{camRot.c},{camRot.s} | {camRot90.c},{camRot90.s}");
+            //Console.WriteLine(Camera.Angle);
+
+            Camera.Angle += dt * (IsKeyDown01(Key.E) - IsKeyDown01(Key.Q));
+
+            var halfCanvas = new Vector2((float)Canvas.ActualWidth / 2, (float)Canvas.ActualHeight / 2);
+
+            var subject = _controls.OfType<Player>().FirstOrDefault();
+
+            if (subject != null)
+            {
+                //subj.BodyId.SetTransform(Camera.Position, b2Rot.Zero);
+                Camera.Position = B2Api.b2Body_GetPosition(subject.Body);
+            }
+
+            World.SetGravity(new Vector2(camRot90.c, -camRot90.s) * 10.0f);
+
+            // Render GameControls
+            foreach (var control in _iterControls)
+            {
+                Debug.Assert(B2Api.b2Body_IsValid(control.Body));
+
+                var t = control.Body.GetTransform();
+                var p = Vector2.Transform(t.p - Camera.Position, Matrix3x2.CreateRotation(Camera.Angle));
+                var screenPosition = (p * ScalingFactor) + halfCanvas;
+
+                control.Rotate.Angle = -(Camera.Angle + t.q.GetAngle()).RadToDeg();
+                Canvas.SetLeft(control, screenPosition.X);
+                Canvas.SetTop(control, (float)Canvas.ActualHeight - screenPosition.Y);
+            }
+
+            // The grid rotation is correct but the calculation does not account for the shifting grid
+            // This does not preserve the grid where it should be.
+
+            var pxCamera = Camera.Position * ScalingFactor;
+            CanvasBrush.Transform = new TransformGroup()
+            {
+                Children = [
+                    new TranslateTransform(-pxCamera.X % ScalingFactor, pxCamera.Y % ScalingFactor),
+                    new RotateTransform(-Camera.Angle.RadToDeg()),
+                ]
+            };
         }
-
-        Vector2 MousePosition = Vector2.Zero;
-
-        bool Ms1DownThisFrame = false;
-
-        GameControl? Dragging;
-        Vector2 WorldMousePosition = Vector2.Zero;
-        Vector2 DraggingOffset = Vector2.Zero;
-
-        Vector2 LastDragPosition = Vector2.Zero;
-        Vector2 LastMousePosition = Vector2.Zero;
 
         public bool IsKeyDown(Key key)
         {
@@ -788,66 +829,72 @@ namespace Atlantis.Game
             state.isPressed = false;
         }
 
-        
-
-        public void GameRender(float dt)
+        private void DragUpdate()
         {
-            float SPD = 20.0f;
-
-            var inputDir = new Vector2(IsKeyDown01(Key.D) - IsKeyDown01(Key.A), IsKeyDown01(Key.W) - IsKeyDown01(Key.S));
-
-            var camRot = b2Rot.FromAngle(Camera.Angle);
-            var camRot90 = b2Rot.FromAngle(Camera.Angle + MathF.PI * 0.5f);
-            var camDir = new Vector2(camRot.c, camRot90.s);
-            camDir = camDir.Length() > 0.0 ? Vector2.Normalize(camDir) : camDir;
-            camDir *= inputDir * SPD;
-            Camera.Position += camDir;
-
-            //Console.WriteLine($"{camRot.c},{camRot.s} | {camRot90.c},{camRot90.s}");
-            //Console.WriteLine(Camera.Angle);
-
-            Camera.Angle += dt * (IsKeyDown01(Key.E) - IsKeyDown01(Key.Q));
-
-            var halfCanvas = new Vector2((float)Canvas.ActualWidth / 2, (float)Canvas.ActualHeight / 2);
-
-            var subject = _controls.OfType<Player>().FirstOrDefault();
-
-            if (subject != null)
+            if (MouseButton1.pressedNow)
             {
-                //subj.BodyId.SetTransform(Camera.Position, b2Rot.Zero);
-                Camera.Position = B2Api.b2Body_GetPosition(subject.Body);
+                var ab = new b2AABB()
+                {
+                    lowerBound = WorldMousePosition - Vector2.One,
+                    upperBound = WorldMousePosition + Vector2.One
+                };
+
+                var queryFilter = B2Util.QueryFilter(PhysicsCategory.All, PhysicsMask.All);
+
+                List<GameShape> shapes = [];
+                World.OverlapAABB(ab, queryFilter, (b2ShapeId shape, nint ctx) =>
+                {
+                    if (_shapeLookUp.TryGetValue(shape.GetUserData(), out var sh))
+                    {
+                        shapes.Add(sh);
+                    }
+                    return false;
+                }, 0);
+
+                // Find shape with lowest area
+                Dragging = shapes.Aggregate((current, sh) =>
+                {
+                    if (current == null)
+                    {
+                        return current;
+                    }
+                    float a = current.Size.LengthSquared();
+                    float b = sh.Size.LengthSquared();
+                    return a < b ? current : sh;
+                })?.Control;
+
+                if (Dragging != null)
+                {
+                    DraggingOffset = Dragging.Body.GetPosition() - WorldMousePosition;
+                }
+            }
+            else if (MouseButton1.releasedNow)
+            {
+                if (Dragging != null)
+                {
+                    var delta = WorldMousePosition - LastDragPosition;
+                    var msDelta = MousePosition - LastMousePosition;
+
+                    Dragging.Body.SetLinearVelocity(delta * msDelta.Length());
+                }
+
+                Dragging = null;
             }
 
-            World.SetGravity(new Vector2(camRot90.c, -camRot90.s) * 10.0f);
-
-            // Render GameControls
-            foreach (var control in _iterControls)
+            if (Dragging != null && Controls.Contains(Dragging))
             {
-                Debug.Assert(B2Api.b2Body_IsValid(control.Body));
+                var body = Dragging.Body;
 
-                var t = control.Body.GetTransform();
-                var p = Vector2.Transform(t.p - Camera.Position, Matrix3x2.CreateRotation(Camera.Angle));
-                var screenPosition = (p * ScalingFactor) + halfCanvas;
+                LastDragPosition = WorldMousePosition;
+                LastMousePosition = MousePosition;
 
-                control.Rotate.Angle = -(Camera.Angle + t.q.GetAngle()).RadToDeg();
-                Canvas.SetLeft(control, screenPosition.X);
-                Canvas.SetTop(control, (float)Canvas.ActualHeight - screenPosition.Y);
+                body.SetLinearVelocity(Vector2.Zero);
+                body.SetAngularVelocity(0.0f);
+                body.SetTransform(WorldMousePosition + DraggingOffset, B2Api.b2Body_GetTransform(body).q);
             }
-
-            // The grid rotation is correct but the calculation does not account for the shifting grid
-            // It does not preserve the grid where it should be.
-
-            var pxCamera = Camera.Position * ScalingFactor;
-            CanvasBrush.Transform = new TransformGroup()
-            {
-                Children = [
-                    new TranslateTransform(-pxCamera.X % ScalingFactor, pxCamera.Y % ScalingFactor),
-                    new RotateTransform(-Camera.Angle.RadToDeg()),
-                ]
-            };
         }
 
-        // Concept Overlap method.
+        // Query utillity methods
         // Use case: get shapes overlapping a shape without having to define a callback
 
         private List<GameShape> overlapCast;
@@ -875,7 +922,8 @@ namespace Atlantis.Game
             return World.CastRayClosest(origin, translation, filter);
         }
 
-        // Instead of closing the application, an exception is thrown.
+        // An exception is thrown so that box2d errors don't immidiately close the application.
+        // Only seems to work when using box2d debug dll which the nuget package does not support.
         private int AssertFcn(string condition, string fileName, int lineNumber)
         {
             Trace.WriteLine($"BOX2D ASSERT FAILED: {condition}\n{fileName} : {lineNumber}");

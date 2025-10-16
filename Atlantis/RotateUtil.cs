@@ -5,6 +5,9 @@ namespace Atlantis
 {
     public static class RotateUtil
     {
+        // Returns the RotateTransform of a element's RenderTransform
+        // Checks RotateTransform directly and within a TransformGroup
+        // Does not support complex transformations/rotations
         public static RotateTransform? GetRotateTransform(UIElement element)
         {
             RotateTransform? rotateTransform = null;
