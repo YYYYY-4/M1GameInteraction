@@ -34,6 +34,11 @@
             <game:ShapeDef.ShapeDef>
                 <game:ShapeDef Destructible="True"></game:ShapeDef>
             </game:ShapeDef.ShapeDef>
+            <Rectangle>
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="{StaticResource WallBreakable}" Stretch="Fill" TileMode="Tile" Viewport="0,0,64,64" ViewportUnits="Absolute"/>
+                </Rectangle.Fill>
+            </Rectangle>
         </game:Wall>
         <game:Wall Width="7944" Height="100" HorizontalAlignment="Left" Canvas.Top="0" VerticalAlignment="Center" Canvas.Left="-2742"/>
         <game:Wall Width="3981" Height="100" HorizontalAlignment="Left" Canvas.Top="765" VerticalAlignment="Center" Canvas.Left="1011"/>
