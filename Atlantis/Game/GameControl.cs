@@ -144,6 +144,10 @@ namespace Atlantis.Game
             def?.ApplyShapeDef(ref shapeDef);
         }
 
+        public virtual void OnBeforeLoadControl()
+        {
+        }
+
         public virtual void OnStart()
         {
             DesignerMode = DesignerProperties.GetIsInDesignMode(this);
