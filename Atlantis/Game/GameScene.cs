@@ -1,27 +1,14 @@
 ﻿using Atlantis.Box2dNet;
 using Atlantis.Menus;
-using Atlantis.Scene;
 using Box2dNet.Interop;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Numerics;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography.Xml;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
-using System.Xml.Linq;
 using static Atlantis.Box2dNet.B2Extension;
-using Atlantis.Box2dNet;
-using Atlantis.Menus;
-using Atlantis.Scene;
 
 namespace Atlantis.Game
 {
@@ -156,7 +143,7 @@ namespace Atlantis.Game
             _watch.Start();
 
             Keys = [];
-            foreach (var key in Enum.GetValues(typeof(Key)).Cast<Key>())
+            foreach (var key in Enum.GetValues<Key>())
             {
                 Keys[key] = new();
             }
@@ -854,17 +841,20 @@ namespace Atlantis.Game
                 }, 0);
 
                 // Find shape with lowest area
-                Dragging = shapes.Aggregate((current, sh) =>
+                if (shapes.Count > 0)
                 {
-                    if (current == null)
+                    Dragging = shapes.Aggregate((current, sh) =>
                     {
-                        return current;
-                    }
-                    float a = current.Size.LengthSquared();
-                    float b = sh.Size.LengthSquared();
-                    return a < b ? current : sh;
-                })?.Control;
-
+                        if (current == null)
+                        {
+                            return current;
+                        }
+                        float a = current.Size.LengthSquared();
+                        float b = sh.Size.LengthSquared();
+                        return a < b ? current : sh;
+                    })?.Control;
+                }
+                
                 if (Dragging != null)
                 {
                     DraggingOffset = Dragging.Body.GetPosition() - WorldMousePosition;

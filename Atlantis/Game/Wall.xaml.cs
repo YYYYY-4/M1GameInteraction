@@ -12,8 +12,6 @@ namespace Atlantis.Game
     {
         private Rectangle WallRect;
 
-        public int NCHANGEWIDTH = 0;
-
         public Wall()
         {
             InitializeComponent();

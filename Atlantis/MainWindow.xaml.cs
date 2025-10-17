@@ -69,22 +69,6 @@ namespace Atlantis
             //    b2ShapeId shapeId = B2Api.b2CreatePolygonShape(groundId, groundShapeDef, poly);
             //}
         }
-
-        static Matrix3x2 M3X2Inverse(Matrix3x2 m)
-        {
-            _ = Matrix3x2.Invert(m, out var result);
-            return result;
-        }
-
-        static Matrix3x2 ToWorld(Matrix3x2 self, Matrix3x2 b)
-        {
-            return self * b;
-        }
-
-        static Matrix3x2 ToLocal(Matrix3x2 self, Matrix3x2 b)
-        {
-            return Matrix3x2.Identity;
-        }
         
         public List<Page> PageHistory { get; } = new List<Page>();
 
@@ -102,6 +86,9 @@ namespace Atlantis
 
         public void PushPage(Page page)
         {
+            page.ClearValue(Page.HeightProperty);
+            page.ClearValue(Page.WidthProperty);
+
             PageHistory.Add(page);
             Content = page;
 

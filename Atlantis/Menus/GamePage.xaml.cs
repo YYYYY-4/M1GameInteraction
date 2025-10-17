@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using Atlantis.Game;
 using Atlantis.Scene;
 
@@ -13,7 +14,7 @@ public partial class GamePage : Page
 {
     MainWindow _window;
     Canvas _canvas;
-    GameScene? _scene;
+    GameScene _scene;
 
     public GameScore Score = new GameScore();
 
@@ -28,25 +29,24 @@ public partial class GamePage : Page
         _save = save;
         _level = level;
         LoadScene<DemoLevel>();
-        Win(1); 
+
+        Overlay.Visibility = Visibility.Hidden;
     }
 
     /// <summary>
     /// Everything that happens when you win a level
     /// </summary>
-    /// <param name="level"></param>
-    /// <param name="name"></param>
-    public void Win(int level)
+    public void Win()
     {
-        int score = Score.Calculation();
+        int level = 0;
+        int score = Score.Calculation(_scene.Time);
         HighscorePage.AddRecord(level, score, _save.Name);
+
         HigscoreTable.ItemsSource = HighscorePage.ReadData(level);
 
-        int score = Score.Calculation(_scene.Time);
-        HighscorePage.AddRecord(_level, score, _save.Name);
-        _window.PushPage(new HighscorePage(_window, _save, _level));
+        Overlay.Visibility = Visibility.Visible;
     }
-    
+
     /// <typeparam name="T">Scene which inherits Page and defines a Canvas at it's root.</typeparam>
     public void LoadScene<T>() where T : Page
     {
@@ -62,6 +62,14 @@ public partial class GamePage : Page
         _scene = new GameScene(_window, this, _canvas);
 
         page.Content = null;
+
+        // game in background
+        Panel.SetZIndex(_canvas, int.MinValue); 
+
+        // use entire grid
+        Grid.SetColumnSpan(_canvas, int.MaxValue);
+        Grid.SetRowSpan(_canvas, int.MaxValue);
+
         RootGrid.Children.Add(_canvas);
     }
 }
