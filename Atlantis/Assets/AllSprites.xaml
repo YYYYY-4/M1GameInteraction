@@ -39,5 +39,14 @@
     <BitmapImage x:Key="Fish5_0.png" UriSource="/Atlantis;component/Assets/Fish/Fish5_0.png"/>
     <BitmapImage x:Key="Fish5_1.png" UriSource="/Atlantis;component/Assets/Fish/FIsh5_1.png"/>
 
+    <BitmapImage x:Key="Chapter1" UriSource="/Atlantis;component/Assets/LevelSelect/Chapter1LevelSelect.png"/>
+    <BitmapImage x:Key="Chapter2" UriSource="/Atlantis;component/Assets/LevelSelect/Chapter2LevelSelect.png"/>
+    <BitmapImage x:Key="Chapter3" UriSource="/Atlantis;component/Assets/LevelSelect/Chapter3LevelSelect.png"/>
+    <BitmapImage x:Key="ChapterHead" UriSource="/Atlantis;component/Assets/LevelSelect/ChapterHead.png"/>
+
+    <BitmapImage x:Key="Key0" UriSource="/Atlantis;component/Assets/Keys/Key0.png"/>
+    <BitmapImage x:Key="Key1" UriSource="/Atlantis;component/Assets/Keys/Key1.png"/>
+    <BitmapImage x:Key="Key2" UriSource="/Atlantis;component/Assets/Keys/Key2.png"/>
+    <BitmapImage x:Key="Key3" UriSource="/Atlantis;component/Assets/Keys/Key3.png"/>
 </ResourceDictionary>
 

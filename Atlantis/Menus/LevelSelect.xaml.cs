@@ -30,9 +30,64 @@ namespace Atlantis.Menus
             _save = save;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void C1L1_Click(object sender, RoutedEventArgs e)
         {
             _window.PushPage(new GamePage(_window, _save, 0));
+        }
+
+        private void C1L2_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void C1L3_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void C1L4_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void C2L1_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void C2L2_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void C2L3_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void C2L4_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void C3L1_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void C3L2_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void C3L3_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void C3L4_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
