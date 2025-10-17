@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <None Remove="Assets\Brick1.png" />
+    <None Remove="Assets\CoralPixels-Regular.ttf" />
     <None Remove="Assets\Door\DoorClosed.png" />
     <None Remove="Assets\Door\DoorOpen.png" />
     <None Remove="Assets\Door\DoorOpening.png" />
@@ -44,6 +45,12 @@
     <None Remove="Assets\Wall\WallBreakable.png" />
     <None Remove="Assets\Wall\WallMoveable.png" />
     <None Remove="box2d.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\CoralPixels-Regular.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

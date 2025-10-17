@@ -4,8 +4,6 @@
                                        xmlns:gif="http://wpfanimatedgif.codeplex.com">
     <!-- This resource needs to be referenced by App.xaml to work globally -->
 
-
-
     <BitmapImage x:Key="NOSPRITE" UriSource="/Atlantis;component/Assets/NOSPRITE.png" />
     <BitmapImage x:Key="WALL1" UriSource="/Atlantis;component/Assets/Wall.png" />
     <BitmapImage x:Key="Brick1" UriSource="/Atlantis;component/Assets/Brick1.png" />
@@ -42,6 +40,8 @@
     <BitmapImage x:Key="WallBreakable" UriSource="/Atlantis;component/Assets/Wall/WallBreakable.png"/>
     <BitmapImage x:Key="WallMoveable" UriSource="/Atlantis;component/Assets/Wall/WallMoveable.png"/>
 
-    <FontFamily x:Key="MainFont">/Atlantis;component/Assets/PixelatedEleganceRegular.ttf</FontFamily>
+    <!--<FontFamily x:Key="MainFont">/Atlantis;component/Assets/CoralPixels-Regular.ttf</FontFamily>-->
+    <FontFamily x:Key="MainFont">C:\Users\user\source\repos\M1GameInteraction\Atlantis\Assets\#Pixelated Elegance</FontFamily>
+    <FontFamily x:Key="SecondFont">C:\Users\user\source\repos\M1GameInteraction\Atlantis\Assets\#Coral Pixels</FontFamily>
 </ResourceDictionary>
 
