@@ -194,6 +194,8 @@ namespace Atlantis.Game
 
         public void ProcessGameControl(GameControl control, b2Transform transform)
         {
+            control.OnBeforeLoadControl();
+
             if (double.IsNaN(Canvas.GetTop(control)))
             {
                 Canvas.SetTop(control, 0.0);
