@@ -20,7 +20,16 @@ public partial class GamePage : Page
 
     private PlayerSave _save;
     private int _level;
-    
+
+    public static readonly Dictionary<int, Type> Levels = new()
+    {
+        { 0, typeof(DemoLevel) },
+        { 1, typeof(DemoLevel) },
+        { 2, typeof(DemoLevel) },
+        { 3, typeof(DemoLevel) },
+        { 4, typeof(DemoLevel) }
+    };
+
     public GamePage(MainWindow window, PlayerSave save, int level)
     {
         InitializeComponent();
@@ -28,12 +37,15 @@ public partial class GamePage : Page
         _window = window;
         _save = save;
         _level = level;
-        LoadScene<DemoLevel>();
+
+
+
+        LoadScene();
 
         Focusable = true;
         Focus();
 
-        //Overlay.Visibility = Visibility.Hidden;
+        UpdatePauseVisible();
     }
 
     /// <summary>
@@ -50,23 +62,30 @@ public partial class GamePage : Page
     }
 
     /// <typeparam name="T">Scene which inherits Page and defines a Canvas at it's root.</typeparam>
-    public void LoadScene<T>() where T : Page
+    public void LoadScene()
     {
+        if (!Levels.TryGetValue(_level, out var levelType))
+        {
+            return;
+        }
+
         if (_scene != null)
         {
             _scene.Destroy();
             RootGrid.Children.Remove(_canvas);
         }
 
+        var page = (Page)levelType.GetConstructors()[0].Invoke(null);
+
         Score = new GameScore();
-        var page = new DemoLevel();
+
         _canvas = (Canvas)page.Content;
         _scene = new GameScene(_window, this, _canvas);
 
         page.Content = null;
 
         // game in background
-        Panel.SetZIndex(_canvas, int.MinValue); 
+        Panel.SetZIndex(_canvas, int.MinValue);
 
         // use entire grid
         Grid.SetColumnSpan(_canvas, int.MaxValue);
@@ -74,37 +93,52 @@ public partial class GamePage : Page
 
         RootGrid.Children.Add(_canvas);
 
-        SetPaused(false);
+        UpdatePauseVisible();
+    }
+
+    private void UpdatePauseVisible()
+    {
+        if (_scene == null)
+        {
+            Overlay.Visibility = Visibility.Visible;
+        }
+        else
+        {
+            Overlay.Visibility = _scene.Paused ? Visibility.Visible : Visibility.Hidden;
+        }
     }
 
     public void SetPaused(bool paused)
     {
         _scene.Paused = paused;
-        Overlay.Visibility = _scene.Paused ? Visibility.Visible : Visibility.Hidden;
+        UpdatePauseVisible();
     }
 
     protected override void OnKeyDown(KeyEventArgs e)
     {
         base.OnKeyDown(e);
 
-        if (e.Key == Key.Escape || e.Key == Key.P)
+        if (_scene != null && (e.Key == Key.Escape || e.Key == Key.P))
         {
             SetPaused(!_scene.Paused);
         }
         else if (e.Key == Key.F1)
         {
-            LoadScene<DemoLevel>();
+            LoadScene();
         }
     }
 
     private void Button_Continue(object sender, RoutedEventArgs e)
     {
-        SetPaused(false);
+        if (_scene != null)
+        {
+            SetPaused(false);
+        }
     }
 
     private void Button_Restart(object sender, RoutedEventArgs e)
     {
-        LoadScene<DemoLevel>();
+        LoadScene();
     }
 
     private void Button_LevelSelect(object sender, RoutedEventArgs e)
