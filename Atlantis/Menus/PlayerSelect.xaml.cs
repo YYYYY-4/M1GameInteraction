@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -35,6 +36,7 @@ namespace Atlantis.Menus
             set 
             { 
                 _save0.Name = value;
+                // Needs to be called to reactively change the name of the SaveFile to New Save
                 OnPropertyChanged(nameof(SaveName0));
             }
         }
@@ -57,6 +59,10 @@ namespace Atlantis.Menus
             }
         }
 
+        /// <summary>
+        /// Loads all existing saveFiles on page creation, save variables are null if saveFile does not exist
+        /// </summary>
+        /// <param name="window"></param>
         public PlayerSelect(MainWindow window)
         {
             InitializeComponent();
@@ -67,31 +73,43 @@ namespace Atlantis.Menus
             _save2 = PlayerSave.Load(2);
         }
 
+        /// <summary>
+        /// Checks if saveFile0 exists, if not creates a playerNameInput page, if yes creates a levelSelect page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SaveFile0_Click(object sender, RoutedEventArgs e)
         {
-            _window.PageHistory.Add(this);
             if (PlayerSave.Load(0) == null)
-                _window.Content = new PlayerNameInput(_window , 0);
+                _window.PushPage(new PlayerNameInput(_window, 0));
             else
-                _window.Content = new LevelSelect(_window, _save0);
+                _window.PushPage(new LevelSelect(_window, _save0));
         }
 
+        /// <summary>
+        /// Checks if saveFile1 exists, if not creates a playerNameInput page, if yes creates a levelSelect page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SaveFile1_Click(object sender, RoutedEventArgs e)
         {
-            _window.PageHistory.Add(this);
             if (PlayerSave.Load(1) == null)
-                _window.Content = new PlayerNameInput(_window, 1);
+                _window.PushPage(new PlayerNameInput(_window, 1));
             else
-                _window.Content = new LevelSelect(_window, _save1);
+                _window.PushPage(new LevelSelect(_window, _save1));
         }
 
+        /// <summary>
+        /// Checks if saveFile2 exists, if not creates a playerNameInput page, if yes creates a levelSelect page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SaveFile2_Click(object sender, RoutedEventArgs e)
         {
-            _window.PageHistory.Add(this);
             if (PlayerSave.Load(2) == null)
-                _window.Content = new PlayerNameInput(_window, 2);
+                _window.PushPage(new PlayerNameInput(_window, 2));
             else
-                _window.Content = new LevelSelect(_window, _save2);
+                _window.PushPage(new LevelSelect(_window, _save2));
         }
 
         private void DeleteSave0_Click(object sender, RoutedEventArgs e)
@@ -111,6 +129,7 @@ namespace Atlantis.Menus
             _save2.Delete();
             SaveName2 = null;
         }
+
         protected void OnPropertyChanged(string propertyName)
         {
 
@@ -120,6 +139,16 @@ namespace Atlantis.Menus
                 var e = new PropertyChangedEventArgs(propertyName);
                 handler(this, e);
             }
+        }
+
+        /// <summary>
+        /// Goes back to previous page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            _window.GoBack();
         }
     }
 }

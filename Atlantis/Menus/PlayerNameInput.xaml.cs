@@ -36,15 +36,29 @@ namespace Atlantis.Menus
             _name = nameInput.Text;
         }
 
+        /// <summary>
+        /// Makes a new saveFile based on the textbox input and changes to levelSelect page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Submit_click(object sender, RoutedEventArgs e)
         {
             if (_name != null)
             {
                 PlayerSave save = new PlayerSave(_name, _saveSlot);
                 save.Save();
-                _window.PageHistory.Add(this);
-                _window.Content = new LevelSelect(_window, save);
+                _window.PushPage(new LevelSelect(_window, save));
             }
+        }
+
+        /// <summary>
+        /// Goes back to previous page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            _window.GoBack();
         }
     }
 }

@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Atlantis.Menus"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="PlayerSelect" Background="White">
+      Title="PlayerSelect">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -51,5 +51,6 @@
                 <Label Content="Delete"/>
             </Button>
         </Grid>
+        <Button Click="BackButton_Click">Back</Button>
     </Grid>
 </Page>

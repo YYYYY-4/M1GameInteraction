@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Atlantis.Menus"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="PlayerNameInput" Background="White">
+      Title="PlayerNameInput">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -15,6 +15,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBox Grid.Row="1" Name="nameInput" TextChanged="TextBox_TextChanged"/>
-        <Button Grid.Row="2" Click="Submit_click"/>
+        <Button Grid.Row="2" Click="Submit_click">Submit</Button>
+        <Button Click="BackButton_Click">Back</Button>
     </Grid>
 </Page>

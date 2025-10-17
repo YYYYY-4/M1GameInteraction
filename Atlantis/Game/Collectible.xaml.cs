@@ -20,7 +20,7 @@
 
             if (visitor.Control is Player player)
             {
-                Scene.GamePage.CollectibleCount += 1;
+                Scene.GamePage.Score.Collectables += 1;
                 Scene.DestroyControl(this);
                 _debounce = true;
             }

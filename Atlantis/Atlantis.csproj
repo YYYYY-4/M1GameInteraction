@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Brick1.png" />
     <None Remove="Assets\Door\DoorClosed.png" />
     <None Remove="Assets\Door\DoorOpen.png" />
     <None Remove="Assets\Door\DoorOpening.png" />
@@ -20,15 +21,29 @@
     <None Remove="Assets\Dynamite\DynamiteFrame4.png" />
     <None Remove="Assets\Dynamite\DynamiteFrame5.png" />
     <None Remove="Assets\Dynamite\DynamiteIdle.png" />
+    <None Remove="Assets\Explosion.png" />
+    <None Remove="Assets\Fish\Fish0_0.png" />
+    <None Remove="Assets\Fish\Fish0_1.png" />
+    <None Remove="Assets\Fish\Fish1_0.png" />
+    <None Remove="Assets\Fish\Fish1_1.png" />
+    <None Remove="Assets\Fish\Fish2_0.png" />
+    <None Remove="Assets\Fish\Fish2_1.png" />
+    <None Remove="Assets\Fish\Fish3_0.png" />
+    <None Remove="Assets\Fish\Fish3_1.png" />
+    <None Remove="Assets\Fish\Fish4_0.png" />
+    <None Remove="Assets\Fish\Fish4_1.png" />
+    <None Remove="Assets\Fish\Fish5_0.png" />
+    <None Remove="Assets\Fish\FIsh5_1.png" />
+    <None Remove="Assets\MenuBackground.png" />
+    <None Remove="Assets\NOSPRITE.png" />
+    <None Remove="Assets\placeholder.png" />
+    <None Remove="Assets\PlaceholderCollectable.jpg" />
     <None Remove="Assets\PlayerSprite.gif" />
-    <None Remove="Assets\WallBase.png" />
-    <None Remove="Assets\WallBreakable.png" />
+    <None Remove="Assets\Wall.png" />
+    <None Remove="Assets\Wall\WallBase.png" />
+    <None Remove="Assets\Wall\WallBreakable.png" />
     <None Remove="Assets\Wall\WallMoveable.png" />
     <None Remove="box2d.dll" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Assets\Wall\WallMoveable.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,16 +63,28 @@
     <Resource Include="Assets\Dynamite\DynamiteFrame4.png" />
     <Resource Include="Assets\Dynamite\DynamiteFrame5.png" />
     <Resource Include="Assets\Dynamite\DynamiteIdle.png" />
+    <Resource Include="Assets\Explosion.png" />
+    <Resource Include="Assets\Fish\Fish0_0.png" />
+    <Resource Include="Assets\Fish\Fish0_1.png" />
+    <Resource Include="Assets\Fish\Fish1_0.png" />
+    <Resource Include="Assets\Fish\Fish1_1.png" />
+    <Resource Include="Assets\Fish\Fish2_0.png" />
+    <Resource Include="Assets\Fish\Fish2_1.png" />
+    <Resource Include="Assets\Fish\Fish3_0.png" />
+    <Resource Include="Assets\Fish\Fish3_1.png" />
+    <Resource Include="Assets\Fish\Fish4_0.png" />
+    <Resource Include="Assets\Fish\Fish4_1.png" />
+    <Resource Include="Assets\Fish\Fish5_0.png" />
+    <Resource Include="Assets\Fish\FIsh5_1.png" />
+    <Resource Include="Assets\MenuBackground.png" />
+    <Resource Include="Assets\NOSPRITE.png" />
+    <Resource Include="Assets\placeholder.png" />
+    <Resource Include="Assets\PlaceholderCollectable.jpg" />
     <Resource Include="Assets\PlayerSprite.gif" />
     <Resource Include="Assets\Wall.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Assets\NOSPRITE.png">
-      <CopyToOutputDirectory></CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Assets\Wall\WallBase.png" />
     <Resource Include="Assets\Wall\WallBreakable.png" />
+    <Resource Include="Assets\Wall\WallMoveable.png" />
   </ItemGroup>
 
   <ItemGroup>

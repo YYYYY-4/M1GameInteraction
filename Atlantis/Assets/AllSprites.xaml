@@ -17,7 +17,27 @@
     <BitmapImage x:Key="Dynamite3" UriSource="/Atlantis;component/Assets/Dynamite/DynamiteFrame3.png"/>
     <BitmapImage x:Key="Dynamite4" UriSource="/Atlantis;component/Assets/Dynamite/DynamiteFrame4.png"/>
     <BitmapImage x:Key="Dynamite5" UriSource="/Atlantis;component/Assets/Dynamite/DynamiteFrame5.png"/>
+    <BitmapImage x:Key="Explosion" UriSource="/Atlantis;component/Assets/Explosion.png"/>
+    <BitmapImage x:Key="MenuBackground" UriSource="/Atlantis;component/Assets/MenuBackground.png"/>
+    <BitmapImage x:Key="Placeholder" UriSource="/Atlantis;component/Assets/placeholder.png"/>
+    <BitmapImage x:Key="Collectable" UriSource="/Atlantis;component/Assets/PlaceholderCollectable.jpg"/>
+    <BitmapImage x:Key="DoorClosed" UriSource="/Atlantis;component/Assets/Door/DoorClosed.png"/>
+    <BitmapImage x:Key="DoorOpen" UriSource="/Atlantis;component/Assets/Door/DoorOpen.png"/>
+    <BitmapImage x:Key="DoorOpening" UriSource="/Atlantis;component/Assets/Door/DoorOpening.png"/>
     <!--<ImageBrush x:Key="PlayerIdle" gif:ImageBehavior.AnimatedSource="/Atlantis;component/Assets/PlayerSprite.gif" />-->
+
+    <BitmapImage x:Key="Fish0_0.png" UriSource="/Atlantis;component/Assets/Fish/Fish0_0.png"/>
+    <BitmapImage x:Key="Fish0_1.png" UriSource="/Atlantis;component/Assets/Fish/Fish0_1.png"/>
+    <BitmapImage x:Key="Fish1_0.png" UriSource="/Atlantis;component/Assets/Fish/Fish1_0.png"/>
+    <BitmapImage x:Key="Fish1_1.png" UriSource="/Atlantis;component/Assets/Fish/Fish1_1.png"/>
+    <BitmapImage x:Key="Fish2_0.png" UriSource="/Atlantis;component/Assets/Fish/Fish2_0.png"/>
+    <BitmapImage x:Key="Fish2_1.png" UriSource="/Atlantis;component/Assets/Fish/Fish2_1.png"/>
+    <BitmapImage x:Key="Fish3_0.png" UriSource="/Atlantis;component/Assets/Fish/Fish3_0.png"/>
+    <BitmapImage x:Key="Fish3_1.png" UriSource="/Atlantis;component/Assets/Fish/Fish3_1.png"/>
+    <BitmapImage x:Key="Fish4_0.png" UriSource="/Atlantis;component/Assets/Fish/Fish4_0.png"/>
+    <BitmapImage x:Key="Fish4_1.png" UriSource="/Atlantis;component/Assets/Fish/Fish4_1.png"/>
+    <BitmapImage x:Key="Fish5_0.png" UriSource="/Atlantis;component/Assets/Fish/Fish5_0.png"/>
+    <BitmapImage x:Key="Fish5_1.png" UriSource="/Atlantis;component/Assets/Fish/FIsh5_1.png"/>
 
 </ResourceDictionary>
 
