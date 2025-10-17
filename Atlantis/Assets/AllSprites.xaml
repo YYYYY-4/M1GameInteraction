@@ -42,5 +42,6 @@
     <BitmapImage x:Key="WallBreakable" UriSource="/Atlantis;component/Assets/Wall/WallBreakable.png"/>
     <BitmapImage x:Key="WallMoveable" UriSource="/Atlantis;component/Assets/Wall/WallMoveable.png"/>
 
+    <FontFamily x:Key="MainFont">/Atlantis;component/Assets/PixelatedEleganceRegular.ttf</FontFamily>
 </ResourceDictionary>
 

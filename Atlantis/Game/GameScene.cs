@@ -75,8 +75,8 @@ namespace Atlantis.Game
         Vector2 LastDragPosition = Vector2.Zero;
         Vector2 LastMousePosition = Vector2.Zero;
 
-        private static bool _paused = false;
-        private static bool Paused
+        private bool _paused = false;
+        public bool Paused
         {
             get => _paused;
             set => _paused = value;
@@ -114,6 +114,8 @@ namespace Atlantis.Game
 
         private void Content_Loaded(object sender, RoutedEventArgs e)
         {
+            Canvas.Loaded -= Content_Loaded;
+
             Canvas.ClearValue(Canvas.WidthProperty);
             Canvas.ClearValue(Canvas.HeightProperty);
 
@@ -795,16 +797,6 @@ namespace Atlantis.Game
                 state.pressedAt = Time;
             }
             state.isPressed = true;
-
-            switch (e.Key)
-            {
-                case Key.Escape:
-                    Paused = !Paused;
-                    break;
-                case Key.F1:
-                    GamePage.LoadScene<DemoLevel>();
-                    break;
-            }
         }
 
         private void MainWindow_KeyUp(object sender, KeyEventArgs e)
