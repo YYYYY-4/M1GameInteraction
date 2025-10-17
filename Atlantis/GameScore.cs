@@ -30,10 +30,10 @@ namespace Atlantis
         //_level = level;
         //}
 
-        public int Calculation()
+        public int Calculation(float time)
         {
             int maxScore = 10000;
-            _score = maxScore - (tijd * 10) + (collectables * 100);
+            _score = maxScore - (Convert.ToInt32(time * 50)) + (collectables * 100);
 
             return _score;
         }
