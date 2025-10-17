@@ -25,29 +25,19 @@ namespace Atlantis.Menus
     public partial class HighscorePage : Page
     {
         private static string s_fileName = "HighscoreList.csv";
+        private int _level;
+        private MainWindow _mainWindow;
+        private PlayerSave _save;
 
-        public HighscorePage()
+        public HighscorePage(MainWindow window, PlayerSave save, int level)
         {
             InitializeComponent();
+            _level = level;
+            _mainWindow = window;
+            _save = save;
 
             // Needed otherwise wpf can not find this namespace or whatever...
             DataContext = this;
-
-
-            //PlayerSave playerSave = new PlayerSave("Ferry", 1);
-            //ActivePlayer player = new ActivePlayer(playerSave);
-          
-
-            // Variabele, Have to get these from other people
-            // For now they are random
-            //int score = Random.Shared.Next(10000);
-            //string name = player.Save.Name;
-            int level = Random.Shared.Next(1, 13);
-
-            int score = 0;
-            // Puts the score in the file, if file does not exist creates the file
-            //AddRecord(level, score, name);
-
 
             // Gets the data from the .csv file
             Scoreboard = ReadData(level);

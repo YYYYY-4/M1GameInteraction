@@ -32,7 +32,7 @@ namespace Atlantis.Menus
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _window.PushPage(new GamePage(_window, _save));
+            _window.PushPage(new GamePage(_window, _save, 0));
         }
     }
 }

@@ -88,6 +88,12 @@ namespace Atlantis.Game
                 Dynamite.SpawnDynamite(Scene);
             }
 
+            // For testing purpose
+            if (Scene.Keys[Key.K].pressedNow)
+            {
+                EndDoor.OpenDoor();
+            }
+
             var input = new Vector2(IsKeyDown01(Key.D) - IsKeyDown01(Key.A), IsKeyDown01(Key.W) - IsKeyDown01(Key.S));
 
 
