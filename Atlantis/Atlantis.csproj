@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <None Remove="Assets\Brick1.png" />
+    <None Remove="Assets\CoralPixels-Regular.ttf" />
     <None Remove="Assets\Door\DoorClosed.png" />
     <None Remove="Assets\Door\DoorOpen.png" />
     <None Remove="Assets\Door\DoorOpening.png" />
@@ -33,7 +34,7 @@
     <None Remove="Assets\Fish\Fish4_0.png" />
     <None Remove="Assets\Fish\Fish4_1.png" />
     <None Remove="Assets\Fish\Fish5_0.png" />
-    <None Remove="Assets\Fish\FIsh5_1.png" />
+    <None Remove="Assets\Fish\Fish5_1.png" />
     <None Remove="Assets\Keys\Key0.png" />
     <None Remove="Assets\Keys\Key1.png" />
     <None Remove="Assets\Keys\Key2.png" />
@@ -48,6 +49,12 @@
     <None Remove="Assets\Wall\WallBreakable.png" />
     <None Remove="Assets\Wall\WallMoveable.png" />
     <None Remove="box2d.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\CoralPixels-Regular.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -79,13 +86,16 @@
     <Resource Include="Assets\Fish\Fish4_0.png" />
     <Resource Include="Assets\Fish\Fish4_1.png" />
     <Resource Include="Assets\Fish\Fish5_0.png" />
-    <Resource Include="Assets\Fish\FIsh5_1.png" />
+    <Resource Include="Assets\Fish\Fish5_1.png" />
     <Resource Include="Assets\Keys\Key0.png" />
     <Resource Include="Assets\Keys\Key1.png" />
     <Resource Include="Assets\Keys\Key2.png" />
     <Resource Include="Assets\Keys\Key3.png" />
     <Resource Include="Assets\MenuBackground.png" />
     <Resource Include="Assets\NOSPRITE.png" />
+	  <Resource Include="Assets\PixelatedEleganceRegular.ttf">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
     <Resource Include="Assets\placeholder.png" />
     <Resource Include="Assets\PlaceholderCollectable.jpg" />
     <Resource Include="Assets\PlayerSprite.gif" />

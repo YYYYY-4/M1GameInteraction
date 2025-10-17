@@ -14,7 +14,7 @@ public partial class MainMenuPage : Page
     public MainMenuPage(MainWindow window)
     {
         InitializeComponent();
-        
+
         _window = window;
     }
     

@@ -41,11 +41,7 @@ namespace Atlantis.Menus
 
             // Gets the data from the .csv file
             Scoreboard = ReadData(level);
-
-            // Sorts the data by highest score
-            SortScorebaord();
         }
-
 
 
         /// <summary>
@@ -76,10 +72,10 @@ namespace Atlantis.Menus
 
         /// <summary>
         /// Reads the data from .csv file, Makes a object with the collected data
-        /// </summary>
+         /// </summary>
         /// <param name="activelevel"></param>
         /// <returns></returns>
-        private List<HighscoreRecord> ReadData(int activelevel)
+        public static List<HighscoreRecord> ReadData(int activelevel)
         {
             List<HighscoreRecord> records = [];
 
@@ -115,6 +111,7 @@ namespace Atlantis.Menus
                     });
                 }
             }
+            records.Sort(CompareScores);
 
             return records;
         }
@@ -125,7 +122,7 @@ namespace Atlantis.Menus
         /// <param name="record1"></param>
         /// <param name="record2"></param>
         /// <returns></returns>
-        private int CompareScores(HighscoreRecord record1, HighscoreRecord record2)
+        private static int CompareScores(HighscoreRecord record1, HighscoreRecord record2)
         {
             if (record1.Score > record2.Score) 
                 return -1;
@@ -133,14 +130,6 @@ namespace Atlantis.Menus
                 return 1;
             
             return 0;
-        }
-
-        /// <summary>
-        /// Sorts the scoreboard by highest score
-        /// </summary>
-        private void SortScorebaord()
-        {
-            Scoreboard.Sort(CompareScores);
         }
 
         // Object list om mee te geven aan de highscore list
