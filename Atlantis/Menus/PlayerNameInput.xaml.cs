@@ -36,6 +36,11 @@ namespace Atlantis.Menus
             _name = nameInput.Text;
         }
 
+        /// <summary>
+        /// Makes a new saveFile based on the textbox input and changes to levelSelect page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Submit_click(object sender, RoutedEventArgs e)
         {
             if (_name != null)
@@ -45,6 +50,12 @@ namespace Atlantis.Menus
                 _window.PushPage(new LevelSelect(_window, save));
             }
         }
+
+        /// <summary>
+        /// Goes back to previous page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             _window.GoBack();

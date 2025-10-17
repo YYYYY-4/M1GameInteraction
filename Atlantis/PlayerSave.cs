@@ -38,6 +38,9 @@ namespace Atlantis
             set { _path = value; }
         }
         
+        /// <summary>
+        /// Empty constructor for the creation of PlayerSave objects based on JSON files
+        /// </summary>
         public PlayerSave()
         {
 
