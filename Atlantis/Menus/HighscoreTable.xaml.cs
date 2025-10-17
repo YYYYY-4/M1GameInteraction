@@ -82,7 +82,7 @@ namespace Atlantis.Menus
 
         /// <summary>
         /// Reads the data from .csv file, Makes a object with the collected data
-        /// </summary>
+         /// </summary>
         /// <param name="activelevel"></param>
         /// <returns></returns>
         public static List<HighscoreRecord> ReadData(int activelevel)
