@@ -34,6 +34,10 @@
     <None Remove="Assets\Fish\Fish4_1.png" />
     <None Remove="Assets\Fish\Fish5_0.png" />
     <None Remove="Assets\Fish\FIsh5_1.png" />
+    <None Remove="Assets\Keys\Key0.png" />
+    <None Remove="Assets\Keys\Key1.png" />
+    <None Remove="Assets\Keys\Key2.png" />
+    <None Remove="Assets\Keys\Key3.png" />
     <None Remove="Assets\MenuBackground.png" />
     <None Remove="Assets\NOSPRITE.png" />
     <None Remove="Assets\placeholder.png" />
@@ -76,6 +80,10 @@
     <Resource Include="Assets\Fish\Fish4_1.png" />
     <Resource Include="Assets\Fish\Fish5_0.png" />
     <Resource Include="Assets\Fish\FIsh5_1.png" />
+    <Resource Include="Assets\Keys\Key0.png" />
+    <Resource Include="Assets\Keys\Key1.png" />
+    <Resource Include="Assets\Keys\Key2.png" />
+    <Resource Include="Assets\Keys\Key3.png" />
     <Resource Include="Assets\MenuBackground.png" />
     <Resource Include="Assets\NOSPRITE.png" />
     <Resource Include="Assets\placeholder.png" />
