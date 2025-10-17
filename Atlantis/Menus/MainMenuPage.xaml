@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Atlantis.Scene"
       mc:Ignorable="d"
-      Title="MainMenu" Height="450" Width="800">
+      Title="MainMenu">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />

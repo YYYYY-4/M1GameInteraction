@@ -18,13 +18,15 @@ public partial class GamePage : Page
     public GameScore Score = new GameScore();
 
     private PlayerSave _save;
+    private int _level;
     
-    public GamePage(MainWindow window, PlayerSave save)
+    public GamePage(MainWindow window, PlayerSave save, int level)
     {
         InitializeComponent();
-        
+        window.ChangeBackground("/Assets/placeholder.png");
         _window = window;
         _save = save;
+        _level = level;
         LoadScene<DemoLevel>();
         Win(1); 
     }
@@ -38,8 +40,11 @@ public partial class GamePage : Page
     {
         int score = Score.Calculation();
         HighscorePage.AddRecord(level, score, _save.Name);
-
         HigscoreTable.ItemsSource = HighscorePage.ReadData(level);
+
+        int score = Score.Calculation(_scene.Time);
+        HighscorePage.AddRecord(_level, score, _save.Name);
+        _window.PushPage(new HighscorePage(_window, _save, _level));
     }
     
     /// <typeparam name="T">Scene which inherits Page and defines a Canvas at it's root.</typeparam>
