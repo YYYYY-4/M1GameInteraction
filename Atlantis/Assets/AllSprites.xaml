@@ -41,7 +41,7 @@
     <BitmapImage x:Key="WallMoveable" UriSource="/Atlantis;component/Assets/Wall/WallMoveable.png"/>
 
     <!--<FontFamily x:Key="MainFont">/Atlantis;component/Assets/CoralPixels-Regular.ttf</FontFamily>-->
-    <FontFamily x:Key="MainFont">C:\Users\user\source\repos\M1GameInteraction\Atlantis\Assets\#Pixelated Elegance</FontFamily>
-    <FontFamily x:Key="SecondFont">C:\Users\user\source\repos\M1GameInteraction\Atlantis\Assets\#Coral Pixels</FontFamily>
+    <FontFamily x:Key="MainFont">/Atlantis;component/Assets/#Pixelated Elegance</FontFamily>
+    <FontFamily x:Key="SecondFont">/Atlantis;component/Assets/#Coral Pixels</FontFamily>
 </ResourceDictionary>
 
