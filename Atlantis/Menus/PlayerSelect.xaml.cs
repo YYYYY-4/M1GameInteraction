@@ -36,6 +36,7 @@ namespace Atlantis.Menus
             set 
             { 
                 _save0.Name = value;
+                // Needs to be called to reactively change the name of the SaveFile to New Save
                 OnPropertyChanged(nameof(SaveName0));
             }
         }
@@ -58,6 +59,10 @@ namespace Atlantis.Menus
             }
         }
 
+        /// <summary>
+        /// Loads all existing saveFiles on page creation, save variables are null if saveFile does not exist
+        /// </summary>
+        /// <param name="window"></param>
         public PlayerSelect(MainWindow window)
         {
             InitializeComponent();
@@ -68,6 +73,11 @@ namespace Atlantis.Menus
             _save2 = PlayerSave.Load(2);
         }
 
+        /// <summary>
+        /// Checks if saveFile0 exists, if not creates a playerNameInput page, if yes creates a levelSelect page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SaveFile0_Click(object sender, RoutedEventArgs e)
         {
             if (PlayerSave.Load(0) == null)
@@ -76,6 +86,11 @@ namespace Atlantis.Menus
                 _window.PushPage(new LevelSelect(_window, _save0));
         }
 
+        /// <summary>
+        /// Checks if saveFile1 exists, if not creates a playerNameInput page, if yes creates a levelSelect page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SaveFile1_Click(object sender, RoutedEventArgs e)
         {
             if (PlayerSave.Load(1) == null)
@@ -84,6 +99,11 @@ namespace Atlantis.Menus
                 _window.PushPage(new LevelSelect(_window, _save1));
         }
 
+        /// <summary>
+        /// Checks if saveFile2 exists, if not creates a playerNameInput page, if yes creates a levelSelect page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SaveFile2_Click(object sender, RoutedEventArgs e)
         {
             if (PlayerSave.Load(2) == null)
@@ -109,6 +129,7 @@ namespace Atlantis.Menus
             _save2.Delete();
             SaveName2 = null;
         }
+
         protected void OnPropertyChanged(string propertyName)
         {
 
@@ -120,6 +141,11 @@ namespace Atlantis.Menus
             }
         }
 
+        /// <summary>
+        /// Goes back to previous page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             _window.GoBack();
