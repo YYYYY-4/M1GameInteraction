@@ -8,5 +8,10 @@ namespace Atlantis.Menus
         {
             InitializeComponent();
         }
+
+        private void WaterArea_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }
     }
 }
