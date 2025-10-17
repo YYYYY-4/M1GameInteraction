@@ -11,7 +11,7 @@
       Title="DemoLevel">
 
     <Canvas Width="1920" Height="1080" Background="{StaticResource TileBrush}">
-        <game:WaterArea Width="6062" Height="5096" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="-2136" Canvas.Top="-1920"/>
+        <game:WaterArea Width="6062" Height="5096" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="-2136" Canvas.Top="-1920" Loaded="WaterArea_Loaded"/>
 
         <game:Collectible Width="50" Height="50" Canvas.Top="950" Canvas.Left="670" />
         <game:EndDoor Width="70" Height="88" Canvas.Left="1620" Canvas.Top="679" HorizontalAlignment="Center" VerticalAlignment="Top"/>
@@ -34,6 +34,7 @@
         <game:Wall Width="3981" Height="100" HorizontalAlignment="Left" Canvas.Top="423" VerticalAlignment="Top" Canvas.Left="1374"/>
         <game:DeadlyThing Canvas.Top="513" Height="25" Canvas.Left="488" Width="25" />
         <game:Dynamite Canvas.Left="1630" Canvas.Top="316"/>
+        <game:DoorKey Canvas.Left="1500" Canvas.Top="950"/>
         <game:DestroyButton Canvas.Left="1630" Canvas.Top="1049" Width="50" Height="50" Targets="{x:Reference ButtonWall}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <game:Wall Tag="RW" Width="100" Height="500" Canvas.Left="410" Canvas.Top="670" HorizontalAlignment="Left" VerticalAlignment="Top">
             <game:Wall.RenderTransform>
