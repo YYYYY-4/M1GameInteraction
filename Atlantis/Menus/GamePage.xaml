@@ -6,5 +6,81 @@
       xmlns:local="clr-namespace:Atlantis.Menus"
       xmlns:game="clr-namespace:Atlantis.Game"
       mc:Ignorable="d"
-      Title="GamePage" Height="450" Width="800">
+      Title="GamePage" Background="White" Width="750" Height="500">
+
+    <Grid x:Name="RootGrid">
+        <Grid x:Name="Overlay">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Grid Background="#FF003DFF">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="32"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="32"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="32"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="1" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center">Level X</Label>
+                </Grid>
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="16" />
+                        <RowDefinition />
+                        <RowDefinition Height="16" />
+                        <RowDefinition />
+                        <RowDefinition Height="16" />
+                        <RowDefinition />
+                        <RowDefinition Height="16" />
+                        <RowDefinition />
+                        <RowDefinition Height="16" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="0" Click="Button_Continue">Continue</Button>
+                    <Button Grid.Row="2" Click="Button_Restart">Restart Level</Button>
+                    <Button Grid.Row="4" Click="Button_LevelSelect">Level Select</Button>
+                    <Button Grid.Row="6" Click="Button_Settings">Settings</Button>
+                    <Button Grid.Row="8" Click="Button_MainMenu">Main Menu</Button>
+                    <Button Grid.Row="10" Click="Button_Exit">Exit Game</Button>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="6*"/>
+                </Grid.RowDefinitions>
+                <DataGrid Grid.Row="4" Grid.Column="1" x:Name="HigscoreTable" IsReadOnly="True" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="1*">
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Score" Binding="{Binding Score}" Width="1*">
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Grid>
+    </Grid>
 </Page>

@@ -27,7 +27,9 @@ namespace Atlantis
         public string BackgroundImage
         {
             get { return _image; }
-            set { _image = value;
+            set
+            {
+                _image = value;
                 OnPropertyChanged(nameof(BackgroundImage));
             }
         }
@@ -41,7 +43,9 @@ namespace Atlantis
             BackgroundImage = "/Assets/MenuBackground.png";
 
             PushPage(new MainMenuPage(this));
-            
+
+            var f = App.Current.FindResource("MainFont");
+
             // Page is not added to PageHistory, because you shouldn't be able to leave MainMenu
 
             // Expanding upon the designer to use it for Game Design:
@@ -70,22 +74,6 @@ namespace Atlantis
             //}
         }
 
-        static Matrix3x2 M3X2Inverse(Matrix3x2 m)
-        {
-            _ = Matrix3x2.Invert(m, out var result);
-            return result;
-        }
-
-        static Matrix3x2 ToWorld(Matrix3x2 self, Matrix3x2 b)
-        {
-            return self * b;
-        }
-
-        static Matrix3x2 ToLocal(Matrix3x2 self, Matrix3x2 b)
-        {
-            return Matrix3x2.Identity;
-        }
-        
         public List<Page> PageHistory { get; } = new List<Page>();
 
         public void GoBack()
@@ -97,15 +85,40 @@ namespace Atlantis
                 PageHistory.RemoveAt(PageHistory.Count - 1);
             }
 
-            Trace.WriteLine("AftwrBack: " + string.Join(", ", PageHistory));
+            Trace.WriteLine("AfterBack: " + string.Join(", ", PageHistory));
+        }
+
+        public void GoBackToType<PageType>()
+        {
+            for (int i = PageHistory.Count - 1; i >= 0; i--)
+            {
+                if (PageHistory[i] is PageType)
+                {
+                    GoBackToIndex(i);
+                    break;
+                }
+            }
+        }
+
+        private void GoBackToIndex(int index)
+        {
+            Page page = PageHistory[index];
+            if (index != 0)
+            {
+                PageHistory.RemoveRange(index, PageHistory.Count - index);
+            }
+            Content = page;
         }
 
         public void PushPage(Page page)
         {
+            page.ClearValue(Page.HeightProperty);
+            page.ClearValue(Page.WidthProperty);
+
             PageHistory.Add(page);
             Content = page;
 
-            Trace.WriteLine("PushAfter: " + string.Join(", ", PageHistory));
+            Trace.WriteLine("AfterPush: " + string.Join(", ", PageHistory));
         }
 
         public void ChangeBackground(string imageFilePath)
