@@ -1,0 +1,21 @@
+﻿<local:GameControl x:Class="Atlantis.Game.DoorKey"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Atlantis.Game"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Canvas>
+        <Image Source="{StaticResource Fish2_1.png}" Width="50" Height="50">
+            <local:ShapeDef.ShapeDef>
+                <local:ShapeDef Category="None"/>
+            </local:ShapeDef.ShapeDef>
+        </Image>
+        <Rectangle Width="50" Height="50">
+            <local:ShapeDef.ShapeDef>
+                <local:ShapeDef IsSensor="True" EnableSensorEvents="True"/>
+            </local:ShapeDef.ShapeDef>
+        </Rectangle>
+    </Canvas>
+</local:GameControl>

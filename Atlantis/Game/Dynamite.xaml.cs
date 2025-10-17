@@ -15,13 +15,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static Atlantis.Box2dNet.B2Extension;
 
 namespace Atlantis.Game
 {
     public partial class Dynamite : GameControl
     {
-        private string type = "dynamite";
-
         private List<GameShape> shapes = [];
 
         bool isExploding = false;
@@ -30,6 +29,10 @@ namespace Atlantis.Game
 
         private BitmapImage _dynamiteSprite = new BitmapImage();
 
+        /// <summary>
+        /// Creates a dynamite where the isExploding variable gets set
+        /// </summary>
+        /// <param name="exploding"></param>
         public Dynamite(bool exploding)
         {
             InitializeComponent();
@@ -38,17 +41,19 @@ namespace Atlantis.Game
             
         }
 
+        /// <summary>
+        /// Creates a dynamite
+        /// </summary>
         public Dynamite()
         {
             InitializeComponent();
             DataContext = this;
         }
 
-        public string Type()
-        {
-            return type;
-        }
-
+        /// <summary>
+        /// Spawns a new dynamite into the scene that explodes after a timer
+        /// </summary>
+        /// <param name="scene"></param>
         public static void SpawnDynamite(GameScene scene)
         {
             Player player = scene.Controls.OfType<Player>().First();
@@ -84,13 +89,18 @@ namespace Atlantis.Game
             }
         }
 
+        /// <summary>
+        /// Checks for destructible components within a 8 unit (200 pixel) radius of the dynamite and removes them from the scene.
+        /// And casts an explosion sprite over the dynamite while disabling physics.
+        /// </summary>
         public void ExplodeDynamite()
         {
             Vector2 position = Body.GetPosition();
             b2Circle circle = new b2Circle(position, 8.0f);
             b2ShapeProxy proxy = B2Api.b2MakeProxy([position], 1, circle.radius);
-            b2QueryFilter filter = new b2QueryFilter(1, 1);
+            b2QueryFilter filter = B2Util.QueryFilter(PhysicsCategory.All, PhysicsMask.Map);
             shapes = Scene.OverlapCast(proxy, filter);
+
             _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Explosion");
             Explosion.Visibility = Visibility.Visible;
             dynamite.Visibility = Visibility.Hidden;
@@ -103,13 +113,13 @@ namespace Atlantis.Game
                     Scene.DestroyControl(shape.Control);
                 }
             }
-
-            //Scene.DestroyControl(this);
-
-            //timer = 0.0f;
-            //isExploding = false;
         }
 
+        /// <summary>
+        /// Removes the dynamite from the scene and gives it to the player
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns></returns>
         public int PickUp(Player player)
         {
             if (!isSpawned)
