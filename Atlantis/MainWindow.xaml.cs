@@ -2,6 +2,7 @@
 using Atlantis.Menus;
 using Atlantis.Menus;
 using Atlantis.Scene;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Numerics;
 using System.Runtime.Intrinsics.Arm;
@@ -13,18 +14,31 @@ namespace Atlantis
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         private Page _page;
         private Canvas _canvas;
         private Grid _grid;
         private SettingsMenu _menu;
+        private string _image;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public string BackgroundImage
+        {
+            get { return _image; }
+            set { _image = value;
+                OnPropertyChanged(nameof(BackgroundImage));
+            }
+        }
 
         public MainWindow()
         {
             // BOX2D ASSERTION: result.distanceSquared > 0.0f, C:\repos\box2d\src\manifold.c, line 848
 
             InitializeComponent();
+            DataContext = this;
+            BackgroundImage = "/Assets/MenuBackground.png";
 
             PushPage(new MainMenuPage(this));
             
@@ -92,6 +106,22 @@ namespace Atlantis
             Content = page;
 
             Trace.WriteLine("PushAfter: " + string.Join(", ", PageHistory));
+        }
+
+        public void ChangeBackground(string imageFilePath)
+        {
+            BackgroundImage = imageFilePath;
+        }
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+
+            PropertyChangedEventHandler handler = this.PropertyChanged;
+            if (handler != null)
+            {
+                var e = new PropertyChangedEventArgs(propertyName);
+                handler(this, e);
+            }
         }
     }
 }

@@ -20,7 +20,7 @@
                 <local:ShapeDef EnableSensorEvents="True" IsSensor="True"/>
             </local:ShapeDef.ShapeDef>
         </Rectangle>
-        <Image x:Name="Explosion" Source="/Assets/Explosion.png" Visibility="Hidden" Width="100" Height="100" Canvas.Left="-25" Canvas.Top="-25">
+        <Image x:Name="Explosion" Source="/Assets/Explosion.png" Visibility="Hidden" Width="300" Height="300" Canvas.Left="-125" Canvas.Top="-125">
             <local:ShapeDef.ShapeDef>
                 <local:ShapeDef Category="None"/>
             </local:ShapeDef.ShapeDef>
