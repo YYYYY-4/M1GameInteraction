@@ -32,7 +32,7 @@
                         <RowDefinition Height="2*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Column="1" FontSize="48" FontFamily="Comic Sans MS" HorizontalAlignment="Center" VerticalAlignment="Center">Level X</Label>
+                    <Label Grid.Column="1" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center">Level X</Label>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="1">
                     <Grid.RowDefinitions>
@@ -48,7 +48,7 @@
                         <RowDefinition Height="16" />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    <Button Grid.Row="0" Click="Button_Continue" FontFamily="PixelatedEleganceRegular.ttf">Continue</Button>
+                    <Button Grid.Row="0" Click="Button_Continue">Continue</Button>
                     <Button Grid.Row="2" Click="Button_Restart">Restart Level</Button>
                     <Button Grid.Row="4" Click="Button_LevelSelect">Level Select</Button>
                     <Button Grid.Row="6" Click="Button_Settings">Settings</Button>
