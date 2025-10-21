@@ -19,7 +19,7 @@ using static Atlantis.Box2dNet.B2Extension;
 
 namespace Atlantis.Game
 {
-    public partial class Dynamite : GameControl
+    public partial class Dynamite : Item
     {
         private List<GameShape> shapes = [];
 
@@ -115,28 +115,11 @@ namespace Atlantis.Game
             }
         }
 
-        /// <summary>
-        /// Removes the dynamite from the scene and gives it to the player
-        /// </summary>
-        /// <param name="player"></param>
-        /// <returns></returns>
-        public int PickUp(Player player)
-        {
-            if (!isSpawned)
-            {
-                Scene.DestroyControl(this);
-                player.HasDynamite = true;
-                return 1;
-            }
-
-            return 0;
-        }
-
         public override void OnSensorStart(GameShape sensor, GameShape visitor)
         {
             if (visitor.Control is Player player)
             {
-                PickUp(player);
+                player.Inventory.PickUp(this);
             }
         }
     }

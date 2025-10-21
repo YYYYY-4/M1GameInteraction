@@ -15,6 +15,8 @@ namespace Atlantis.Game
 {
     public partial class Player : WaterGameControl
     {
+        public Inventory Inventory;
+        
         public Player()
         {
             InitializeComponent();
@@ -25,6 +27,7 @@ namespace Atlantis.Game
         public override void OnStart()
         {
             Mass = Shape0.Shape.ComputeMassData().mass;
+            Inventory = new(this, Scene);
         }
 
         bool OnGround = false;
