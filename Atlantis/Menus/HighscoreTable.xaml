@@ -29,7 +29,7 @@
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Column="1" FontSize="48" FontFamily="Comic Sans MS" HorizontalAlignment="Center" VerticalAlignment="Center">Level X</Label>
+                <Label Grid.Column="1" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center">Level X</Label>
                 <Label Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top">Completed</Label>
             </Grid>
             <Grid Grid.Row="1" Grid.Column="1">
@@ -46,7 +46,7 @@
                     <RowDefinition Height="16" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <Button Grid.Row="0" Click="Button_Click">Next Level</Button>
+                <Button Grid.Row="0" Click="Button_Click" FontFamily="MainFont">Next Level</Button>
                 <Button Grid.Row="2" Click="Button_Click">Restart Level</Button>
                 <Button Grid.Row="4" Click="Button_Click">Level Select</Button>
                 <Button Grid.Row="6" Click="Button_Click">Settings</Button>
