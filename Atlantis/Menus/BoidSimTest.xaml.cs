@@ -30,6 +30,7 @@ namespace Atlantis.Menus
             CompositionTarget.Rendering -= CompositionTarget_Rendering;
         }
 
+        // Load some fish and bind update
         private void BoidSimTest_Loaded(object sender, RoutedEventArgs e)
         {
             List<string> niceFish = [
@@ -98,10 +99,10 @@ namespace Atlantis.Menus
             UpdateBoids((float)deltaTime);
         }
 
+        // Update boid simulation
         public void UpdateBoids(float dt)
         {
-            // The resource used is https://swharden.com/csdv/simulations/boids/
-            // 
+            // Used as reference https://swharden.com/csdv/simulations/boids/
 
             float visionDistance = 200.0f;
             float avoidDistance = 50.0f;
@@ -206,6 +207,7 @@ namespace Atlantis.Menus
 
             foreach (var boid in boids)
             {
+                // Keep velocity between min and max
                 float maxVelocity = 200f;
                 if (boid.Predator)
                 {
@@ -233,8 +235,9 @@ namespace Atlantis.Menus
 
                 boid.Position += boid.Velocity * dt;
 
+                // Move away from edge
                 float edgePadding = 5.0f;
-                float edgeTurn = 50.5f;
+                float edgeTurn = 10f;
 
                 if (boid.Position.X < edgePadding)
                 {
@@ -256,6 +259,7 @@ namespace Atlantis.Menus
                     boid.Velocity.Y -= edgeTurn;
                 }
 
+                // Position and rotation in canvas
                 Canvas.SetBottom(boid.Element, boid.Position.Y);
                 Canvas.SetLeft(boid.Element, boid.Position.X);
 
@@ -281,7 +285,6 @@ namespace Atlantis.Menus
         public UIElement Element = null!;
         public ScaleTransform Scale = null!;
         public RotateTransform Rotate = null!;
-
 
         public Boid()
         {
