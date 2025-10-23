@@ -44,8 +44,6 @@ namespace Atlantis
 
             PushPage(new MainMenuPage(this));
 
-            var f = App.Current.FindResource("MainFont");
-
             // Page is not added to PageHistory, because you shouldn't be able to leave MainMenu
 
             // Expanding upon the designer to use it for Game Design:
