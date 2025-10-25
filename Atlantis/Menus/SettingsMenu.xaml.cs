@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Atlantis.Game;
 
 namespace Atlantis.Menus
 {
@@ -53,6 +54,12 @@ namespace Atlantis.Menus
         {
             File.WriteAllText(MusicSettings, MusicSlider.Value.ToString());
             File.WriteAllText(SfxSettings, SfxSlider.Value.ToString());
+            Sounds.UpdateMusicVolume();
+            _window.GoBack();
+        }
+
+        public void GoBack(object sender, RoutedEventArgs e)
+        {
             _window.GoBack();
         }
     }
