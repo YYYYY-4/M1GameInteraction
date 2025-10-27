@@ -15,6 +15,8 @@ namespace Atlantis.Game
 {
     public partial class Player : WaterGameControl
     {
+        public Inventory Inventory;
+        
         public Player()
         {
             InitializeComponent();
@@ -25,6 +27,7 @@ namespace Atlantis.Game
         public override void OnStart()
         {
             Mass = Shape0.Shape.ComputeMassData().mass;
+            Inventory = new(this, Scene);
         }
 
         bool OnGround = false;
@@ -68,19 +71,6 @@ namespace Atlantis.Game
             return null!;
         }
 
-        private bool _hasItem = false;
-        public bool HasItem
-        { 
-            get { return _hasItem; }
-            set { _hasItem = value; }
-        }
-        private string _itemType;
-        public string ItemType
-        {
-            get { return _itemType; }
-            set { _itemType = value; }
-        }
-
         // Ferry check needed
         ScaleTransform right = new ScaleTransform(1,1,25,0);
         ScaleTransform left = new ScaleTransform(-1,1,25,0);
@@ -91,7 +81,7 @@ namespace Atlantis.Game
 
             if (Scene.Keys[Key.G].pressedNow)
             {
-                Dynamite.SpawnDynamite(Scene);
+                Inventory.DropItem(this);
             }
 
             var input = new Vector2(IsKeyDown01(Key.D) - IsKeyDown01(Key.A), IsKeyDown01(Key.W) - IsKeyDown01(Key.S));
@@ -191,11 +181,9 @@ namespace Atlantis.Game
                 {
                     float duration = 0.5f;
                     float height;
-                    if (_hasItem == true && _itemType == "JumpBoots")
+                    if (Inventory.GetItem()?.GetType() == typeof(JumpBoots))
                     {
                         height = 18.0f;
-                        _hasItem = false;
-                        _itemType = null;
                     }
                     else
                         height = 9.0f;
