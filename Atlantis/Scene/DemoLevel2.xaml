@@ -1,0 +1,73 @@
+﻿<Page x:Class="Atlantis.Scene.DemoLevel2"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:scene="clr-namespace:Atlantis.Scene"
+      xmlns:local="clr-namespace:Atlantis.Menus"
+      xmlns:game="clr-namespace:Atlantis.Game"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="DemoLevel2">
+
+    <Canvas Width="1920" Height="1080">
+        <game:Player Canvas.Top="913" Canvas.Left="425">
+            <game:Player.RenderTransform>
+                <RotateTransform Angle="0"/>
+            </game:Player.RenderTransform>
+        </game:Player>
+        <game:EndDoor Width="70" Height="88" Canvas.Left="1760" Canvas.Top="432" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <game:DoorKey Canvas.Left="1500" Canvas.Top="950"/>
+        <game:Dynamite Canvas.Left="128" Canvas.Top="432"/>
+        <game:Dynamite Canvas.Left="570" Canvas.Top="432"/>
+        <game:JumpBoots Width="50" Height="50" Canvas.Left="297" Canvas.Top="963"/>
+        <game:JumpBoots Width="50" Height="50" Canvas.Left="1760" Canvas.Top="963"/>
+        <game:DestroyButton Canvas.Left="1630" Canvas.Top="1049" Width="50" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <game:DestroyButton.Targets>
+                <x:Array Type="game:GameControl">
+                    <x:Reference>ButtonWall</x:Reference>
+                    <x:Reference>ButtonWall2</x:Reference>
+                </x:Array>
+            </game:DestroyButton.Targets>
+        </game:DestroyButton>
+        <game:Wall Width="100" Height="600" Canvas.Left="1600" Canvas.Top="10" x:Name="ButtonWall">
+            <Rectangle>
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="{StaticResource WallMoveable}" Stretch="Fill" TileMode="Tile" Viewport="0,0,64,64" ViewportUnits="Absolute"/>
+                </Rectangle.Fill>
+            </Rectangle>
+        </game:Wall>
+        <game:Wall Width="100" Height="600" Canvas.Left="400" Canvas.Top="10" x:Name="ButtonWall2">
+            <Rectangle>
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="{StaticResource WallMoveable}" Stretch="Fill" TileMode="Tile" Viewport="0,0,64,64" ViewportUnits="Absolute"/>
+                </Rectangle.Fill>
+            </Rectangle>
+        </game:Wall>
+        <game:Wall Width="50" Height="1080" Canvas.Left="0" Canvas.Top="0"/>
+        <game:Wall Width="50" Height="1070" Canvas.Left="1870" Canvas.Top="10" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <game:Wall Width="1920" Height="50" Canvas.Left="0" Canvas.Top="0"/>
+        <game:Wall Width="750" Height="110" Canvas.Left="50" Canvas.Top="520" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <game:Wall Width="750" Height="110" Canvas.Left="1120" Canvas.Top="520" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <game:Wall Width="100" Height="480" Canvas.Left="1200" Canvas.Top="600" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <game:ShapeDef.ShapeDef>
+                <game:ShapeDef Destructible="True"></game:ShapeDef>
+            </game:ShapeDef.ShapeDef>
+            <Rectangle>
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="{StaticResource WallBreakable}" Stretch="Fill" TileMode="Tile" Viewport="0,0,64,64" ViewportUnits="Absolute"/>
+                </Rectangle.Fill>
+            </Rectangle>
+        </game:Wall>
+        <game:Wall Width="100" Height="480" Canvas.Left="1450" Canvas.Top="50" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <game:ShapeDef.ShapeDef>
+                <game:ShapeDef Destructible="True"></game:ShapeDef>
+            </game:ShapeDef.ShapeDef>
+            <Rectangle>
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="{StaticResource WallBreakable}" Stretch="Fill" TileMode="Tile" Viewport="0,0,64,64" ViewportUnits="Absolute"/>
+                </Rectangle.Fill>
+            </Rectangle>
+        </game:Wall>
+    </Canvas>
+</Page>

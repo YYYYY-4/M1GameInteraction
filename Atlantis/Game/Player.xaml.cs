@@ -193,7 +193,7 @@ namespace Atlantis.Game
                     float height;
                     if (_hasItem == true && _itemType == "JumpBoots")
                     {
-                        height = 15.0f;
+                        height = 18.0f;
                         _hasItem = false;
                         _itemType = null;
                     }
