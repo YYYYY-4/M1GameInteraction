@@ -19,11 +19,13 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="1" FontSize="72" HorizontalAlignment="Center" FontFamily="Old English Text MT">Atlantis</TextBlock>
-        <Button Grid.Row="1" Grid.Column="0" Click="Start_Button_Click">Start</Button>
-        <Button Grid.Row="2" Click="SettingsButton_Click">Settings</Button>
-        <Button Grid.Row="3" Grid.Column="0" Click="Quit_Button_Click">Quit</Button>
+        <TextBlock Grid.Row="0" Grid.Column="1" FontSize="72" HorizontalAlignment="Center">Atlantis</TextBlock>
+        <Button Grid.Row="2" Grid.Column="1" Click="Start_Button_Click">Start</Button>
+        <Button Grid.Row="4" Grid.Column="1" Click="SettingsButton_Click">Settings</Button>
+        <Button Grid.Row="6" Grid.Column="1" Click="Quit_Button_Click">Quit</Button>
     </Grid>
 </Page>
