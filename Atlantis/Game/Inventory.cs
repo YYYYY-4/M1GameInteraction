@@ -9,10 +9,12 @@ namespace Atlantis.Game;
 
 public class Inventory
 {
+    private readonly Player _player;
     private readonly GameScene _scene;
     
     public Inventory(Player player, GameScene scene)
     {
+        _player = player;
         _scene = scene;
     }
     
@@ -49,7 +51,8 @@ public class Inventory
         Debug.WriteLine("Dropped item!");
         
         Vector2 position = player.Body.GetPosition();
-        _scene.ProcessGameControl(_item!, new b2Transform(new Vector2(position.X + 2.0f, position.Y), b2Rot.Zero));
+        float offset = _player.FacingDirection == 1 ? 5.0f : -5.0f;
+        _scene.ProcessGameControl(_item!, new b2Transform(new Vector2(position.X + offset, position.Y), b2Rot.Zero));
         _item.Drop();
         
         _item = null;
