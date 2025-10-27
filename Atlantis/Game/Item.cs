@@ -5,6 +5,8 @@ namespace Atlantis.Game;
 /// </summary>
 public class Item : GameControl
 {
+    public bool isPickup = true; // Can pickup item
+    
     /// <summary>
     /// Runs when an item a player pickups and item.
     /// </summary>

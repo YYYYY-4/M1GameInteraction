@@ -47,7 +47,7 @@ public class Inventory
         Debug.WriteLine("Dropped item!");
         
         Vector2 position = player.Body.GetPosition();
-        _scene.ProcessGameControl(_item!, new b2Transform(position, b2Rot.Zero));
+        _scene.ProcessGameControl(_item!, new b2Transform(new Vector2(position.X + 2.0f, position.Y), b2Rot.Zero));
         _item.Drop();
         
         _item = null;

@@ -84,12 +84,6 @@ namespace Atlantis.Game
                 Inventory.DropItem(this);
             }
 
-            // For testing purpose
-            if (Scene.Keys[Key.K].pressedNow)
-            {
-                EndDoor.OpenDoor();
-            }
-
             var input = new Vector2(IsKeyDown01(Key.D) - IsKeyDown01(Key.A), IsKeyDown01(Key.W) - IsKeyDown01(Key.S));
 
 
@@ -186,7 +180,13 @@ namespace Atlantis.Game
                 if (OnGround && inputDir.Y > 0.0f)
                 {
                     float duration = 0.5f;
-                    float height = 9.0f;
+                    float height;
+                    if (Inventory.GetItem()?.GetType() == typeof(JumpBoots))
+                    {
+                        height = 18.0f;
+                    }
+                    else
+                        height = 9.0f;
                     var force = (height - Scene.World.GetGravity().Y * duration * (duration / 2)) / duration;
 
                     //Trace.WriteLine("Mass = " + Mass);

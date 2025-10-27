@@ -10,7 +10,7 @@
         <local:BodyDef Type="b2_dynamicBody"/>
     </local:BodyDef.BodyDef>
     <Canvas Width="50" Height="50">
-        <Image Source="/Assets/Dynamite/DynamiteIdle.png" x:Name="dynamite" Visibility="Visible" Width="12" Height="36" Canvas.Left="19" Canvas.Top="7">
+        <Image Source="{StaticResource DynamiteIdle}" x:Name="dynamite" Visibility="Visible" Width="12" Height="36" Canvas.Left="19" Canvas.Top="7">
             <local:ShapeDef.ShapeDef>
                 <local:ShapeDef Category="Dynamite" Mask="Dynamite" />
             </local:ShapeDef.ShapeDef>

@@ -22,8 +22,7 @@ namespace Atlantis.Game
     public partial class Dynamite : Item
     {
         private List<GameShape> shapes = [];
-
-        bool isPickup = true;
+        
         bool isExploding = false;
         float timer = 0.0f;
 

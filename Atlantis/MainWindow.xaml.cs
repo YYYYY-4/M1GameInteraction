@@ -79,6 +79,7 @@ namespace Atlantis
         public void GoBack()
         {
             Content = PageHistory[PageHistory.Count - 2];
+            ChangeBackground("/Assets/MenuBackground.png");
 
             if (PageHistory.Count != 1)
             {
@@ -94,6 +95,7 @@ namespace Atlantis
             {
                 if (PageHistory[i] is PageType)
                 {
+                    ChangeBackground("/Assets/MenuBackground.png");
                     GoBackToIndex(i);
                     break;
                 }
@@ -108,6 +110,7 @@ namespace Atlantis
                 PageHistory.RemoveRange(index, PageHistory.Count - index);
             }
             Content = page;
+            ChangeBackground("/Assets/MenuBackground.png");
         }
 
         public void PushPage(Page page)

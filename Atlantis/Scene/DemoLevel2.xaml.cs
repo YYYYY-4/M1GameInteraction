@@ -1,10 +1,10 @@
 ﻿using System.Windows.Controls;
 
-namespace Atlantis.Menus
-{ 
-    public partial class DemoLevel : Page
+namespace Atlantis.Scene
+{
+    public partial class DemoLevel2 : Page
     {
-        public DemoLevel()
+        public DemoLevel2()
         {
             InitializeComponent();
         }
