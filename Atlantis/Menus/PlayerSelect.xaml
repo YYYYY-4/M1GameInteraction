@@ -60,13 +60,16 @@
                 <RowDefinition/>
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
-            <Button Click="DeleteSave0_Click">
+            <Image Source="{StaticResource DeleteButton}" Grid.Row="0" Stretch="Fill"/>
+            <Button Click="DeleteSave0_Click" Opacity="0">
                 <Label Content="Delete"/>
             </Button>
-            <Button Grid.Row="2" Click="DeleteSave1_Click">
+            <Image Source="{StaticResource DeleteButton}" Grid.Row="2" Stretch="Fill"/>
+            <Button Grid.Row="2" Click="DeleteSave1_Click" Opacity="0">
                 <Label Content="Delete"/>
             </Button>
-            <Button Grid.Row="4" Click="DeleteSave2_Click">
+            <Image Source="{StaticResource DeleteButton}" Grid.Row="4" Stretch="Fill"/>
+            <Button Grid.Row="4" Click="DeleteSave2_Click" Opacity="0">
                 <Label Content="Delete"/>
             </Button>
         </Grid>
@@ -81,7 +84,8 @@
                 <RowDefinition Height="3*"/>
                 <RowDefinition Height="4*"/>
             </Grid.RowDefinitions>
-            <Button Click="BackButton_Click" Grid.Column="1" Grid.Row="1">Back</Button>
+            <Image Source="{StaticResource BackButton}" Grid.Column="1" Grid.Row="1" Stretch="Fill" />
+            <Button Click="BackButton_Click" Grid.Column="1" Grid.Row="1" Opacity="0"></Button>
         </Grid>
     </Grid>
 </Page>
