@@ -75,6 +75,9 @@ namespace Atlantis.Game
         ScaleTransform right = new ScaleTransform(1,1,25,0);
         ScaleTransform left = new ScaleTransform(-1,1,25,0);
 
+        // -1 if facing left, 1 if facing right.
+        public int FacingDirection = 1;
+
         public override void OnUpdate(float dt)
         {
             UpdateGround();
@@ -86,17 +89,17 @@ namespace Atlantis.Game
 
             var input = new Vector2(IsKeyDown01(Key.D) - IsKeyDown01(Key.A), IsKeyDown01(Key.W) - IsKeyDown01(Key.S));
 
-
-            // Ferry check needed
             var direction = Body.GetLinearVelocity();
 
             if (direction.X > 0.1) // checks if player is moving right
             {
                 _player.RenderTransform = right;
+                FacingDirection = 1;
             }
             else if (direction.X < 0.1) // checks if player is moving left
             {
                 _player.RenderTransform = left;
+                FacingDirection = -1;
             }
 
             //var r = Scene.RayCastClosest(Body.GetPosition() - new Vector2(0.0f, 1.95f), new Vector2(0.0f, -1.5f), new b2QueryFilter(0x1, 0xFFFFFFFu));
