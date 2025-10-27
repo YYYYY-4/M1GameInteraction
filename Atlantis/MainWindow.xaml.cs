@@ -101,10 +101,7 @@ namespace Atlantis
         private void GoBackToIndex(int index)
         {
             Page page = PageHistory[index];
-            if (index != 0)
-            {
-                PageHistory.RemoveRange(index, PageHistory.Count - index);
-            }
+            PageHistory.RemoveRange(index + 1, PageHistory.Count - (index + 1));
             Content = page;
         }
 
