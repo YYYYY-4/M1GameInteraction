@@ -22,6 +22,8 @@
         <game:Dynamite Canvas.Left="570" Canvas.Top="432"/>
         <game:JumpBoots Width="50" Height="50" Canvas.Left="297" Canvas.Top="963"/>
         <game:JumpBoots Width="50" Height="50" Canvas.Left="1760" Canvas.Top="963"/>
+        <game:Collectible Width="50" Height="50" Canvas.Left="1770" Canvas.Top="726"/>
+        <game:Collectible Width="50" Height="50" Canvas.Left="935" Canvas.Top="158"/>
         <game:DestroyButton Canvas.Left="1630" Canvas.Top="1049" Width="50" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top">
             <game:DestroyButton.Targets>
                 <x:Array Type="game:GameControl">
