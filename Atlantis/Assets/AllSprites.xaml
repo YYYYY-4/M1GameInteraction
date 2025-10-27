@@ -44,6 +44,9 @@
     <BitmapImage x:Key="Chapter3" UriSource="/Atlantis;component/Assets/LevelSelect/Chapter3LevelSelect.png"/>
     <BitmapImage x:Key="ChapterHead" UriSource="/Atlantis;component/Assets/LevelSelect/ChapterHead.png"/>
 
+    <BitmapImage x:Key="HighscorePanel" UriSource="/Atlantis;component/Assets/HigscoreTable/HighscorePanel.png" />
+    <BitmapImage x:Key="HighscoreHead" UriSource="/Atlantis;component/Assets/HigscoreTable/HighscoreHead.png" />
+
     <BitmapImage x:Key="Key0" UriSource="/Atlantis;component/Assets/Keys/Key0.png"/>
     <BitmapImage x:Key="Key1" UriSource="/Atlantis;component/Assets/Keys/Key1.png"/>
     <BitmapImage x:Key="Key2" UriSource="/Atlantis;component/Assets/Keys/Key2.png"/>
