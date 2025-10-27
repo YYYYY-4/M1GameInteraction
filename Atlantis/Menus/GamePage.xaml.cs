@@ -36,6 +36,8 @@ public partial class GamePage : Page
     public GamePage(MainWindow window, PlayerSave save, int level)
     {
         InitializeComponent();
+        DataContext = this;
+
         _window = window;
         _save = save;
         _level = level;
