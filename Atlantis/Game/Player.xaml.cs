@@ -71,13 +71,6 @@ namespace Atlantis.Game
             return null!;
         }
 
-        private bool _hasDynamite = false;
-        public bool HasDynamite 
-        { 
-            get { return _hasDynamite; }
-            set { _hasDynamite = value; }
-        }
-
         // Ferry check needed
         ScaleTransform right = new ScaleTransform(1,1,25,0);
         ScaleTransform left = new ScaleTransform(-1,1,25,0);
@@ -88,7 +81,8 @@ namespace Atlantis.Game
 
             if (Scene.Keys[Key.G].pressedNow)
             {
-                Dynamite.SpawnDynamite(Scene);
+                // TODO: Check if is dynamite. Should not drop if it is not dynamite.
+                Inventory.DropItem(this);
             }
 
             // For testing purpose

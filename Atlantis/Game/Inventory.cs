@@ -1,3 +1,10 @@
+using System.Diagnostics;
+using System.Numerics;
+using System.Windows;
+using System.Windows.Media.Imaging;
+using Atlantis.Box2dNet;
+using Box2dNet.Interop;
+
 namespace Atlantis.Game;
 
 public class Inventory
@@ -10,33 +17,39 @@ public class Inventory
     }
     
     // All items inherit from GameControl.
-    private readonly List<Item> _items = [];
+    private Item? _item = null;
 
     /// <summary>
-    /// Gets all items
+    /// Gets the item
     /// </summary>
-    /// <returns>_items List</returns>
-    public List<Item> GetItems()
+    /// <returns>_item or null</returns>
+    public Item? GetItem()
     {
-        return _items;
+        return _item;
     }
 
     /// <summary>
-    /// Removes the item from GameScene and stores the item in _items.
+    /// Sets _item based on the item parameter.
     /// </summary>
     /// <param name="item">Item to be stored</param>
     public void PickUp(Item item)
     {
         _scene.DestroyControl(item);
-        _items.Add(item);
+        _item = item;
     }
     
     /// <summary>
-    /// Stores the item in _items.
+    /// Sets _item to null.
     /// </summary>
-    /// <param name="item">Item to be dropped</param>
-    public void DropItem(Item item)
+    public void DropItem(Player player)
     {
-        _items.Remove(item);
+        if (_item == null) return;
+        Debug.WriteLine("Dropped item!");
+        
+        Vector2 position = player.Body.GetPosition();
+        _scene.ProcessGameControl(_item!, new b2Transform(position, b2Rot.Zero));
+        _item?.Drop();
+        
+        _item = null;
     }
 }

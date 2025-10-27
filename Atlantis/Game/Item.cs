@@ -9,17 +9,17 @@ public class Item : GameControl
     /// Runs when an item a player pickups and item.
     /// </summary>
     /// <returns>-1 when not implemented else the number of items</returns>
-    public virtual int Pickup()
+    public virtual void Pickup()
     {
-        return -1;
+        
     }
     
     /// <summary>
-    /// Runs when an item a player pickups and item.
+    /// Runs when an item a player drops and item.
     /// </summary>
     /// <returns>-1 when not implemented else the number of items</returns>
-    public virtual int Drop()
+    public virtual void Drop()
     {
-        return -1;
+        
     }
 }

@@ -23,8 +23,8 @@ namespace Atlantis.Game
     {
         private List<GameShape> shapes = [];
 
+        bool isPickupAble = true;
         bool isExploding = false;
-        bool isSpawned = false;
         float timer = 0.0f;
 
         private BitmapImage _dynamiteSprite = new BitmapImage();
@@ -50,23 +50,11 @@ namespace Atlantis.Game
             DataContext = this;
         }
 
-        /// <summary>
-        /// Spawns a new dynamite into the scene that explodes after a timer
-        /// </summary>
-        /// <param name="scene"></param>
-        public static void SpawnDynamite(GameScene scene)
+        public override void Drop()
         {
-            Player player = scene.Controls.OfType<Player>().First();
-            if (player.HasDynamite == true)
-            {
-                Vector2 position = player.Body.GetPosition();
-                bool isExploding = true;
-                Dynamite dynamite = new Dynamite(isExploding);
-                dynamite.isSpawned = true;
-                scene.ProcessGameControl(dynamite, new b2Transform(position, b2Rot.Zero));
-                dynamite._dynamiteSprite = (BitmapImage)Application.Current.FindResource("DynamiteIdle");
-                player.HasDynamite = false;
-            }
+            isPickupAble = false;
+            bool isExploding = true;
+            _dynamiteSprite = (BitmapImage)Application.Current.FindResource("DynamiteIdle");
         }
 
         public override void OnUpdate(float dt)
@@ -119,7 +107,8 @@ namespace Atlantis.Game
         {
             if (visitor.Control is Player player)
             {
-                player.Inventory.PickUp(this);
+                if (isPickupAble)
+                    player.Inventory.PickUp(this);
             }
         }
     }
