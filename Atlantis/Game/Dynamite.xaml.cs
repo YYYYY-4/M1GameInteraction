@@ -19,12 +19,11 @@ using static Atlantis.Box2dNet.B2Extension;
 
 namespace Atlantis.Game
 {
-    public partial class Dynamite : GameControl
+    public partial class Dynamite : Item
     {
         private List<GameShape> shapes = [];
-
+        
         bool isExploding = false;
-        bool isSpawned = false;
         float timer = 0.0f;
 
         private BitmapImage _dynamiteSprite = new BitmapImage();
@@ -50,23 +49,10 @@ namespace Atlantis.Game
             DataContext = this;
         }
 
-        /// <summary>
-        /// Spawns a new dynamite into the scene that explodes after a timer
-        /// </summary>
-        /// <param name="scene"></param>
-        public static void SpawnDynamite(GameScene scene)
+        public override void Drop()
         {
-            Player player = scene.Controls.OfType<Player>().First();
-            if (player.HasDynamite == true)
-            {
-                Vector2 position = player.Body.GetPosition();
-                bool isExploding = true;
-                Dynamite dynamite = new Dynamite(isExploding);
-                dynamite.isSpawned = true;
-                scene.ProcessGameControl(dynamite, new b2Transform(position, b2Rot.Zero));
-                dynamite._dynamiteSprite = (BitmapImage)Application.Current.FindResource("DynamiteIdle");
-                player.HasDynamite = false;
-            }
+            IsPickup = false;
+            isExploding = true;
         }
 
         public override void OnUpdate(float dt)
@@ -112,31 +98,6 @@ namespace Atlantis.Game
                 {
                     Scene.DestroyControl(shape.Control);
                 }
-            }
-        }
-
-        /// <summary>
-        /// Removes the dynamite from the scene and gives it to the player
-        /// </summary>
-        /// <param name="player"></param>
-        /// <returns></returns>
-        public int PickUp(Player player)
-        {
-            if (!isSpawned)
-            {
-                Scene.DestroyControl(this);
-                player.HasDynamite = true;
-                return 1;
-            }
-
-            return 0;
-        }
-
-        public override void OnSensorStart(GameShape sensor, GameShape visitor)
-        {
-            if (visitor.Control is Player player)
-            {
-                PickUp(player);
             }
         }
     }

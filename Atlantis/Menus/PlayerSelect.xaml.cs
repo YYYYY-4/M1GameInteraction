@@ -46,7 +46,7 @@ namespace Atlantis.Menus
             set
             {
                 _save1.Name = value;
-                OnPropertyChanged(nameof(SaveName0));
+                OnPropertyChanged(nameof(SaveName1));
             }
         }
         public string SaveName2
@@ -55,7 +55,7 @@ namespace Atlantis.Menus
             set
             {
                 _save2.Name = value;
-                OnPropertyChanged(nameof(SaveName0));
+                OnPropertyChanged(nameof(SaveName2));
             }
         }
 
@@ -114,20 +114,29 @@ namespace Atlantis.Menus
 
         private void DeleteSave0_Click(object sender, RoutedEventArgs e)
         {
-            _save0.Delete();
-            SaveName0 = null;
+            if (_save0 != null)
+            {
+                _save0.Delete();
+                SaveName0 = null;
+            }
         }
 
         private void DeleteSave1_Click(object sender, RoutedEventArgs e)
         {
-            _save1.Delete();
-            SaveName1 = null;
+            if (_save1 != null)
+            {
+                _save1.Delete();
+                SaveName1 = null;
+            }
         }
 
         private void DeleteSave2_Click(object sender, RoutedEventArgs e)
         {
-            _save2.Delete();
-            SaveName2 = null;
+            if (_save2 != null)
+            {
+                _save2.Delete();
+                SaveName2 = null;
+            }
         }
 
         protected void OnPropertyChanged(string propertyName)

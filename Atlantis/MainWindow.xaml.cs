@@ -20,19 +20,8 @@ namespace Atlantis
         private Canvas _canvas;
         private Grid _grid;
         private SettingsMenu _menu;
-        private string _image;
 
         public event PropertyChangedEventHandler? PropertyChanged;
-
-        public string BackgroundImage
-        {
-            get { return _image; }
-            set
-            {
-                _image = value;
-                OnPropertyChanged(nameof(BackgroundImage));
-            }
-        }
 
         public MainWindow()
         {
@@ -40,7 +29,6 @@ namespace Atlantis
 
             InitializeComponent();
             DataContext = this;
-            BackgroundImage = "/Assets/MenuBackground.png";
 
             PushPage(new MainMenuPage(this));
 
@@ -79,7 +67,6 @@ namespace Atlantis
         public void GoBack()
         {
             Content = PageHistory[PageHistory.Count - 2];
-            ChangeBackground("/Assets/MenuBackground.png");
 
             if (PageHistory.Count != 1)
             {
@@ -95,7 +82,6 @@ namespace Atlantis
             {
                 if (PageHistory[i] is PageType)
                 {
-                    ChangeBackground("/Assets/MenuBackground.png");
                     GoBackToIndex(i);
                     break;
                 }
@@ -110,7 +96,6 @@ namespace Atlantis
                 PageHistory.RemoveRange(index, PageHistory.Count - index);
             }
             Content = page;
-            ChangeBackground("/Assets/MenuBackground.png");
         }
 
         public void PushPage(Page page)
@@ -122,22 +107,6 @@ namespace Atlantis
             Content = page;
 
             Trace.WriteLine("AfterPush: " + string.Join(", ", PageHistory));
-        }
-
-        public void ChangeBackground(string imageFilePath)
-        {
-            BackgroundImage = imageFilePath;
-        }
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-
-            PropertyChangedEventHandler handler = this.PropertyChanged;
-            if (handler != null)
-            {
-                var e = new PropertyChangedEventArgs(propertyName);
-                handler(this, e);
-            }
         }
     }
 }

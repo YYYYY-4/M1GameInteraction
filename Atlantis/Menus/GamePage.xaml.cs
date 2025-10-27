@@ -30,15 +30,12 @@ public partial class GamePage : Page
         { 1, typeof(DemoLevel) },
         { 2, typeof(DemoLevel) },
         { 3, typeof(DemoLevel) },
-        { 4, typeof(DemoLevel) }
+        { 4, typeof(DemoLevel2) }
     };
 
     public GamePage(MainWindow window, PlayerSave save, int level)
     {
         InitializeComponent();
-        DataContext = this;
-
-        window.ChangeBackground("/Assets/placeholder.png");
         _window = window;
         _save = save;
         _level = level;

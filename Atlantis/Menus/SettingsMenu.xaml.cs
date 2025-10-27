@@ -30,8 +30,6 @@ namespace Atlantis.Menus
         {
             InitializeComponent();
             _window = window;
-
-           _window.ChangeBackground("/Assets/MenuBackground.png");
             //Creates txtfiles for the settings if they dont exist
             //these files are universal and not per player
             //it adds one txtfile per slider
