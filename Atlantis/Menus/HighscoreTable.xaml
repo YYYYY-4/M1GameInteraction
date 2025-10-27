@@ -13,7 +13,7 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Grid Background="#FF003DFF">
+        <Grid Background="#FF203562">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="32"/>
                 <ColumnDefinition />
@@ -54,7 +54,7 @@
                 <Button Grid.Row="10" Click="Button_Click">Exit Game</Button>
             </Grid>
         </Grid>
-        <Grid Grid.Column="2" Background="#FF0B0BF7">
+        <Grid Grid.Column="2" Background="#FF203562">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="7*"/>
@@ -71,9 +71,9 @@
                     <RowDefinition />
                     <RowDefinition Height="16" />
                 </Grid.RowDefinitions>
-            <DataGrid Grid.Row="1" Grid.Column="1" x:Name="HigscoreTable" IsReadOnly="True" AutoGenerateColumns="False">
+            <DataGrid Grid.Row="1" Grid.Column="1" x:Name="HigscoreTable" IsReadOnly="True" AutoGenerateColumns="False" Background="{x:Null}" BorderBrush="{x:Null}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="1*">
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="1*" Foreground="{x:Null}">
                         <DataGridTextColumn.HeaderStyle>
                             <Style TargetType="DataGridColumnHeader">
                                 <Setter Property="HorizontalContentAlignment" Value="Center" />
