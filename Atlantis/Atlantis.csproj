@@ -35,6 +35,7 @@
     <None Remove="Assets\Fish\Fish4_1.png" />
     <None Remove="Assets\Fish\Fish5_0.png" />
     <None Remove="Assets\Fish\Fish5_1.png" />
+    <None Remove="Assets\GameBackground.png" />
     <None Remove="Assets\Keys\Key0.png" />
     <None Remove="Assets\Keys\Key1.png" />
     <None Remove="Assets\Keys\Key2.png" />
@@ -91,6 +92,7 @@
     <Resource Include="Assets\Fish\Fish4_1.png" />
     <Resource Include="Assets\Fish\Fish5_0.png" />
     <Resource Include="Assets\Fish\Fish5_1.png" />
+    <Resource Include="Assets\GameBackground.png" />
     <Resource Include="Assets\Keys\Key0.png" />
     <Resource Include="Assets\Keys\Key1.png" />
     <Resource Include="Assets\Keys\Key2.png" />
