@@ -35,8 +35,8 @@
     <None Remove="Assets\Fish\Fish4_1.png" />
     <None Remove="Assets\Fish\Fish5_0.png" />
     <None Remove="Assets\Fish\Fish5_1.png" />
-    <None Remove="Assets\HigscoreTable\HighscoreHead.png" />
-    <None Remove="Assets\HigscoreTable\HighscorePanel.png" />
+    <None Remove="Assets\MenuElements\HighscoreHead.png" />
+    <None Remove="Assets\MenuElements\HighscorePanel.png" />
     <None Remove="Assets\GameBackground.png" />
     <None Remove="Assets\Keys\Key0.png" />
     <None Remove="Assets\Keys\Key1.png" />
@@ -47,6 +47,7 @@
     <None Remove="Assets\LevelSelect\Chapter3LevelSelect.png" />
     <None Remove="Assets\LevelSelect\ChapterHead.png" />
     <None Remove="Assets\MenuBackground.png" />
+    <None Remove="Assets\MenuElements\MenuElementStick.png" />
     <None Remove="Assets\NOSPRITE.png" />
     <None Remove="Assets\placeholder.png" />
     <None Remove="Assets\PlaceholderCollectable.jpg" />
@@ -94,8 +95,8 @@
     <Resource Include="Assets\Fish\Fish4_1.png" />
     <Resource Include="Assets\Fish\Fish5_0.png" />
     <Resource Include="Assets\Fish\Fish5_1.png" />
-    <Resource Include="Assets\HigscoreTable\HighscoreHead.png" />
-    <Resource Include="Assets\HigscoreTable\HighscorePanel.png" />
+    <Resource Include="Assets\MenuElements\HighscoreHead.png" />
+    <Resource Include="Assets\MenuElements\HighscorePanel.png" />
     <Resource Include="Assets\GameBackground.png" />
     <Resource Include="Assets\Keys\Key0.png" />
     <Resource Include="Assets\Keys\Key1.png" />
@@ -106,6 +107,7 @@
     <Resource Include="Assets\LevelSelect\Chapter3LevelSelect.png" />
     <Resource Include="Assets\LevelSelect\ChapterHead.png" />
     <Resource Include="Assets\MenuBackground.png" />
+    <Resource Include="Assets\MenuElements\MenuElementStick.png" />
     <Resource Include="Assets\NOSPRITE.png" />
 	  <Resource Include="Assets\PixelatedEleganceRegular.ttf">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>

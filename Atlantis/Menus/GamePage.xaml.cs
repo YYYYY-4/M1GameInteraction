@@ -103,6 +103,7 @@ public partial class GamePage : Page
         RootGrid.Children.Add(_canvas);
         LevelStatus.Content = "Paused";
         ContinueButton.Content = "Continue";
+        HigscoreTable.ItemsSource = Highscores.ReadData(_level);
 
         UpdatePauseVisible();
     }

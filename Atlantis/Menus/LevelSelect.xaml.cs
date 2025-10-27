@@ -89,5 +89,10 @@ namespace Atlantis.Menus
         {
             _window.PushPage(new GamePage(_window, _save, 11));
         }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            _window.GoBack();
+        }
     }
 }
