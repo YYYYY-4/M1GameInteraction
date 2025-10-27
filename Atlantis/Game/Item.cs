@@ -5,7 +5,7 @@ namespace Atlantis.Game;
 /// </summary>
 public class Item : GameControl
 {
-    public bool isPickup = true; // Can pickup item
+    public bool IsPickup = true; // Can pickup item
     
     /// <summary>
     /// Runs when an item a player pickups and item.
@@ -23,5 +23,13 @@ public class Item : GameControl
     public virtual void Drop()
     {
         
+    }
+    
+    public override void OnSensorStart(GameShape sensor, GameShape visitor)
+    {
+        if (visitor.Control is Player player)
+        {
+            player.Inventory.PickUp(this);
+        }
     }
 }

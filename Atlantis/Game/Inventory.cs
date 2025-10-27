@@ -34,6 +34,8 @@ public class Inventory
     /// <param name="item">Item to be stored</param>
     public void PickUp(Item item)
     {
+        if (_item != null) return;
+        
         _scene.DestroyControl(item);
         _item = item;
     }

@@ -9,13 +9,5 @@
         {
             InitializeComponent();
         }
-
-        public override void OnSensorStart(GameShape sensor, GameShape visitor)
-        {
-            if (visitor.Control is Player player)
-            {
-                player.Inventory.PickUp(this);
-            }
-        }
     }
 }

@@ -51,9 +51,8 @@ namespace Atlantis.Game
 
         public override void Drop()
         {
-            isPickup = false;
+            IsPickup = false;
             isExploding = true;
-            _dynamiteSprite = (BitmapImage)Application.Current.FindResource("DynamiteIdle");
         }
 
         public override void OnUpdate(float dt)
@@ -99,15 +98,6 @@ namespace Atlantis.Game
                 {
                     Scene.DestroyControl(shape.Control);
                 }
-            }
-        }
-
-        public override void OnSensorStart(GameShape sensor, GameShape visitor)
-        {
-            if (visitor.Control is Player player)
-            {
-                if (isPickup)
-                    player.Inventory.PickUp(this);
             }
         }
     }
