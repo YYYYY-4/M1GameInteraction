@@ -23,7 +23,7 @@ namespace Atlantis.Game
     {
         private List<GameShape> shapes = [];
 
-        bool isPickupAble = true;
+        bool isPickup = true;
         bool isExploding = false;
         float timer = 0.0f;
 
@@ -52,8 +52,8 @@ namespace Atlantis.Game
 
         public override void Drop()
         {
-            isPickupAble = false;
-            bool isExploding = true;
+            isPickup = false;
+            isExploding = true;
             _dynamiteSprite = (BitmapImage)Application.Current.FindResource("DynamiteIdle");
         }
 
@@ -107,7 +107,7 @@ namespace Atlantis.Game
         {
             if (visitor.Control is Player player)
             {
-                if (isPickupAble)
+                if (isPickup)
                     player.Inventory.PickUp(this);
             }
         }

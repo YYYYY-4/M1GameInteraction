@@ -48,7 +48,7 @@ public class Inventory
         
         Vector2 position = player.Body.GetPosition();
         _scene.ProcessGameControl(_item!, new b2Transform(position, b2Rot.Zero));
-        _item?.Drop();
+        _item.Drop();
         
         _item = null;
     }

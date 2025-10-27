@@ -81,7 +81,6 @@ namespace Atlantis.Game
 
             if (Scene.Keys[Key.G].pressedNow)
             {
-                // TODO: Check if is dynamite. Should not drop if it is not dynamite.
                 Inventory.DropItem(this);
             }
 
