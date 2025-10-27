@@ -94,7 +94,7 @@ namespace Atlantis.Game
             loopedSfxPlayer.Play();
         }
 
-        // closes/unloads the looping sfx
+        // closes the looping sfx
         public void CloseSfxLoop()
         {
             loopedSfxPlayer.Stop();
