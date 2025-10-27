@@ -68,11 +68,17 @@ namespace Atlantis.Game
             return null!;
         }
 
-        private bool _hasDynamite = false;
-        public bool HasDynamite 
+        private bool _hasItem = false;
+        public bool HasItem
         { 
-            get { return _hasDynamite; }
-            set { _hasDynamite = value; }
+            get { return _hasItem; }
+            set { _hasItem = value; }
+        }
+        private string _itemType;
+        public string ItemType
+        {
+            get { return _itemType; }
+            set { _itemType = value; }
         }
 
         // Ferry check needed
@@ -86,12 +92,6 @@ namespace Atlantis.Game
             if (Scene.Keys[Key.G].pressedNow)
             {
                 Dynamite.SpawnDynamite(Scene);
-            }
-
-            // For testing purpose
-            if (Scene.Keys[Key.K].pressedNow)
-            {
-                EndDoor.OpenDoor();
             }
 
             var input = new Vector2(IsKeyDown01(Key.D) - IsKeyDown01(Key.A), IsKeyDown01(Key.W) - IsKeyDown01(Key.S));
@@ -190,7 +190,15 @@ namespace Atlantis.Game
                 if (OnGround && inputDir.Y > 0.0f)
                 {
                     float duration = 0.5f;
-                    float height = 9.0f;
+                    float height;
+                    if (_hasItem == true && _itemType == "JumpBoots")
+                    {
+                        height = 15.0f;
+                        _hasItem = false;
+                        _itemType = null;
+                    }
+                    else
+                        height = 9.0f;
                     var force = (height - Scene.World.GetGravity().Y * duration * (duration / 2)) / duration;
 
                     //Trace.WriteLine("Mass = " + Mass);

@@ -57,7 +57,7 @@ namespace Atlantis.Game
         public static void SpawnDynamite(GameScene scene)
         {
             Player player = scene.Controls.OfType<Player>().First();
-            if (player.HasDynamite == true)
+            if (player.HasItem == true && player.ItemType == "Dynamite")
             {
                 Vector2 position = player.Body.GetPosition();
                 bool isExploding = true;
@@ -65,7 +65,8 @@ namespace Atlantis.Game
                 dynamite.isSpawned = true;
                 scene.ProcessGameControl(dynamite, new b2Transform(position, b2Rot.Zero));
                 dynamite._dynamiteSprite = (BitmapImage)Application.Current.FindResource("DynamiteIdle");
-                player.HasDynamite = false;
+                player.HasItem = false;
+                player.ItemType = null;
             }
         }
 
@@ -120,16 +121,14 @@ namespace Atlantis.Game
         /// </summary>
         /// <param name="player"></param>
         /// <returns></returns>
-        public int PickUp(Player player)
+        public void PickUp(Player player)
         {
-            if (!isSpawned)
+            if (!isSpawned && player.HasItem == false)
             {
                 Scene.DestroyControl(this);
-                player.HasDynamite = true;
-                return 1;
+                player.HasItem = true;
+                player.ItemType = "Dynamite";
             }
-
-            return 0;
         }
 
         public override void OnSensorStart(GameShape sensor, GameShape visitor)
