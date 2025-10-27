@@ -9,8 +9,130 @@
       Title="LevelSelect">
 
     <Grid>
-        <Button Click="Button_Click">
-            <Label Content="Demo"/>
-        </Button>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="4.5*"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="4.5*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Level Select" FontSize="64" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="5*"/>
+                </Grid.RowDefinitions>
+
+                <Image Source="{StaticResource ChapterHead}"/>
+                <Label Content="Chapter 1" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Image Source="{StaticResource Chapter1}" Stretch="Fill"/>
+                    <Image Source="{StaticResource Chapter1}" Stretch="Fill" Grid.Row="2"/>
+                    <Image Source="{StaticResource Chapter1}" Stretch="Fill" Grid.Row="4"/>
+                    <Image Source="{StaticResource Chapter1}" Stretch="Fill" Grid.Row="6"/>
+
+                    <Label Content="Demo" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                    <Button Click="C1L1_Click" Opacity="0"/>
+                    <Button Click="C1L2_Click" Grid.Row="2" Opacity="0"/>
+                    <Button Click="C1L3_Click" Grid.Row="4" Opacity="0"/>
+                    <Button Click="C1L4_Click" Grid.Row="6" Opacity="0"/>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Column="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="5*"/>
+                </Grid.RowDefinitions>
+
+                <Image Source="{StaticResource ChapterHead}"/>
+                <Label Content="Chapter 2" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Image Source="{StaticResource Chapter2}" Stretch="Fill"/>
+                    <Image Source="{StaticResource Chapter2}" Stretch="Fill" Grid.Row="2"/>
+                    <Image Source="{StaticResource Chapter2}" Stretch="Fill" Grid.Row="4"/>
+                    <Image Source="{StaticResource Chapter2}" Stretch="Fill" Grid.Row="6"/>
+
+                    <Button Click="C2L1_Click" Opacity="0"/>
+                    <Button Click="C2L2_Click" Grid.Row="2" Opacity="0"/>
+                    <Button Click="C2L3_Click" Grid.Row="4" Opacity="0"/>
+                    <Button Click="C2L4_Click" Grid.Row="6" Opacity="0"/>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Column="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="5*"/>
+                </Grid.RowDefinitions>
+
+                <Image Source="{StaticResource ChapterHead}"/>
+                <Label Content="Chapter 3" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Image Source="{StaticResource Chapter3}" Stretch="Fill"/>
+                    <Image Source="{StaticResource Chapter3}" Stretch="Fill" Grid.Row="2"/>
+                    <Image Source="{StaticResource Chapter3}" Stretch="Fill" Grid.Row="4"/>
+                    <Image Source="{StaticResource Chapter3}" Stretch="Fill" Grid.Row="6"/>
+
+                    <Button Click="C3L1_Click" Opacity="0"/>
+                    <Button Click="C3L2_Click" Grid.Row="2" Opacity="0"/>
+                    <Button Click="C3L3_Click" Grid.Row="4" Opacity="0"/>
+                    <Button Click="C3L4_Click" Grid.Row="6" Opacity="0"/>
+                </Grid>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>

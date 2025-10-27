@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Canvas>
-        <Image Source="{StaticResource Fish2_1}" Width="50" Height="50">
+        <Image Source="{StaticResource Key3}" Width="50" Height="50">
             <local:ShapeDef.ShapeDef>
                 <local:ShapeDef Category="None"/>
             </local:ShapeDef.ShapeDef>

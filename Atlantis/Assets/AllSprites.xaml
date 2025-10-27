@@ -22,7 +22,6 @@
     <BitmapImage x:Key="DoorClosed" UriSource="/Atlantis;component/Assets/Door/DoorClosed.png"/>
     <BitmapImage x:Key="DoorOpen" UriSource="/Atlantis;component/Assets/Door/DoorOpen.png"/>
     <BitmapImage x:Key="DoorOpening" UriSource="/Atlantis;component/Assets/Door/DoorOpening.png"/>
-    <!--<ImageBrush x:Key="PlayerIdle" gif:ImageBehavior.AnimatedSource="/Atlantis;component/Assets/PlayerSprite.gif" />-->
 
     <BitmapImage x:Key="Fish0_0" UriSource="/Atlantis;component/Assets/Fish/Fish0_0.png"/>
     <BitmapImage x:Key="Fish0_1" UriSource="/Atlantis;component/Assets/Fish/Fish0_1.png"/>
@@ -40,7 +39,15 @@
     <BitmapImage x:Key="WallBreakable" UriSource="/Atlantis;component/Assets/Wall/WallBreakable.png"/>
     <BitmapImage x:Key="WallMoveable" UriSource="/Atlantis;component/Assets/Wall/WallMoveable.png"/>
 
-    <!--<FontFamily x:Key="MainFont">/Atlantis;component/Assets/CoralPixels-Regular.ttf</FontFamily>-->
+    <BitmapImage x:Key="Chapter1" UriSource="/Atlantis;component/Assets/LevelSelect/Chapter1LevelSelect.png"/>
+    <BitmapImage x:Key="Chapter2" UriSource="/Atlantis;component/Assets/LevelSelect/Chapter2LevelSelect.png"/>
+    <BitmapImage x:Key="Chapter3" UriSource="/Atlantis;component/Assets/LevelSelect/Chapter3LevelSelect.png"/>
+    <BitmapImage x:Key="ChapterHead" UriSource="/Atlantis;component/Assets/LevelSelect/ChapterHead.png"/>
+
+    <BitmapImage x:Key="Key0" UriSource="/Atlantis;component/Assets/Keys/Key0.png"/>
+    <BitmapImage x:Key="Key1" UriSource="/Atlantis;component/Assets/Keys/Key1.png"/>
+    <BitmapImage x:Key="Key2" UriSource="/Atlantis;component/Assets/Keys/Key2.png"/>
+    <BitmapImage x:Key="Key3" UriSource="/Atlantis;component/Assets/Keys/Key3.png"/>
     <FontFamily x:Key="MainFont">/Atlantis;component/Assets/#Pixelated Elegance</FontFamily>
     <FontFamily x:Key="SecondFont">/Atlantis;component/Assets/#Coral Pixels</FontFamily>
 </ResourceDictionary>

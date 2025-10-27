@@ -39,6 +39,10 @@
     <None Remove="Assets\Keys\Key1.png" />
     <None Remove="Assets\Keys\Key2.png" />
     <None Remove="Assets\Keys\Key3.png" />
+    <None Remove="Assets\LevelSelect\Chapter1LevelSelect.png" />
+    <None Remove="Assets\LevelSelect\Chapter2LevelSelect.png" />
+    <None Remove="Assets\LevelSelect\Chapter3LevelSelect.png" />
+    <None Remove="Assets\LevelSelect\ChapterHead.png" />
     <None Remove="Assets\MenuBackground.png" />
     <None Remove="Assets\NOSPRITE.png" />
     <None Remove="Assets\placeholder.png" />
@@ -91,6 +95,10 @@
     <Resource Include="Assets\Keys\Key1.png" />
     <Resource Include="Assets\Keys\Key2.png" />
     <Resource Include="Assets\Keys\Key3.png" />
+    <Resource Include="Assets\LevelSelect\Chapter1LevelSelect.png" />
+    <Resource Include="Assets\LevelSelect\Chapter2LevelSelect.png" />
+    <Resource Include="Assets\LevelSelect\Chapter3LevelSelect.png" />
+    <Resource Include="Assets\LevelSelect\ChapterHead.png" />
     <Resource Include="Assets\MenuBackground.png" />
     <Resource Include="Assets\NOSPRITE.png" />
 	  <Resource Include="Assets\PixelatedEleganceRegular.ttf">

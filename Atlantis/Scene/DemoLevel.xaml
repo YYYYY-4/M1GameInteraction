@@ -10,7 +10,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="DemoLevel">
 
-    <Canvas Width="1920" Height="1080" Background="{StaticResource TileBrush}">
+    <Canvas Width="1920" Height="1080">
         <game:WaterArea Width="6062" Height="5096" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="-2136" Canvas.Top="-1920" Loaded="WaterArea_Loaded"/>
 
         <game:Collectible Width="50" Height="50" Canvas.Top="950" Canvas.Left="670" />
