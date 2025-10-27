@@ -11,6 +11,7 @@ public class Inventory
 {
     private readonly Player _player;
     private readonly GameScene _scene;
+    private int _time;
     
     public Inventory(Player player, GameScene scene)
     {
@@ -37,6 +38,7 @@ public class Inventory
     public void PickUp(Item item)
     {
         if (_item != null) return;
+        Debug.WriteLine("Pickup item!");
         
         _scene.DestroyControl(item);
         _item = item;
