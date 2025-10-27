@@ -1,4 +1,5 @@
 ﻿using Atlantis.Box2dNet;
+using System.Windows.Markup;
 using System.Windows.Media;
 
 namespace Atlantis.Game
@@ -81,7 +82,7 @@ namespace Atlantis.Game
                 }
                 else if (value is GameControl[] a)
                 {
-                    _targets = [..a];
+                    _targets = [.. a];
                 }
                 else
                 {
