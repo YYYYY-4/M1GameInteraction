@@ -67,6 +67,7 @@
     <BitmapImage x:Key="BackButton" UriSource="/Atlantis;component/Assets/MenuElements/BackButton.png" />
     <BitmapImage x:Key="DeleteButton" UriSource="/Atlantis;component/Assets/MenuElements/DeleteButton.png" />
     <BitmapImage x:Key="PrototypeLogo" UriSource="/Atlantis;component/Assets/MenuElements/LogoV2.png" />
+    <BitmapImage x:Key="Logo" UriSource="/Atlantis;component/Assets/MenuElements/MainScreenLogo.png" />
 
     <BitmapImage x:Key="Key0" UriSource="/Atlantis;component/Assets/Keys/Key0.png"/>
     <BitmapImage x:Key="Key1" UriSource="/Atlantis;component/Assets/Keys/Key1.png"/>

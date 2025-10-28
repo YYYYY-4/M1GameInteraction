@@ -19,6 +19,7 @@
     <None Remove="Assets\Door\DoorOpen.png" />
     <None Remove="Assets\Door\DoorOpening.png" />
     <None Remove="Assets\Fish\Fish6_0.png" />
+    <None Remove="Assets\MenuElements\MainScreenLogo.png" />
     <None Remove="Assets\PlayerItem\Dynamite\DynamiteFrame0.png" />
     <None Remove="Assets\PlayerItem\Dynamite\DynamiteFrame1.png" />
     <None Remove="Assets\PlayerItem\Dynamite\DynamiteFrame2.png" />
@@ -94,6 +95,7 @@
     <Resource Include="Assets\Door\DoorOpen.png" />
     <Resource Include="Assets\Door\DoorOpening.png" />
     <Resource Include="Assets\Fish\Fish6_0.png" />
+    <Resource Include="Assets\MenuElements\MainScreenLogo.png" />
     <Resource Include="Assets\PlayerItem\Dynamite\DynamiteFrame0.png" />
     <Resource Include="Assets\PlayerItem\Dynamite\DynamiteFrame1.png" />
     <Resource Include="Assets\PlayerItem\Dynamite\DynamiteFrame2.png" />
