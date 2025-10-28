@@ -28,11 +28,13 @@
                 </Grid.RowDefinitions>
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Column="1" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="#FFF6CD26" FontWeight="Bold" Content="{Binding Level, StringFormat=level: {0:S}}" />
+                    <Label Grid.Column="1" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="#FFF6CD26" FontWeight="Bold" Content="{Binding Level}" />
                     <Label x:Name="LevelStatus" Grid.Row="1" HorizontalAlignment="Center" Foreground="#FFF6CD26" FontWeight="Bold" VerticalAlignment="Top" FontSize="16" Content="Completed" />
+                    <Label Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="#FFF6CD26" FontWeight="Bold" Content="{Binding LevelScore}" />
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="1">
                     <Grid.RowDefinitions>
