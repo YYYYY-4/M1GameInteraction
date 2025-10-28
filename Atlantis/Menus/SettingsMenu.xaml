@@ -122,7 +122,7 @@
                     FontFamily="Rockwell" 
                     FontWeight="Bold" 
                     FontSize="20" 
-                    Content="BACK"/>
+                    Click="GoBack">BACK</Button>
         </Grid>
         <!--end grid for back button-->
         <!--grid for apply button-->
@@ -134,7 +134,8 @@
             <Button Grid.Column="1" 
                     FontFamily="Rockwell" 
                     FontWeight="Bold" 
-                    FontSize="20" Click="OpslaanSettings_Button_Click">APPLY</Button>
+                    FontSize="20" 
+                    Click="OpslaanSettings_Button_Click">APPLY</Button>
         </Grid>
         <!--end grid for apply button-->
         <Label Grid.Column="1" 
