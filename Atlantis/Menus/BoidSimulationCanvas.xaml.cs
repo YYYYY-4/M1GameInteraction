@@ -71,8 +71,6 @@ namespace Atlantis.Menus
 
         private void SpawnRandomFish(int fishCount, int predatorCount)
         {
-            Sounds spawnfishSfx = new Sounds();
-            spawnfishSfx.PlaySfx(@"Assets\Sounds\Sfx\Fish.mp3");
             for (var i = 0; i < fishCount; i++)
             {
                 bool predator = i < predatorCount;

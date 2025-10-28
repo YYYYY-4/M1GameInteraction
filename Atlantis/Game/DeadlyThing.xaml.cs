@@ -16,6 +16,8 @@
 
             if (visitor.Control is Player player)
             {
+                Sounds fishSfx = new Sounds();
+                fishSfx.PlaySfx(@"Assets\Sounds\Sfx\Fish.mp3");
                 Scene.DestroyControl(player);
             }
         }
