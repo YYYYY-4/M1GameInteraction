@@ -30,7 +30,7 @@ public class Item : GameControl
     {
         if (visitor.Control is Player player)
         {
-            if (PickupDelay <= 0)
+            if (PickupDelay <= 0 && IsPickup)
                 player.Inventory.PickUp(this);
         }
     }

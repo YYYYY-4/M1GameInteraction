@@ -53,8 +53,9 @@ public class Inventory
         Debug.WriteLine("Dropped item!");
         
         Vector2 position = player.Body.GetPosition();
-        float offset = _player.FacingDirection == 1 ? 5.0f : -5.0f;
-        _scene.ProcessGameControl(_item!, new b2Transform(new Vector2(position.X + offset, position.Y), b2Rot.Zero));
+        float velocity = 10.0f;
+        _scene.ProcessGameControl(_item!, new b2Transform(position, b2Rot.Zero));
+        _item.Body.SetLinearVelocity(new Vector2(player.FacingDirection == 1 ? velocity : velocity * -1, 0));
         _item.Drop();
         
         _item = null;
