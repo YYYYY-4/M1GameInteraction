@@ -117,7 +117,7 @@ namespace Atlantis.Game
 
             //Trace.WriteLine($"FPS: {1.0f / dt}");
 
-            if (timer > 2.0f)
+            if (timer > 1.5f)
                 timer = 0;
 
             if (IsInWater())
@@ -129,9 +129,7 @@ namespace Atlantis.Game
 
                 UpdateWaterForces(Shape0);
 
-                if (timer > 1.5f)
-                    _player.Source = (ImageSource)App.Current.FindResource("PlayerWater4");
-                else if (timer > 1.0f)
+                if (timer > 1.0f)
                     _player.Source = (ImageSource)App.Current.FindResource("PlayerWater3");
                 else if (timer > 0.5f)
                     _player.Source = (ImageSource)App.Current.FindResource("PlayerWater2");
