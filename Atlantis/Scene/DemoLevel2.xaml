@@ -26,7 +26,7 @@
                 </Rectangle.Fill>
             </Rectangle>
         </game:Wall>
-        <game:EndDoor Width="70" Height="88" Canvas.Left="1760" Canvas.Top="432" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <game:EndDoor Width="70" Height="88" Canvas.Left="1760" Canvas.Top="435" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <game:DoorKey Canvas.Left="1500" Canvas.Top="950"/>
         <game:Dynamite Canvas.Left="136" Canvas.Top="600"/>
         <game:Dynamite Canvas.Left="589" Canvas.Top="580"/>
