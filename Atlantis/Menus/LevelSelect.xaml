@@ -73,7 +73,7 @@
                     <Image Source="{StaticResource Chapter1}" Stretch="Fill" Grid.Row="4"/>
                     <Image Source="{StaticResource Chapter1}" Stretch="Fill" Grid.Row="6"/>
 
-                    <Label Content="Demo" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="Demo1" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
                     <Button Click="C1L1_Click" Opacity="0"/>
                     <Button Click="C1L2_Click" Grid.Row="2" Opacity="0"/>
@@ -108,6 +108,8 @@
                     <Image Source="{StaticResource Chapter2}" Stretch="Fill" Grid.Row="4"/>
                     <Image Source="{StaticResource Chapter2}" Stretch="Fill" Grid.Row="6"/>
 
+                    <Label Content="Demo2" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    
                     <Button Click="C2L1_Click" Opacity="0"/>
                     <Button Click="C2L2_Click" Grid.Row="2" Opacity="0"/>
                     <Button Click="C2L3_Click" Grid.Row="4" Opacity="0"/>

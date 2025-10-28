@@ -14,7 +14,7 @@
     </local:BodyDef.BodyDef>
     
     <local:ShapeDef.ShapeDef>
-        <local:ShapeDef Category="Player" Mask="Player" EnableSensorEvents="True" />
+        <local:ShapeDef Category="Player" Mask="Player" EnableSensorEvents="True" Destructible="True" />
     </local:ShapeDef.ShapeDef>
 
     <Canvas Width="50" Height="100">
@@ -23,7 +23,7 @@
                 <ScaleTransform ScaleX="-1" CenterX="25"/>
             </Image.RenderTransform>
             <local:ShapeDef.ShapeDef>
-                <local:ShapeDef MatFriction="1" MatRestitution="0" />
+                <local:ShapeDef MatFriction="1" MatRestitution="0"/>
             </local:ShapeDef.ShapeDef>
         </Image>
         <Rectangle Width="6" Height="100" Canvas.Top="-50" Canvas.Left="22" HorizontalAlignment="Center" VerticalAlignment="Top">

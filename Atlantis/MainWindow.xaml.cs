@@ -34,6 +34,8 @@ namespace Atlantis
             BoidSimulation = new BoidSimulationCanvas();
 
             PushPage(new MainMenuPage(this));
+            
+            Music.PlayMainMusicLoop();
         }
 
         public List<Page> PageHistory { get; } = new List<Page>();

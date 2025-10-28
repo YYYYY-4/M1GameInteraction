@@ -1,3 +1,6 @@
+using Atlantis.Game;
+using Atlantis.Scene;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,7 +14,7 @@ namespace Atlantis.Menus;
 /// <summary>
 /// This page shows the GameScenes in the Scene folder.
 /// </summary>
-public partial class GamePage : Page
+public partial class GamePage : Page, INotifyPropertyChanged
 {
     MainWindow _window;
     Canvas _canvas;
@@ -24,15 +27,20 @@ public partial class GamePage : Page
     private bool _completed = false;
 
     public string Level => $"Level {_level + 1}";
+    public string LevelScore 
+    { 
+        get; 
+
+        set; 
+    }
 
     public static readonly Dictionary<int, Type> Levels = new()
     {
         { 0, typeof(DemoLevel) },
-        { 1, typeof(DemoLevel) },
-        { 2, typeof(DemoLevel) },
-        { 3, typeof(DemoLevel) },
-        { 4, typeof(DemoLevel2) }
+        { 1, typeof(DemoLevel2) }
     };
+
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     public GamePage(MainWindow window, PlayerSave save, int level)
     {
@@ -62,6 +70,10 @@ public partial class GamePage : Page
         HigscoreTable.ItemsSource = Highscores.ReadData(_level);
 
         _completed = true;
+
+        LevelScore = "Score: " + Convert.ToString(score);
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(LevelScore)));
+
         ContinueButton.Content = "Next Level";
         LevelStatus.Content = "Completed";
         SetPaused(true);
@@ -105,6 +117,8 @@ public partial class GamePage : Page
         LevelStatus.Content = "Paused";
         ContinueButton.Content = "Continue";
         HigscoreTable.ItemsSource = Highscores.ReadData(_level);
+        LevelScore = string.Empty;
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(LevelScore)));
 
         UpdatePauseVisible();
     }
@@ -158,6 +172,8 @@ public partial class GamePage : Page
                 if (Levels.ContainsKey(_level + 1))
                 {
                     _level++;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Level)));
+                    
                     LoadScene();
                 }
                 else
