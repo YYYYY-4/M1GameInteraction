@@ -13,6 +13,20 @@
         Height="1080"
         Width="1920" WindowState="Maximized" WindowStyle="None">
     <Window.Background>
-        <ImageBrush ImageSource="{Binding BackgroundImage}" Stretch="Fill"/>
+        <ImageBrush ImageSource="{StaticResource MenuBackground}" Stretch="Fill"/>
     </Window.Background>
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="FontFamily" Value="{StaticResource MainFont}" />
+            <Setter Property="FontSize" Value="40" />
+        </Style>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="FontFamily" Value="{StaticResource MainFont}" />
+            <Setter Property="FontSize" Value="40" />
+        </Style>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="FontFamily" Value="{StaticResource MainFont}" />
+            <Setter Property="FontSize" Value="40" />
+        </Style>
+    </Window.Resources>
 </Window>

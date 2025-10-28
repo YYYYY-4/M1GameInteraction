@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Canvas>
-        <Image Source="/Assets/PlaceholderCollectable.jpg" Width="50" Height="50" />
+        <Image Source="{StaticResource Fish0_1}" Width="50" Height="50" />
         <Rectangle Width="75" Height="75" Canvas.Left="-12.5" Canvas.Top="-12.5">
             <local:ShapeDef.ShapeDef>
                 <local:ShapeDef IsSensor="True" EnableSensorEvents="True" />
