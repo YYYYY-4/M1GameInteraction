@@ -66,6 +66,7 @@
     <None Remove="Assets\Wall\WallBase.png" />
     <None Remove="Assets\Wall\WallBreakable.png" />
     <None Remove="Assets\Wall\WallMoveable.png" />
+    <None Remove="Assets\Water.png" />
     <None Remove="box2d.dll" />
   </ItemGroup>
 
@@ -139,6 +140,7 @@
     <Resource Include="Assets\Wall\WallBase.png" />
     <Resource Include="Assets\Wall\WallBreakable.png" />
     <Resource Include="Assets\Wall\WallMoveable.png" />
+    <Resource Include="Assets\Water.png" />
   </ItemGroup>
 
   <ItemGroup>

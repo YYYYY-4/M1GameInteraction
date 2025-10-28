@@ -707,6 +707,8 @@ namespace Atlantis.Game
             DragUpdate();
         }
 
+        float WaterScroll = 0.0f;
+
         public void GameRender(float dt)
         {
             var inputDir = new Vector2(IsKeyDown01(Key.D) - IsKeyDown01(Key.A), IsKeyDown01(Key.W) - IsKeyDown01(Key.S));
@@ -760,6 +762,20 @@ namespace Atlantis.Game
                     new RotateTransform(-Camera.Angle.RadToDeg()),
                 ]
             };
+
+            ImageBrush brush = new ImageBrush();
+            brush.ImageSource = (ImageSource)App.Current.FindResource("WaterImage");
+            brush.TileMode = TileMode.Tile;
+            brush.Stretch = Stretch.Fill;
+            brush.Viewport = new Rect(0, 0, 200, 40);
+            brush.ViewportUnits = BrushMappingMode.Absolute;
+
+            // <ImageBrush x:Key="TiledWaterBackground" ImageSource="{StaticResource WaterImage}" Stretch="Fill" TileMode="Tile" Viewport="0,0,200,40" ViewportUnits="Absolute" />
+
+            WaterScroll += dt * 100;
+            brush.Transform = new TranslateTransform(-(pxCamera.X + WaterScroll) % 200, (pxCamera.Y) % 40);
+
+            GamePage.Background = brush;
 
             Canvas.RenderTransform = new TransformGroup()
             {

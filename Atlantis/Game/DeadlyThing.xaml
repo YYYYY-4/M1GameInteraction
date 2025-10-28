@@ -1,4 +1,4 @@
-﻿<local:GameControl x:Class="Atlantis.Game.DeadlyThing"
+﻿<local:WaterGameControl x:Class="Atlantis.Game.DeadlyThing"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -18,4 +18,4 @@
             </local:ShapeDef.ShapeDef>
         </Rectangle>
     </Canvas>
-</local:GameControl>
+</local:WaterGameControl>
