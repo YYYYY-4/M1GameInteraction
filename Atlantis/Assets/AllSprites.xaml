@@ -47,7 +47,11 @@
     <BitmapImage x:Key="Fish5_0" UriSource="/Atlantis;component/Assets/Fish/Fish5_0.png"/>
     <BitmapImage x:Key="Fish5_1" UriSource="/Atlantis;component/Assets/Fish/Fish5_1.png"/>
     <BitmapImage x:Key="Fish6_0" UriSource="/Atlantis;component/Assets/Fish/Fish6_0.png" Rotation="Rotate90"/>
-    
+
+    <BitmapImage x:Key="CatWater" UriSource="/Atlantis;component/Assets/Cats/water_cat.png"/>
+    <BitmapImage x:Key="CatLand" UriSource="/Atlantis;component/Assets/Cats/land_cat.png"/>
+    <BitmapImage x:Key="CatVoid" UriSource="/Atlantis;component/Assets/Cats/void_cat.png" />
+
     <BitmapImage x:Key="WallBase" UriSource="/Atlantis;component/Assets/Wall/WallBase.png"/>
     <BitmapImage x:Key="WallBreakable" UriSource="/Atlantis;component/Assets/Wall/WallBreakable.png"/>
     <BitmapImage x:Key="WallMoveable" UriSource="/Atlantis;component/Assets/Wall/WallMoveable.png"/>

@@ -1,10 +1,21 @@
-﻿namespace Atlantis.Game
+﻿using System.Windows.Media;
+
+namespace Atlantis.Game
 {
     /// <summary>
     /// Template for GameControl
     /// </summary>
     public partial class Collectible : GameControl
     {
+        public ImageSource CollectibleImageSource
+        {
+            get => img.Source;
+            set
+            {
+                img.Source = value;
+            }
+        }
+
         public Collectible()
         {
             InitializeComponent();

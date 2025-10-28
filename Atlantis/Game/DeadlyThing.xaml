@@ -10,7 +10,11 @@
         <local:BodyDef.BodyDef>
             <local:BodyDef Type="b2_dynamicBody" />
         </local:BodyDef.BodyDef>
-        <Image Source="{StaticResource Fish5_1}" Width="50" Height="50"/>
+        <Image Source="{StaticResource Fish5_1}" Width="50" Height="50">
+            <local:ShapeDef.ShapeDef>
+                <local:ShapeDef EnableSensorEvents="True" />
+            </local:ShapeDef.ShapeDef>
+        </Image>
 
         <Rectangle Width="50" Height="132" Fill="Green" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="-27">
             <local:ShapeDef.ShapeDef>

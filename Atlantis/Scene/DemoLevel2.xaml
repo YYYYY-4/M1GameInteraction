@@ -31,8 +31,8 @@
         <game:Dynamite Canvas.Left="136" Canvas.Top="600"/>
         <game:Dynamite Canvas.Left="589" Canvas.Top="580"/>
         <game:JumpBoots Width="50" Height="50" Canvas.Left="297" Canvas.Top="963"/>
-        <game:Collectible Width="50" Height="50" Canvas.Left="1770" Canvas.Top="726"/>
-        <game:Collectible Width="50" Height="50" Canvas.Left="935" Canvas.Top="158"/>
+        <game:Collectible CollectibleImageSource="{StaticResource CatLand}" Width="50" Height="50" Canvas.Left="1770" Canvas.Top="726"/>
+        <game:Collectible CollectibleImageSource="{StaticResource CatLand}" Width="50" Height="50" Canvas.Left="935" Canvas.Top="158"/>
         <game:DestroyButton Canvas.Left="1630" Canvas.Top="1049" Width="50" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top">
             <game:DestroyButton.Targets>
                 <x:Array Type="game:GameControl">

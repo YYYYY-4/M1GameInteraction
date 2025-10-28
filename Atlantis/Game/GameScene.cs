@@ -832,15 +832,7 @@ namespace Atlantis.Game
 
                 var queryFilter = B2Util.QueryFilter(PhysicsCategory.All, PhysicsMask.All);
 
-                List<GameShape> shapes = [];
-                World.OverlapAABB(ab, queryFilter, (b2ShapeId shape, nint ctx) =>
-                {
-                    if (_shapeLookUp.TryGetValue(shape.GetUserData(), out var sh))
-                    {
-                        shapes.Add(sh);
-                    }
-                    return false;
-                }, 0);
+                var shapes = OverlapAABB(ab, queryFilter);
 
                 // Find shape with lowest area
                 if (shapes.Count > 0)
@@ -849,10 +841,12 @@ namespace Atlantis.Game
                     {
                         if (current == null)
                         {
-                            return current;
+                            return sh;
                         }
+
                         float a = current.Size.LengthSquared();
                         float b = sh.Size.LengthSquared();
+                        
                         return a < b ? current : sh;
                     })?.Control;
                 }
@@ -892,6 +886,7 @@ namespace Atlantis.Game
         // Use case: get shapes overlapping a shape without having to define a callback
 
         private List<GameShape> overlapCast;
+        private List<GameShape> aabbCast;
 
         private bool OverlapCastFcn(b2ShapeId shapeId, IntPtr context)
         {
@@ -910,6 +905,25 @@ namespace Atlantis.Game
 
             return overlapCast;
         }
+
+        private bool AABBCastFcn(b2ShapeId shapeId, nint ctx)
+        {
+            if (_shapeLookUp.TryGetValue(shapeId.GetUserData(), out var result))
+            {
+                aabbCast.Add(result);
+            }
+            return true;
+        }
+
+        public List<GameShape> OverlapAABB(in b2AABB aabb, b2QueryFilter filter)
+        {
+            aabbCast = [];
+
+            World.OverlapAABB(aabb, filter, AABBCastFcn, 0);
+
+            return aabbCast;
+        }
+
 
         public b2RayResult RayCastClosest(Vector2 origin, Vector2 translation, b2QueryFilter filter)
         {
