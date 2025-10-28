@@ -209,10 +209,10 @@ namespace Atlantis.Game
                     float height;
                     if (Inventory.GetItem()?.GetType() == typeof(JumpBoots))
                     {
-                        height = 18.0f;
+                        height = 13.0f;
                     }
                     else
-                        height = 9.0f;
+                        height = 7.5f;
                     var force = (height - Scene.World.GetGravity().Y * duration * (duration / 2)) / duration;
 
                     //Trace.WriteLine("Mass = " + Mass);

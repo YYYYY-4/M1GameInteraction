@@ -130,8 +130,8 @@ namespace Atlantis.Game
                 }),
             };
 
-            Canvas.Background = CanvasBrush;
-
+            //Canvas.Background = CanvasBrush;
+            
             b2WorldDef worldDef = B2Api.b2DefaultWorldDef();
             worldDef.enableSleep = false;
 
@@ -140,7 +140,6 @@ namespace Atlantis.Game
             B2Api.b2SetAssertFcn(AssertFcn);
 
             LoadGameControls(Canvas, (float)Canvas.ActualHeight, 0.0, 0.0);
-            LargeGroundBody();
 
             _watch.Start();
 
@@ -169,16 +168,6 @@ namespace Atlantis.Game
             B2Api.b2DestroyWorld(World);
 
             _watch.Stop();
-        }
-
-        private void LargeGroundBody()
-        {
-            var wall = new Wall
-            {
-                Width = 5e4f * ScalingFactor,
-                Height = 50.0f
-            };
-            ProcessGameControl(wall, new b2Transform(new Vector2(-2.5e4f, 0.0f), b2Rot.Zero));
         }
 
         public void ProcessGameControl(GameControl control, b2Transform transform)
@@ -770,6 +759,11 @@ namespace Atlantis.Game
                     new TranslateTransform(-pxCamera.X % ScalingFactor, pxCamera.Y % ScalingFactor),
                     new RotateTransform(-Camera.Angle.RadToDeg()),
                 ]
+            };
+
+            Canvas.RenderTransform = new TransformGroup()
+            {
+                Children = [new ScaleTransform(2, 2), new TranslateTransform(-Canvas.ActualWidth / 2, -Canvas.ActualHeight / 2)]
             };
         }
 
