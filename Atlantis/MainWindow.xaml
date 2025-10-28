@@ -13,7 +13,7 @@
         Height="1080"
         Width="1920" WindowState="Maximized" WindowStyle="None">
     <Window.Background>
-        <ImageBrush ImageSource="{Binding BackgroundImage}" Stretch="Fill"/>
+        <ImageBrush ImageSource="{StaticResource MenuBackground}" Stretch="Fill"/>
     </Window.Background>
     <Window.Resources>
         <Style TargetType="{x:Type Button}">

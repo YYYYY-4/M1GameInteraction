@@ -20,6 +20,9 @@ public partial class GamePage : Page
 
     private PlayerSave _save;
     private int _level;
+    private bool _completed = false;
+
+    public string Level => $"Level {_level+1}";
 
     public static readonly Dictionary<int, Type> Levels = new()
     {
@@ -27,18 +30,17 @@ public partial class GamePage : Page
         { 1, typeof(DemoLevel) },
         { 2, typeof(DemoLevel) },
         { 3, typeof(DemoLevel) },
-        { 4, typeof(DemoLevel) }
+        { 4, typeof(DemoLevel2) }
     };
 
     public GamePage(MainWindow window, PlayerSave save, int level)
     {
         InitializeComponent();
-        window.ChangeBackground("/Assets/placeholder.png");
+        DataContext = this;
+
         _window = window;
         _save = save;
         _level = level;
-
-
 
         LoadScene();
 
@@ -54,9 +56,14 @@ public partial class GamePage : Page
     public void Win()
     {
         int score = Score.Calculation(_scene.Time);
-        HighscorePage.AddRecord(_level, score, _save.Name);
+        Highscores.AddRecord(_level, score, _save.Name);
 
-        HigscoreTable.ItemsSource = HighscorePage.ReadData(_level);
+        HigscoreTable.ItemsSource = Highscores.ReadData(_level);
+
+        _completed = true;
+        ContinueButton.Content = "Next Level";
+        LevelStatus.Content = "Completed";
+        SetPaused(true);
 
         Overlay.Visibility = Visibility.Visible;
     }
@@ -64,6 +71,7 @@ public partial class GamePage : Page
     /// <typeparam name="T">Scene which inherits Page and defines a Canvas at it's root.</typeparam>
     public void LoadScene()
     {
+
         if (!Levels.TryGetValue(_level, out var levelType))
         {
             return;
@@ -82,6 +90,7 @@ public partial class GamePage : Page
         _canvas = (Canvas)page.Content;
         _scene = new GameScene(_window, this, _canvas);
 
+        _completed = false;
         page.Content = null;
 
         // game in background
@@ -92,6 +101,8 @@ public partial class GamePage : Page
         Grid.SetRowSpan(_canvas, int.MaxValue);
 
         RootGrid.Children.Add(_canvas);
+        LevelStatus.Content = "Paused";
+        ContinueButton.Content = "Continue";
 
         UpdatePauseVisible();
     }
@@ -120,7 +131,10 @@ public partial class GamePage : Page
 
         if (_scene != null && (e.Key == Key.Escape || e.Key == Key.P))
         {
-            SetPaused(!_scene.Paused);
+            if (!_completed)
+            {
+                SetPaused(!_scene.Paused);
+            }
         }
         else if (e.Key == Key.F1)
         {
@@ -132,7 +146,10 @@ public partial class GamePage : Page
     {
         if (_scene != null)
         {
-            SetPaused(false);
+            if (!_completed)
+            {
+                SetPaused(false);
+            }
         }
     }
 

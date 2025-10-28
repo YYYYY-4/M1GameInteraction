@@ -20,19 +20,8 @@ namespace Atlantis
         private Canvas _canvas;
         private Grid _grid;
         private SettingsMenu _menu;
-        private string _image;
 
         public event PropertyChangedEventHandler? PropertyChanged;
-
-        public string BackgroundImage
-        {
-            get { return _image; }
-            set
-            {
-                _image = value;
-                OnPropertyChanged(nameof(BackgroundImage));
-            }
-        }
 
         public MainWindow()
         {
@@ -40,7 +29,6 @@ namespace Atlantis
 
             InitializeComponent();
             DataContext = this;
-            BackgroundImage = "/Assets/MenuBackground.png";
 
             PushPage(new MainMenuPage(this));
 
@@ -114,22 +102,6 @@ namespace Atlantis
             Content = page;
 
             Trace.WriteLine("AfterPush: " + string.Join(", ", PageHistory));
-        }
-
-        public void ChangeBackground(string imageFilePath)
-        {
-            BackgroundImage = imageFilePath;
-        }
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-
-            PropertyChangedEventHandler handler = this.PropertyChanged;
-            if (handler != null)
-            {
-                var e = new PropertyChangedEventArgs(propertyName);
-                handler(this, e);
-            }
         }
     }
 }
