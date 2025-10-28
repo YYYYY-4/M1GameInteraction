@@ -25,6 +25,8 @@ namespace Atlantis.Game
         
         private bool _isExploding = false;
         private float _timer = 0.0f;
+        private bool _isPlayerDestroyed = false;
+
 
         private BitmapImage _dynamiteSprite = new BitmapImage();
 
@@ -92,11 +94,17 @@ namespace Atlantis.Game
             dynamite.Visibility = Visibility.Hidden;
             Body.Disable();
 
+            // Checks if a shape within the explosion is destructible.
+            // Also checks if the shape is a player element and if the player has already been destroyed.
+            // This is done as a player element has multiple shapes and removing the same player element multiple times causes a crash.
             foreach (GameShape shape in shapes)
             {
-                if (shape.Destructible)
+                if (shape.Destructible && shape.Control is not Player)
+                    Scene.DestroyControl(shape.Control);
+                else if (shape.Destructible && shape.Control is Player && _isPlayerDestroyed == false)
                 {
                     Scene.DestroyControl(shape.Control);
+                    _isPlayerDestroyed = true;
                 }
             }
         }
