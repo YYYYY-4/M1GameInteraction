@@ -1,4 +1,4 @@
 # Atlantis
-## De stomste platformer die u ooit heeft gezien
+## De beste platformer die u ooit heeft gezien
 
 Titel zegt alles
