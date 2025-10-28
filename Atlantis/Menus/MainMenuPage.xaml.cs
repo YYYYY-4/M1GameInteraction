@@ -9,15 +9,16 @@ public partial class MainMenuPage : Page
 {
     private Page _page;
     private MainWindow _window;
+
     
+
     // Window is necessary for GamePage 
     public MainMenuPage(MainWindow window)
     {
         InitializeComponent();
-
         _window = window;
     }
-    
+
     private void Start_Button_Click(object sender, RoutedEventArgs e)
     {
         _window.PushPage(new PlayerSelect(_window));
