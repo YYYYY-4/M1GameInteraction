@@ -11,12 +11,12 @@
         <local:BodyDef Type="b2_dynamicBody"/>
     </local:BodyDef.BodyDef>
     <Canvas>
-        <Image Source="{StaticResource Collectable}" Width="50" Height="50">
+        <Image Source="{StaticResource JumpBoots}" Width="24" Height="45">
             <local:ShapeDef.ShapeDef>
                 <local:ShapeDef Mask="Dynamite" Category="Dynamite"/>
             </local:ShapeDef.ShapeDef>
         </Image>
-        <Rectangle Width="75" Height="75" Canvas.Left="-12.5" Canvas.Top="-12.5">
+        <Rectangle Width="30" Height="65" Canvas.Left="-5" Canvas.Top="-5">
             <local:ShapeDef.ShapeDef>
                 <local:ShapeDef IsSensor="True" EnableSensorEvents="True"/>
             </local:ShapeDef.ShapeDef>

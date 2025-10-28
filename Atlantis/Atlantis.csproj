@@ -52,6 +52,7 @@
     <None Remove="Assets\MenuElements\LogoV2.png" />
     <None Remove="Assets\MenuElements\MenuElementStick.png" />
     <None Remove="Assets\NOSPRITE.png" />
+    <None Remove="Assets\PlayerItem\JumpBoots.png" />
     <None Remove="Assets\PlayerWaterSprite\pixil-frame-0.png" />
     <None Remove="Assets\PlayerWaterSprite\pixil-frame-1.png" />
     <None Remove="Assets\PlayerWaterSprite\pixil-frame-2.png" />
@@ -124,6 +125,7 @@
 	  <Resource Include="Assets\PixelatedEleganceRegular.ttf">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Resource>
+	  <Resource Include="Assets\PlayerItem\JumpBoots.png" />
 	  <Resource Include="Assets\PlayerWaterSprite\pixil-frame-0.png" />
 	  <Resource Include="Assets\PlayerWaterSprite\pixil-frame-1.png" />
 	  <Resource Include="Assets\PlayerWaterSprite\pixil-frame-2.png" />
