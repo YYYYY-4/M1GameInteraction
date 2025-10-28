@@ -33,7 +33,7 @@ namespace Atlantis
         public int Calculation(float time)
         {
             int maxScore = 10000;
-            _score = maxScore - (Convert.ToInt32(time * 50)) + (collectables * 1000);
+            _score = maxScore - (Convert.ToInt32(time * 150)) + (collectables * 1000);
 
             return _score;
         }
