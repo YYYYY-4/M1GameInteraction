@@ -16,12 +16,21 @@
                 <RotateTransform Angle="0"/>
             </game:Player.RenderTransform>
         </game:Player>
-        <game:EndDoor Width="70" Height="88" Canvas.Left="1760" Canvas.Top="432" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <game:Wall Width="100" Height="480" Canvas.Left="1100" Canvas.Top="600" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <game:ShapeDef.ShapeDef>
+                <game:ShapeDef Destructible="True"></game:ShapeDef>
+            </game:ShapeDef.ShapeDef>
+            <Rectangle>
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="{StaticResource WallBreakable}" Stretch="Fill" TileMode="Tile" Viewport="0,0,64,64" ViewportUnits="Absolute"/>
+                </Rectangle.Fill>
+            </Rectangle>
+        </game:Wall>
+        <game:EndDoor Width="70" Height="88" Canvas.Left="1760" Canvas.Top="435" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <game:DoorKey Canvas.Left="1500" Canvas.Top="950"/>
-        <game:Dynamite Canvas.Left="128" Canvas.Top="432"/>
-        <game:Dynamite Canvas.Left="570" Canvas.Top="432"/>
+        <game:Dynamite Canvas.Left="136" Canvas.Top="600"/>
+        <game:Dynamite Canvas.Left="589" Canvas.Top="580"/>
         <game:JumpBoots Width="50" Height="50" Canvas.Left="297" Canvas.Top="963"/>
-        <game:JumpBoots Width="50" Height="50" Canvas.Left="1760" Canvas.Top="963"/>
         <game:Collectible Width="50" Height="50" Canvas.Left="1770" Canvas.Top="726"/>
         <game:Collectible Width="50" Height="50" Canvas.Left="935" Canvas.Top="158"/>
         <game:DestroyButton Canvas.Left="1630" Canvas.Top="1049" Width="50" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top">
@@ -40,27 +49,19 @@
             </Rectangle>
         </game:Wall>
         <game:Wall Width="100" Height="600" Canvas.Left="400" Canvas.Top="10" x:Name="ButtonWall2">
-            <Rectangle>
+            <Rectangle Margin="0,464,0,-105">
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="{StaticResource WallMoveable}" Stretch="Fill" TileMode="Tile" Viewport="0,0,64,64" ViewportUnits="Absolute"/>
                 </Rectangle.Fill>
             </Rectangle>
         </game:Wall>
-        <game:Wall Width="50" Height="1080" Canvas.Left="0" Canvas.Top="0"/>
-        <game:Wall Width="50" Height="1070" Canvas.Left="1870" Canvas.Top="10" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <game:Wall Width="1920" Height="50" Canvas.Left="0" Canvas.Top="0"/>
-        <game:Wall Width="750" Height="110" Canvas.Left="50" Canvas.Top="520" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <game:Wall Width="750" Height="110" Canvas.Left="1120" Canvas.Top="520" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <game:Wall Width="100" Height="480" Canvas.Left="1200" Canvas.Top="600" HorizontalAlignment="Center" VerticalAlignment="Top">
-            <game:ShapeDef.ShapeDef>
-                <game:ShapeDef Destructible="True"></game:ShapeDef>
-            </game:ShapeDef.ShapeDef>
-            <Rectangle>
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="{StaticResource WallBreakable}" Stretch="Fill" TileMode="Tile" Viewport="0,0,64,64" ViewportUnits="Absolute"/>
-                </Rectangle.Fill>
-            </Rectangle>
-        </game:Wall>
+        <game:Wall Width="1297" Height="1025" Canvas.Left="-1247" Canvas.Top="55" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <game:Wall Width="822" Height="1070" Canvas.Left="1870" Canvas.Top="10" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <game:Wall Width="3881" Height="683" Canvas.Left="-1197" Canvas.Top="-633" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <game:Wall Width="750" Height="110" Canvas.Left="10" Canvas.Top="696" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <game:Wall Width="710" Height="526" Canvas.Left="50" Canvas.Top="-50" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <game:Wall Width="476" Height="110" Canvas.Left="1414" Canvas.Top="520" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
         <game:Wall Width="100" Height="480" Canvas.Left="1450" Canvas.Top="50" HorizontalAlignment="Center" VerticalAlignment="Top">
             <game:ShapeDef.ShapeDef>
                 <game:ShapeDef Destructible="True"></game:ShapeDef>
@@ -71,5 +72,7 @@
                 </Rectangle.Fill>
             </Rectangle>
         </game:Wall>
+        <game:Wall Width="476" Height="110" Canvas.Left="1100" Canvas.Top="570" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <game:Wall Width="3510" Height="975" Canvas.Left="-704" Canvas.Top="1080" HorizontalAlignment="Center" VerticalAlignment="Top"/>
     </Canvas>
 </Page>

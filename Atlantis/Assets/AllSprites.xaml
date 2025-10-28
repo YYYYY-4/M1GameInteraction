@@ -25,9 +25,9 @@
     <BitmapImage x:Key="DoorClosed" UriSource="/Atlantis;component/Assets/Door/DoorClosed.png"/>
     <BitmapImage x:Key="DoorOpen" UriSource="/Atlantis;component/Assets/Door/DoorOpen.png"/>
     <BitmapImage x:Key="DoorOpening" UriSource="/Atlantis;component/Assets/Door/DoorOpening.png"/>
-    <BitmapImage x:Key="PlayerLand1" UriSource="/Atlantis;component/Assets/PlayerLandSprite/catt1.png"/>
-    <BitmapImage x:Key="PlayerLand2" UriSource="/Atlantis;component/Assets/PlayerLandSprite/catt2.png"/>
-    <BitmapImage x:Key="PlayerLand3" UriSource="/Atlantis;component/Assets/PlayerLandSprite/catt3.png"/>
+    <BitmapImage x:Key="PlayerLand1" UriSource="/Atlantis;component/Assets/PlayerLandSprite/Catt1.png"/>
+    <BitmapImage x:Key="PlayerLand2" UriSource="/Atlantis;component/Assets/PlayerLandSprite/Catt2.png"/>
+    <BitmapImage x:Key="PlayerLand3" UriSource="/Atlantis;component/Assets/PlayerLandSprite/Catt3.png"/>
     <BitmapImage x:Key="PlayerWater1" UriSource="/Atlantis;component/Assets/PlayerWaterSprite/pixil-frame-0.png"/>
     <BitmapImage x:Key="PlayerWater2" UriSource="/Atlantis;component/Assets/PlayerWaterSprite/pixil-frame-1.png"/>
     <BitmapImage x:Key="PlayerWater3" UriSource="/Atlantis;component/Assets/PlayerWaterSprite/pixil-frame-2.png"/>

@@ -20,7 +20,7 @@
                 <RotateTransform Angle="0"/>
             </game:Player.RenderTransform>
         </game:Player>
-        <game:Wall Width="100" Height="1080" Canvas.Left="0" Canvas.Top="0"/>
+        <game:Wall Width="2584" Height="1928" Canvas.Left="-2484" Canvas.Top="0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <game:Wall Width="100" Height="400" Canvas.Left="1374" Canvas.Top="465" x:Name="ButtonWall">
             <Rectangle>
                 <Rectangle.Fill>
@@ -29,7 +29,7 @@
             </Rectangle>
         </game:Wall>
         <game:Wall Width="100" Height="500" Canvas.Left="1900" Canvas.Top="0"/>
-        <game:Wall Width="100" Height="300" Canvas.Left="1900" Canvas.Top="850"/>
+        <game:Wall Width="1102" Height="4782" Canvas.Left="1900" Canvas.Top="-3632" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <game:Wall Width="100" Height="400" Canvas.Left="1011" Canvas.Top="800" HorizontalAlignment="Left" VerticalAlignment="Center">
             <game:ShapeDef.ShapeDef>
                 <game:ShapeDef Destructible="True"></game:ShapeDef>
@@ -40,17 +40,18 @@
                 </Rectangle.Fill>
             </Rectangle>
         </game:Wall>
-        <game:Wall Width="7944" Height="100" HorizontalAlignment="Left" Canvas.Top="0" VerticalAlignment="Center" Canvas.Left="-2742"/>
+        <game:Wall Width="7944" Height="2020" HorizontalAlignment="Center" Canvas.Top="-1920" VerticalAlignment="Top" Canvas.Left="-2742"/>
         <game:Wall Width="3981" Height="100" HorizontalAlignment="Left" Canvas.Top="765" VerticalAlignment="Center" Canvas.Left="1011"/>
         <game:Wall Width="3981" Height="100" HorizontalAlignment="Left" Canvas.Top="423" VerticalAlignment="Top" Canvas.Left="1374"/>
         <game:DeadlyThing Canvas.Top="513" Height="25" Canvas.Left="488" Width="25" />
         <game:Dynamite Canvas.Left="1630" Canvas.Top="316"/>
         <game:DoorKey Canvas.Left="1500" Canvas.Top="950"/>
-        <game:DestroyButton Canvas.Left="1630" Canvas.Top="1049" Width="50" Height="50" Targets="{x:Reference ButtonWall}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <game:DestroyButton Canvas.Left="1630" Canvas.Top="1051" Width="50" Height="50" Targets="{x:Reference ButtonWall}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <game:Wall Tag="RW" Width="100" Height="500" Canvas.Left="410" Canvas.Top="670" HorizontalAlignment="Left" VerticalAlignment="Top">
             <game:Wall.RenderTransform>
                 <RotateTransform Angle="100" />
             </game:Wall.RenderTransform>
         </game:Wall>
+        <game:Wall Width="3981" Height="2986" Canvas.Top="1085" Canvas.Left="-1062" HorizontalAlignment="Center" VerticalAlignment="Top"/>
     </Canvas>
 </Page>
