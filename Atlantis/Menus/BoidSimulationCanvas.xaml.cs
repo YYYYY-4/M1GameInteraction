@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using Atlantis.Game;
+using System.Diagnostics;
 using System.Numerics;
 using System.Windows;
 using System.Windows.Controls;
@@ -70,6 +71,8 @@ namespace Atlantis.Menus
 
         private void SpawnRandomFish(int fishCount, int predatorCount)
         {
+            Sounds sfxtest = new Sounds();
+            sfxtest.PlaySfx(@"Assets\Sounds\Sfx\Fish.mp3");
             for (var i = 0; i < fishCount; i++)
             {
                 bool predator = i < predatorCount;
