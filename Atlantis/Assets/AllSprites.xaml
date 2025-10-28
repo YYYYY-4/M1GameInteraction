@@ -45,6 +45,7 @@
     <BitmapImage x:Key="Fish4_1" UriSource="/Atlantis;component/Assets/Fish/Fish4_1.png"/>
     <BitmapImage x:Key="Fish5_0" UriSource="/Atlantis;component/Assets/Fish/Fish5_0.png"/>
     <BitmapImage x:Key="Fish5_1" UriSource="/Atlantis;component/Assets/Fish/Fish5_1.png"/>
+    
     <BitmapImage x:Key="WallBase" UriSource="/Atlantis;component/Assets/Wall/WallBase.png"/>
     <BitmapImage x:Key="WallBreakable" UriSource="/Atlantis;component/Assets/Wall/WallBreakable.png"/>
     <BitmapImage x:Key="WallMoveable" UriSource="/Atlantis;component/Assets/Wall/WallMoveable.png"/>
@@ -65,6 +66,7 @@
     <BitmapImage x:Key="Key1" UriSource="/Atlantis;component/Assets/Keys/Key1.png"/>
     <BitmapImage x:Key="Key2" UriSource="/Atlantis;component/Assets/Keys/Key2.png"/>
     <BitmapImage x:Key="Key3" UriSource="/Atlantis;component/Assets/Keys/Key3.png"/>
+    
     <FontFamily x:Key="MainFont">/Atlantis;component/Assets/#Pixelated Elegance</FontFamily>
     <FontFamily x:Key="SecondFont">/Atlantis;component/Assets/#Coral Pixels</FontFamily>
 </ResourceDictionary>
