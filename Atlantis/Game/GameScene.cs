@@ -130,8 +130,8 @@ namespace Atlantis.Game
                 }),
             };
 
-            Canvas.Background = CanvasBrush;
-
+            //Canvas.Background = CanvasBrush;
+            
             b2WorldDef worldDef = B2Api.b2DefaultWorldDef();
             worldDef.enableSleep = false;
 
@@ -770,6 +770,11 @@ namespace Atlantis.Game
                     new TranslateTransform(-pxCamera.X % ScalingFactor, pxCamera.Y % ScalingFactor),
                     new RotateTransform(-Camera.Angle.RadToDeg()),
                 ]
+            };
+
+            Canvas.RenderTransform = new TransformGroup()
+            {
+                Children = [new ScaleTransform(2, 2), new TranslateTransform(-Canvas.ActualWidth / 2, -Canvas.ActualHeight / 2)]
             };
         }
 

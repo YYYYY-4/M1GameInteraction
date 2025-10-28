@@ -11,54 +11,72 @@ namespace Atlantis.Menus
     /// <summary>
     /// Interaction logic for BoidSimTest.xaml
     /// </summary>
-    public partial class BoidSimTest : Page
+    public partial class BoidSimulationCanvas : Canvas
     {
-        List<Boid> boids = [];
+        private List<Boid> _boids = [];
 
-        List<Boid> deadBoids = [];
+        private List<Boid> _deadBoids = [];
 
-        public BoidSimTest()
+        private Stopwatch _stopwatch = new();
+
+        public Panel? MountedPanel = null;
+
+        public static readonly List<string> NiceFish = [
+            "Fish0_0",
+            "Fish0_1",
+            "Fish1_0",
+            "Fish1_1",
+            "Fish2_0",
+            "Fish2_1",
+            "Fish3_0",
+            "Fish4_0",
+            "Fish5_0"
+        ];
+
+        public static readonly List<string> EvilFish = [
+            "Fish3_1",
+            "Fish4_1",
+            "Fish5_1"
+        ];
+
+        public BoidSimulationCanvas()
         {
             InitializeComponent();
 
-            _canvas.Loaded += BoidSimTest_Loaded;
-            _canvas.Unloaded += _canvas_Unloaded;
+            _stopwatch.Start();
         }
 
-        private void _canvas_Unloaded(object sender, RoutedEventArgs e)
+        public void MountPanel(Panel panel)
         {
-            CompositionTarget.Rendering -= CompositionTarget_Rendering;
+            UnmountPanel();
+
+            MountedPanel = panel;
+            MountedPanel.Children.Add(this);
+
+            Grid.SetRowSpan(this, int.MaxValue);
+            Grid.SetColumnSpan(this, int.MaxValue);
+            Panel.SetZIndex(this, -200);
+
+            CompositionTarget.Rendering += OnRendering;
         }
 
-        // Load some fish and bind update
-        private void BoidSimTest_Loaded(object sender, RoutedEventArgs e)
+        public void UnmountPanel()
         {
-            List<string> niceFish = [
-                "Fish0_0",
-                "Fish0_1",
-                "Fish1_0",
-                "Fish1_1",
-                "Fish2_0",
-                "Fish2_1",
-                "Fish3_0",
-                "Fish4_0",
-                "Fish5_0"
-                ];
+            CompositionTarget.Rendering -= OnRendering;
 
-            List<string> evilFish = [
-                "Fish3_1",
-                "Fish4_1",
-                "Fish5_1"
-                ];
+            MountedPanel?.Children.Remove(this);
+            MountedPanel = null;
+        }
 
-
-            for (var i = 0; i < 120; i++)
+        private void SpawnRandomFish(int fishCount, int predatorCount)
+        {
+            for (var i = 0; i < fishCount; i++)
             {
-                bool predator = i < 10;
+                bool predator = i < predatorCount;
 
                 var element = new Image();
 
-                string fish = predator ? evilFish[Random.Shared.Next(evilFish.Count)] : niceFish[Random.Shared.Next(niceFish.Count)];
+                string fish = predator ? EvilFish[Random.Shared.Next(EvilFish.Count)] : NiceFish[Random.Shared.Next(NiceFish.Count)];
                 Canvas.SetZIndex(element, predator ? 1 : 0);
                 element.Source = (BitmapImage)App.Current.FindResource(fish);
                 element.Stretch = Stretch.Fill;
@@ -69,11 +87,11 @@ namespace Atlantis.Menus
                 var rotate = new RotateTransform(0.0);
 
                 element.RenderTransform = new TransformGroup() { Children = [new TranslateTransform(-element.Width / 2, -element.Height / 2), scale, rotate] };
-                _canvas.Children.Add(element);
+                Children.Add(element);
 
-                boids.Add(new Boid()
+                _boids.Add(new Boid()
                 {
-                    Position = new Vector2((float)(Random.Shared.NextDouble() * _canvas.ActualWidth), (float)(Random.Shared.NextDouble() * _canvas.ActualHeight)),
+                    Position = new Vector2((float)(Random.Shared.NextDouble() * ActualWidth), (float)(Random.Shared.NextDouble() * ActualHeight)),
                     Velocity = Vector2.Zero,
 
                     Name = fish,
@@ -84,25 +102,34 @@ namespace Atlantis.Menus
                     Rotate = rotate,
                 });
             }
-
-            sw.Start();
-            CompositionTarget.Rendering += CompositionTarget_Rendering;
         }
 
-        Stopwatch sw = new Stopwatch();
-
-        private void CompositionTarget_Rendering(object? sender, EventArgs e)
+        private void OnRendering(object? sender, EventArgs e)
         {
-            var deltaTime = sw.Elapsed.TotalSeconds;
-            sw.Restart();
+            var deltaTime = _stopwatch.Elapsed.TotalSeconds;
+            _stopwatch.Restart();
 
             UpdateBoids((float)deltaTime);
         }
+
+        float FishTimer = 10.0f;
 
         // Update boid simulation
         public void UpdateBoids(float dt)
         {
             // Used as reference https://swharden.com/csdv/simulations/boids/
+
+            if (!IsLoaded)
+            {
+                return;
+            }
+
+            FishTimer += dt;
+            if (FishTimer > 10.0f)
+            {
+                FishTimer = 0.0f;
+                SpawnRandomFish(10, 2);
+            }
 
             float visionDistance = 200.0f;
             float avoidDistance = 50.0f;
@@ -110,7 +137,7 @@ namespace Atlantis.Menus
             float alignPower = 0.001f;
             float avoidPower = 0.01f;
 
-            foreach (var boid in boids)
+            foreach (var boid in _boids)
             {
                 int meanCount = 0;
                 Vector2 meanPosition = Vector2.Zero;
@@ -118,7 +145,7 @@ namespace Atlantis.Menus
 
                 Vector2 avoidVelocity = Vector2.Zero;
 
-                foreach (var nearBoid in boids)
+                foreach (var nearBoid in _boids)
                 {
                     if (nearBoid == boid) continue;
 
@@ -153,7 +180,7 @@ namespace Atlantis.Menus
                 if (meanCount > 0)
                 {
                     float _flockPower = flockPower / (1f + crowdFactor);
-                    
+
                     meanPosition /= meanCount;
                     meanVelocity /= meanCount;
 
@@ -171,14 +198,14 @@ namespace Atlantis.Menus
                 boid.Velocity += avoid;
             }
 
-            foreach (var boid in boids.Where(b => b.Predator).ToList())
+            foreach (var boid in _boids.Where(b => b.Predator).ToList())
             {
-                var dead = boids.Where(near => boid != near && Vector2.Distance(near.Position, boid.Position) < 25);
+                var dead = _boids.Where(near => boid != near && Vector2.Distance(near.Position, boid.Position) < 25);
 
                 foreach (var deadBoid in dead.ToList())
                 {
-                    boids.Remove(deadBoid);
-                    deadBoids.Add(deadBoid);
+                    _boids.Remove(deadBoid);
+                    _deadBoids.Add(deadBoid);
 
                     deadBoid.Rotate.Angle = 0.0;
                     deadBoid.Scale.ScaleX = 1f;
@@ -190,7 +217,7 @@ namespace Atlantis.Menus
                 }
             }
 
-            foreach (var boid in deadBoids)
+            foreach (var boid in _deadBoids)
             {
                 boid.DeadTime += dt;
                 boid.Position += boid.Velocity * dt;
@@ -199,13 +226,13 @@ namespace Atlantis.Menus
                 boid.Element.Opacity = (5f - boid.DeadTime) / 5f;
             }
 
-            foreach (var boid in deadBoids.Where(b => b.DeadTime >= 5f).ToList())
+            foreach (var boid in _deadBoids.Where(b => b.DeadTime >= 5f).ToList())
             {
-                _canvas.Children.Remove(boid.Element);
-                deadBoids.Remove(boid);
+                Children.Remove(boid.Element);
+                _deadBoids.Remove(boid);
             }
 
-            foreach (var boid in boids)
+            foreach (var boid in _boids)
             {
                 // Keep velocity between min and max
                 float maxVelocity = 200f;
@@ -244,7 +271,7 @@ namespace Atlantis.Menus
                     boid.Velocity.X += edgeTurn;
                 }
 
-                if (boid.Position.X > ((float)_canvas.ActualWidth) - edgePadding)
+                if (boid.Position.X > ((float)ActualWidth) - edgePadding)
                 {
                     boid.Velocity.X -= edgeTurn;
                 }
@@ -254,7 +281,7 @@ namespace Atlantis.Menus
                     boid.Velocity.Y += edgeTurn;
                 }
 
-                if (boid.Position.Y > ((float)_canvas.ActualHeight) - edgePadding)
+                if (boid.Position.Y > ((float)ActualHeight) - edgePadding)
                 {
                     boid.Velocity.Y -= edgeTurn;
                 }

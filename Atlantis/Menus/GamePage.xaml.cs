@@ -94,7 +94,7 @@ public partial class GamePage : Page
         page.Content = null;
 
         // game in background
-        Panel.SetZIndex(_canvas, int.MinValue);
+        Panel.SetZIndex(_canvas, -100);
 
         // use entire grid
         Grid.SetColumnSpan(_canvas, int.MaxValue);
