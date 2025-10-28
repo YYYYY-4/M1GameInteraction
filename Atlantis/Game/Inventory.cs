@@ -9,10 +9,13 @@ namespace Atlantis.Game;
 
 public class Inventory
 {
+    private readonly Player _player;
     private readonly GameScene _scene;
+    private int _time;
     
     public Inventory(Player player, GameScene scene)
     {
+        _player = player;
         _scene = scene;
     }
     
@@ -35,6 +38,7 @@ public class Inventory
     public void PickUp(Item item)
     {
         if (_item != null) return;
+        Debug.WriteLine("Pickup item!");
         
         _scene.DestroyControl(item);
         _item = item;
@@ -49,7 +53,9 @@ public class Inventory
         Debug.WriteLine("Dropped item!");
         
         Vector2 position = player.Body.GetPosition();
-        _scene.ProcessGameControl(_item!, new b2Transform(new Vector2(position.X + 2.0f, position.Y), b2Rot.Zero));
+        float velocity = 10.0f;
+        _scene.ProcessGameControl(_item!, new b2Transform(position, b2Rot.Zero));
+        _item.Body.SetLinearVelocity(new Vector2(player.FacingDirection == 1 ? velocity : velocity * -1, 0));
         _item.Drop();
         
         _item = null;
