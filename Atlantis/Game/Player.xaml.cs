@@ -148,7 +148,7 @@ namespace Atlantis.Game
                     _player.Source = (ImageSource)App.Current.FindResource("PlayerLand1");
             }
 
-                bool inWaterMovement = IsInWater();
+            bool inWaterMovement = IsInWater();
 
             if (inWaterMovement && OnGround && _submergeFactor < 0.4f)
             {
