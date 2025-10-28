@@ -84,8 +84,8 @@ namespace Atlantis.Game
         /// </summary>
         public void ExplodeDynamite()
         {
-            Sounds sfxtest = new Sounds();
-            sfxtest.PlaySfx(@"Assets\Sounds\Sfx\Explosion.mp3");
+            Sounds explosionSfx = new Sounds();
+            explosionSfx.PlaySfx(@"Assets\Sounds\Sfx\Explosion.mp3");
             Vector2 position = Body.GetPosition();
             b2Circle circle = new b2Circle(position, 8.0f);
             b2ShapeProxy proxy = B2Api.b2MakeProxy([position], 1, circle.radius);
