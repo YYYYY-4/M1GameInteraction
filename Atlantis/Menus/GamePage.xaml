@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Atlantis.Menus"
       xmlns:game="clr-namespace:Atlantis.Game"
       mc:Ignorable="d"
-      Title="GamePage" Background="White" Width="750" Height="500">
+      Title="GamePage" Background="Transparent" Width="750" Height="500">
 
     <Grid x:Name="RootGrid">
         <Grid x:Name="Overlay">
@@ -15,8 +15,7 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-
-            <Grid Background="#FF003DFF">
+            <Grid Background="#FF203562">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="32"/>
                     <ColumnDefinition />
@@ -29,57 +28,100 @@
                 </Grid.RowDefinitions>
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Column="1" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center">Level X</Label>
+                    <Label Grid.Column="1" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="#FFF6CD26" FontWeight="Bold" Content="{Binding Level, StringFormat=level: {0:S}}" />
+                    <Label x:Name="LevelStatus" Grid.Row="1" HorizontalAlignment="Center" Foreground="#FFF6CD26" FontWeight="Bold" VerticalAlignment="Top" FontSize="16" Content="Completed" />
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition Height="16" />
-                        <RowDefinition />
-                        <RowDefinition Height="16" />
-                        <RowDefinition />
-                        <RowDefinition Height="16" />
-                        <RowDefinition />
-                        <RowDefinition Height="16" />
-                        <RowDefinition />
-                        <RowDefinition Height="16" />
-                        <RowDefinition />
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Button Grid.Row="0" Click="Button_Continue">Continue</Button>
-                    <Button Grid.Row="2" Click="Button_Restart">Restart Level</Button>
-                    <Button Grid.Row="4" Click="Button_LevelSelect">Level Select</Button>
-                    <Button Grid.Row="6" Click="Button_Settings">Settings</Button>
-                    <Button Grid.Row="8" Click="Button_MainMenu">Main Menu</Button>
-                    <Button Grid.Row="10" Click="Button_Exit">Exit Game</Button>
+                    <Button x:Name="ContinueButton" Grid.Row="1" Click="Button_Continue" Foreground="#FFF6CD26" Background="Transparent" BorderBrush="Transparent" Panel.ZIndex="1" Content="Continue" />
+                    <Button Grid.Row="3" Click="Button_Restart" Foreground="#FFF6CD26" Background="Transparent" BorderBrush="Transparent" Panel.ZIndex="1">Restart Level</Button>
+                    <Button Grid.Row="5" Click="Button_LevelSelect" Foreground="#FFF6CD26" Background="Transparent" BorderBrush="Transparent" Panel.ZIndex="1">Level Select</Button>
+                    <Button Grid.Row="7" Click="Button_Settings" Foreground="#FFF6CD26" Background="Transparent" BorderBrush="Transparent" Panel.ZIndex="1">Settings</Button>
+                    <Button Grid.Row="9" Click="Button_MainMenu" Foreground="#FFF6CD26" Background="Transparent" BorderBrush="Transparent" Panel.ZIndex="1">Main Menu</Button>
+                    <Button Grid.Row="11" Click="Button_Exit" Foreground="#FFF6CD26" Background="Transparent" BorderBrush="Transparent" Panel.ZIndex="1">Exit Game</Button>
+                    <Image Grid.Row="1" Source="/Assets/HigscoreTable/HighscoreHead.png" Panel.ZIndex="0" />
+                    <Image Grid.Row="3" Source="/Assets/HigscoreTable/HighscoreHead.png" Panel.ZIndex="0" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <Image Grid.Row="5" Source="/Assets/HigscoreTable/HighscoreHead.png" Panel.ZIndex="0"/>
+                    <Image Grid.Row="7" Source="/Assets/HigscoreTable/HighscoreHead.png" Panel.ZIndex="0" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <Image Grid.Row="9" Source="/Assets/HigscoreTable/HighscoreHead.png" Panel.ZIndex="0"/>
+                    <Image Grid.Row="11" Source="/Assets/HigscoreTable/HighscoreHead.png" Panel.ZIndex="0" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
                 </Grid>
             </Grid>
 
-            <Grid Grid.Column="2">
+            <Grid Grid.Column="2" Background="#FF203562">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="6*"/>
+                    <RowDefinition Height="7*"/>
                 </Grid.RowDefinitions>
-                <DataGrid Grid.Row="4" Grid.Column="1" x:Name="HigscoreTable" IsReadOnly="True" AutoGenerateColumns="False">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="1*">
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="Score" Binding="{Binding Score}" Width="1*">
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-                        </DataGridTextColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+                <Label FontSize="48" HorizontalAlignment="Center" FontWeight="Bold" Foreground="#FFF6CD26" Panel.ZIndex="9" VerticalAlignment="Center">Highscores</Label>
+                <Image Source="{StaticResource HighscoreHead}" Panel.ZIndex="8" HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="14*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="15*"/>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <DataGrid Grid.Row="0" Grid.Column="1" x:Name="HigscoreTable" GridLinesVisibility="None" IsManipulationEnabled="False" IsReadOnly="True" AutoGenerateColumns="False" Background="Transparent" RowBackground="Transparent" AlternatingRowBackground="Transparent" BorderBrush="Transparent"  Panel.ZIndex="0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Name}" Width="1*" IsReadOnly="True" Foreground="#FFF6CD26" FontFamily="{StaticResource MainFont}" FontSize="20" CanUserResize="False" />
+                            <DataGridTextColumn Binding="{Binding Score}" Width="1*" IsReadOnly="True" Foreground="#FFF6CD26" FontFamily="{StaticResource MainFont}" FontSize="20" CanUserResize="False" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Rectangle Grid.Column="1" Grid.Row="0" Panel.ZIndex="-2" Stroke="Black" StrokeThickness="2">
+                        <Rectangle.Fill>
+                            <ImageBrush ImageSource="{StaticResource HighscorePanel}" Stretch="UniformToFill" TileMode="Tile" Viewport="0,0,64,64" ViewportUnits="Absolute"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Grid>
             </Grid>
         </Grid>
     </Grid>

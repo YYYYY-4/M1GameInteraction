@@ -23,8 +23,8 @@ namespace Atlantis.Game
     {
         private List<GameShape> shapes = [];
         
-        bool isExploding = false;
-        float timer = 0.0f;
+        private bool _isExploding = false;
+        private float _timer = 0.0f;
 
         private BitmapImage _dynamiteSprite = new BitmapImage();
 
@@ -35,7 +35,7 @@ namespace Atlantis.Game
         public Dynamite(bool exploding)
         {
             InitializeComponent();
-            isExploding = exploding;
+            _isExploding = exploding;
             DataContext = this;
             
         }
@@ -52,23 +52,23 @@ namespace Atlantis.Game
         public override void Drop()
         {
             IsPickup = false;
-            isExploding = true;
+            _isExploding = true;
         }
 
         public override void OnUpdate(float dt)
         {
             base.OnUpdate(dt);
 
-            if (isExploding)
+            if (_isExploding)
             {
-                timer += dt;
-                if (timer >= 3.5f) Scene.DestroyControl(this);
-                else if (timer >= 3.0f) ExplodeDynamite();
-                else if (timer >= 2.5f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite5");
-                else if (timer >= 2.0f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite4");
-                else if (timer >= 1.5f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite3");
-                else if (timer >= 1.0f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite2");
-                else if (timer >= 0.5f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite1");
+                _timer += dt;
+                if (_timer >= 3.5f) Scene.DestroyControl(this);
+                else if (_timer >= 3.0f) ExplodeDynamite();
+                else if (_timer >= 2.5f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite5");
+                else if (_timer >= 2.0f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite4");
+                else if (_timer >= 1.5f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite3");
+                else if (_timer >= 1.0f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite2");
+                else if (_timer >= 0.5f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite1");
                 else _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite0");
 
                 dynamite.Source = _dynamiteSprite;

@@ -22,27 +22,9 @@ namespace Atlantis.Menus
     /// <summary>
     /// The logic for HighscorePage
     /// </summary>
-    public partial class HighscorePage : Page
+    public static class Highscores
     {
         private static string s_fileName = "HighscoreList.csv";
-        private int _level;
-        private MainWindow _mainWindow;
-        private PlayerSave _save;
-
-        public HighscorePage(MainWindow window, PlayerSave save, int level)
-        {
-            InitializeComponent();
-            _level = level;
-            _mainWindow = window;
-            _save = save;
-
-            // Needed otherwise wpf can not find this namespace or whatever...
-            DataContext = this;
-
-            // Gets the data from the .csv file
-            Scoreboard = ReadData(level);
-        }
-
 
         /// <summary>
         /// Creates a file to keep record of the scores
@@ -130,21 +112,6 @@ namespace Atlantis.Menus
                 return 1;
             
             return 0;
-        }
-
-        // Object list om mee te geven aan de highscore list
-        public List<HighscoreRecord> Scoreboard 
-        { 
-            get;
-            set;
-        }
-
-        //Temp
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            PlayerSave playerSave = new PlayerSave("Ferry", 1);
-
-            AddRecord(Random.Shared.Next(1, 13), 9999 , playerSave.Name);
         }
     }
 }
