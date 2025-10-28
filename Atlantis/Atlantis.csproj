@@ -105,8 +105,4 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Assets\Sounds\Sfx\" />
-  </ItemGroup>
-
 </Project>

@@ -54,12 +54,16 @@ namespace Atlantis.Menus
         {
             File.WriteAllText(MusicSettings, MusicSlider.Value.ToString());
             File.WriteAllText(SfxSettings, SfxSlider.Value.ToString());
-            Sounds.UpdateMusicVolume();
+            Music.UpdateMusicVolume();
+            Sounds sfxtest = new Sounds();
+            sfxtest.PlaySfx(@"Assets\Sounds\Sfx\Thump.mp3");
             _window.GoBack();
         }
 
         public void GoBack(object sender, RoutedEventArgs e)
         {
+            Sounds sfxtest = new Sounds();
+            sfxtest.PlaySfx(@"Assets\Sounds\Sfx\Thump.mp3");
             _window.GoBack();
         }
     }

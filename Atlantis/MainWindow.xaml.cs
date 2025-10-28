@@ -41,6 +41,8 @@ namespace Atlantis
             BackgroundImage = "/Assets/MenuBackground.png";
 
             PushPage(new MainMenuPage(this));
+
+            Music.PlayMainMusicLoop();
             
             // Page is not added to PageHistory, because you shouldn't be able to leave MainMenu
 
