@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using Atlantis.Game;
+using System.Diagnostics;
 using System.Numerics;
 using System.Windows;
 using System.Windows.Controls;

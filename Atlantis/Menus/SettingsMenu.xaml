@@ -30,58 +30,61 @@
                 <RowDefinition Height="19*" />
                 <RowDefinition Height="61*"/>
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="95*"/>
+                <ColumnDefinition Width="267*"/>
+                <ColumnDefinition Width="90*"/>
+            </Grid.ColumnDefinitions>
             <!--Sfx-->
             <Rectangle
                 Name="SfxBackGround"
                 Fill="#ac6b26"
-                Grid.Row="0"/>
+                Grid.Row="0"
+                Grid.ColumnSpan="3"/>
             <Label 
                 Content="sfx"
-                Grid.Row="0"
                 FontSize="28"
                 FontWeight="Bold"
                 FontFamily="Arial"
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                HorizontalContentAlignment="Left"
-                Width="49"/>
+                HorizontalContentAlignment="Center"
+                Width="93" Height="42"/>
             <Label
                 Name="SfxShowValue"
-                Grid.Row="0"
                 Content="{Binding ElementName=SfxSlider, 
                 Path=Value, 
                 UpdateSourceTrigger=PropertyChanged}"
                 FontSize="28"
                 FontWeight="Bold"
                 FontFamily="Arial"
-                HorizontalAlignment="Right"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 HorizontalContentAlignment="Left"
-                Width="59" 
-                Margin="393,0,0,0"/>
+                VerticalContentAlignment="Center"
+                Width="90" Height="54" Grid.Column="2"/>
             <Slider
                 Name="SfxSlider"
                 Maximum="100"
                 VerticalAlignment="Center"
                 Height="22"
                 IsSnapToTickEnabled="True"
-                TickFrequency="1"
-                Margin="104,0,59,0"/>
+                TickFrequency="1" Grid.Column="1"/>
             <!--Music-->
             <Rectangle
                 Name="MusicBackGround"
                 Fill="#ac6b26"
-                Grid.Row="2"/>
+                Grid.Row="2" Grid.ColumnSpan="3"/>
             <Label 
                 Content="music"
                 Grid.Row="2"
                 FontSize="28"
                 FontWeight="Bold"
                 FontFamily="Arial"
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 HorizontalContentAlignment="Left"
-                Width="91"/>
+                Width="91" Height="43"/>
             <Label
                 Name="MusicShowValue"
                 Grid.Row="2"
@@ -91,11 +94,11 @@
                 FontSize="28"
                 FontWeight="Bold"
                 FontFamily="Arial"
-                HorizontalAlignment="Right"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 HorizontalContentAlignment="Left"
-                Width="59" 
-                Margin="393,0,0,0"/>
+                VerticalContentAlignment="Center"
+                Width="90" Height="54" Grid.Column="2"/>
             <Slider
                 Name="MusicSlider"
                 Grid.Row="2"
@@ -103,14 +106,7 @@
                 VerticalAlignment="Center"
                 Height="22"
                 IsSnapToTickEnabled="True"
-                TickFrequency="1"
-                Margin="104,0,59,0"/>
-            <!--keybinds-->
-            <Button Grid.Row="4" 
-                    FontFamily="Arial" 
-                    FontWeight="Bold" 
-                    FontSize="30"
-                    Background="#ac6b26">keybinds</Button>
+                TickFrequency="1" Grid.Column="1"/>
         </Grid>
         <!--end grid for settings buttons-->
         <!--grid for back button-->
@@ -146,8 +142,7 @@
                HorizontalAlignment="Center" 
                Width="368" 
                HorizontalContentAlignment="Center" 
-               VerticalContentAlignment="Top" 
-               Margin="0,0,0,5"/>
+               VerticalContentAlignment="Center"/>
     </Grid>
     <!--end main grid-->
 </Page>
