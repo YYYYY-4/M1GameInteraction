@@ -6,6 +6,7 @@ namespace Atlantis.Game;
 public class Item : GameControl
 {
     public bool IsPickup = true; // Can pickup item
+    public float PickupDelay = 0f;
     
     /// <summary>
     /// Runs when an item a player pickups and item.
@@ -22,14 +23,21 @@ public class Item : GameControl
     /// <returns>-1 when not implemented else the number of items</returns>
     public virtual void Drop()
     {
-        
+        PickupDelay = 1.0f;
     }
     
     public override void OnSensorStart(GameShape sensor, GameShape visitor)
     {
         if (visitor.Control is Player player)
         {
-            player.Inventory.PickUp(this);
+            if (PickupDelay <= 0 && IsPickup)
+                player.Inventory.PickUp(this);
         }
+    }
+
+    public override void OnUpdate(float dt)
+    {
+        if (PickupDelay > 0)
+            PickupDelay -= dt;
     }
 }
