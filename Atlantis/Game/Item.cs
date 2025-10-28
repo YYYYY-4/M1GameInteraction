@@ -1,3 +1,5 @@
+using System.Windows.Media;
+
 namespace Atlantis.Game;
 
 /// <summary>
@@ -7,7 +9,17 @@ public class Item : GameControl
 {
     public bool IsPickup = true; // Can pickup item
     public float PickupDelay = 0f;
-    
+
+    public virtual string GetDisplayName()
+    {
+        return "NOITEMNAME";
+    }
+
+    public virtual ImageSource GetIconResource()
+    {
+        return (ImageSource)FindResource("NOSPRITE");
+    }
+
     /// <summary>
     /// Runs when an item a player pickups and item.
     /// </summary>

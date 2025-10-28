@@ -1,4 +1,6 @@
-﻿namespace Atlantis.Game
+﻿using System.Windows.Media;
+
+namespace Atlantis.Game
 {
     /// <summary>
     /// Template for GameControl
@@ -8,6 +10,16 @@
         public JumpBoots()
         {
             InitializeComponent();
+        }
+
+        public override string GetDisplayName()
+        {
+            return "Jump Boots";
+        }
+
+        public override ImageSource GetIconResource()
+        {
+            return (ImageSource)FindResource("JumpBoots");
         }
     }
 }

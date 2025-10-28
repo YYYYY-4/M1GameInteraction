@@ -123,6 +123,37 @@ public partial class GamePage : Page, INotifyPropertyChanged
         UpdatePauseVisible();
     }
 
+    // Called by GameScene update to update HUD
+    public void GameUpdate(float dt)
+    {
+        float minutes = float.Floor(_scene.Time / 60.0f);
+        float seconds = _scene.Time - minutes * 60.0f;
+
+        _lblScore.Content = $"Score: {Score.Calculation(_scene.Time)}";
+        _lblTime.Content = $"Time: {minutes:00}:{seconds:00}";
+
+        var currentItem = _scene.Controls.OfType<Player>().FirstOrDefault()?.Inventory?.GetItem();
+        ImageSource? imgResource = null;
+        string itemName = string.Empty;
+
+        if (currentItem != null)
+        {
+            imgResource = currentItem.GetIconResource();
+            itemName = currentItem.GetDisplayName();
+        }
+
+        if (imgResource != null)
+        {
+            _imgItem.Source = imgResource;
+            _lblItem.Content = itemName;
+            _spItem.Visibility = Visibility.Visible;
+        }
+        else
+        {
+            _spItem.Visibility = Visibility.Collapsed;
+        }
+    }
+
     private void UpdatePauseVisible()
     {
         if (_scene == null)

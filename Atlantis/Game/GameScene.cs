@@ -29,7 +29,7 @@ namespace Atlantis.Game
         // Copyy of _controls to iterate safely while supporting adding/removing objects
         private List<GameControl> _iterControls = [];
 
-        // Scaling of wpf-xaml sizes to a unit in the physics simulation 1:ScalingFactor
+        // Scaling of wpf-xaml sies to a unit in the physics simulation 1:ScalingFactor
         const float ScalingFactor = 25.0f;
 
         public b2WorldId World;
@@ -705,6 +705,8 @@ namespace Atlantis.Game
             }
 
             DragUpdate();
+
+            GamePage.GameUpdate(dt);
         }
 
         float WaterScroll = 0.0f;
