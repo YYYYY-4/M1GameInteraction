@@ -15,13 +15,13 @@
     <None Remove="Assets\Door\DoorClosed.png" />
     <None Remove="Assets\Door\DoorOpen.png" />
     <None Remove="Assets\Door\DoorOpening.png" />
-    <None Remove="Assets\Dynamite\DynamiteFrame0.png" />
-    <None Remove="Assets\Dynamite\DynamiteFrame1.png" />
-    <None Remove="Assets\Dynamite\DynamiteFrame2.png" />
-    <None Remove="Assets\Dynamite\DynamiteFrame3.png" />
-    <None Remove="Assets\Dynamite\DynamiteFrame4.png" />
-    <None Remove="Assets\Dynamite\DynamiteFrame5.png" />
-    <None Remove="Assets\Dynamite\DynamiteIdle.png" />
+    <None Remove="Assets\PlayerItems\Dynamite\DynamiteFrame0.png" />
+    <None Remove="Assets\PlayerItems\Dynamite\DynamiteFrame1.png" />
+    <None Remove="Assets\PlayerItems\Dynamite\DynamiteFrame2.png" />
+    <None Remove="Assets\PlayerItems\Dynamite\DynamiteFrame3.png" />
+    <None Remove="Assets\PlayerItems\Dynamite\DynamiteFrame4.png" />
+    <None Remove="Assets\PlayerItems\Dynamite\DynamiteFrame5.png" />
+    <None Remove="Assets\PlayerItems\Dynamite\DynamiteIdle.png" />
     <None Remove="Assets\Explosion.png" />
     <None Remove="Assets\Fish\Fish0_0.png" />
     <None Remove="Assets\Fish\Fish0_1.png" />
@@ -54,6 +54,7 @@
     <None Remove="Assets\NOSPRITE.png" />
     <None Remove="Assets\placeholder.png" />
     <None Remove="Assets\PlaceholderCollectable.jpg" />
+    <None Remove="Assets\PlayerItems\JumpBoots.png" />
     <None Remove="Assets\PlayerSprite.gif" />
     <None Remove="Assets\Wall.png" />
     <None Remove="Assets\Wall\WallBase.png" />
@@ -78,13 +79,13 @@
     <Resource Include="Assets\Door\DoorClosed.png" />
     <Resource Include="Assets\Door\DoorOpen.png" />
     <Resource Include="Assets\Door\DoorOpening.png" />
-    <Resource Include="Assets\Dynamite\DynamiteFrame0.png" />
-    <Resource Include="Assets\Dynamite\DynamiteFrame1.png" />
-    <Resource Include="Assets\Dynamite\DynamiteFrame2.png" />
-    <Resource Include="Assets\Dynamite\DynamiteFrame3.png" />
-    <Resource Include="Assets\Dynamite\DynamiteFrame4.png" />
-    <Resource Include="Assets\Dynamite\DynamiteFrame5.png" />
-    <Resource Include="Assets\Dynamite\DynamiteIdle.png" />
+    <Resource Include="Assets\PlayerItems\Dynamite\DynamiteFrame0.png" />
+    <Resource Include="Assets\PlayerItems\Dynamite\DynamiteFrame1.png" />
+    <Resource Include="Assets\PlayerItems\Dynamite\DynamiteFrame2.png" />
+    <Resource Include="Assets\PlayerItems\Dynamite\DynamiteFrame3.png" />
+    <Resource Include="Assets\PlayerItems\Dynamite\DynamiteFrame4.png" />
+    <Resource Include="Assets\PlayerItems\Dynamite\DynamiteFrame5.png" />
+    <Resource Include="Assets\PlayerItems\Dynamite\DynamiteIdle.png" />
     <Resource Include="Assets\Explosion.png" />
     <Resource Include="Assets\Fish\Fish0_0.png" />
     <Resource Include="Assets\Fish\Fish0_1.png" />
@@ -120,6 +121,7 @@
 	  </Resource>
     <Resource Include="Assets\placeholder.png" />
     <Resource Include="Assets\PlaceholderCollectable.jpg" />
+    <Resource Include="Assets\PlayerItems\JumpBoots.png" />
     <Resource Include="Assets\PlayerSprite.gif" />
     <Resource Include="Assets\Wall.png" />
     <Resource Include="Assets\Wall\WallBase.png" />
