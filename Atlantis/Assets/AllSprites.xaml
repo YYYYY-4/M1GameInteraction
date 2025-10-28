@@ -19,7 +19,7 @@
     
     <BitmapImage x:Key="Explosion" UriSource="/Atlantis;component/Assets/Explosion.png"/>
     <BitmapImage x:Key="MenuBackgroundImage" UriSource="/Atlantis;component/Assets/MenuBackground.png"/>
-    <BitmapImage x:Key="Door" UriSource="/Atlantis;component/Assets/GameBackground.png"/>
+    <BitmapImage x:Key="DoorGameBackground" UriSource="/Atlantis;component/Assets/GameBackground.png"/>
     <BitmapImage x:Key="WaterImage" UriSource="/Atlantis;component/Assets/Water.png"/>
     <BitmapImage x:Key="Placeholder" UriSource="/Atlantis;component/Assets/placeholder.png"/>
     <BitmapImage x:Key="Collectable" UriSource="/Atlantis;component/Assets/PlaceholderCollectable.jpg"/>

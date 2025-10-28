@@ -26,6 +26,8 @@ public partial class GamePage : Page, INotifyPropertyChanged
     private int _level;
     private bool _completed = false;
 
+    public int LevelIndex => _level;
+
     public string Level => $"Level {_level + 1}";
     public string LevelScore 
     { 
@@ -57,6 +59,16 @@ public partial class GamePage : Page, INotifyPropertyChanged
         Focus();
 
         UpdatePauseVisible();
+
+        Loaded += GamePage_Loaded;
+    }
+
+    private void GamePage_Loaded(object sender, RoutedEventArgs e)
+    {
+        if (_level > 0)
+        {
+            _window.BoidSimulation.UnmountPanel();
+        }
     }
 
     /// <summary>
@@ -84,7 +96,6 @@ public partial class GamePage : Page, INotifyPropertyChanged
     /// <typeparam name="T">Scene which inherits Page and defines a Canvas at it's root.</typeparam>
     public void LoadScene()
     {
-
         if (!Levels.TryGetValue(_level, out var levelType))
         {
             return;

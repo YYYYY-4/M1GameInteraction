@@ -38,6 +38,10 @@ namespace Atlantis.Game
         public Canvas Canvas;
 
         public DrawingBrush CanvasBrush;
+        public ImageBrush GamePageBrush;
+
+        private float _gameBrushScroll = 0.0f;
+        private float _gamePageScrollSpeed = 0.0f;
 
         // Unique ID for shape lookup, incremented for each shape
         nint ShapeIdGen = 0;
@@ -130,8 +134,18 @@ namespace Atlantis.Game
                 }),
             };
 
+            GamePageBrush = new ImageBrush();
+            GamePageBrush.ImageSource = (ImageSource)App.Current.FindResource(GamePage.LevelIndex == 0 ? "WaterImage" : "DoorGameBackground");
+            GamePageBrush.TileMode = TileMode.Tile;
+            GamePageBrush.Stretch = Stretch.Fill;
+            GamePageBrush.Viewport = new Rect(0, 0, 200, 40);
+            GamePageBrush.ViewportUnits = BrushMappingMode.Absolute;
+            GamePage.Background = GamePageBrush;
+
+            _gamePageScrollSpeed = GamePage.LevelIndex <= 0 ? 100f : 0f;
+
             //Canvas.Background = CanvasBrush;
-            
+
             b2WorldDef worldDef = B2Api.b2DefaultWorldDef();
             worldDef.enableSleep = false;
 
@@ -709,8 +723,6 @@ namespace Atlantis.Game
             GamePage.GameUpdate(dt);
         }
 
-        float WaterScroll = 0.0f;
-
         public void GameRender(float dt)
         {
             var inputDir = new Vector2(IsKeyDown01(Key.D) - IsKeyDown01(Key.A), IsKeyDown01(Key.W) - IsKeyDown01(Key.S));
@@ -765,19 +777,8 @@ namespace Atlantis.Game
                 ]
             };
 
-            ImageBrush brush = new ImageBrush();
-            brush.ImageSource = (ImageSource)App.Current.FindResource("WaterImage");
-            brush.TileMode = TileMode.Tile;
-            brush.Stretch = Stretch.Fill;
-            brush.Viewport = new Rect(0, 0, 200, 40);
-            brush.ViewportUnits = BrushMappingMode.Absolute;
-
-            // <ImageBrush x:Key="TiledWaterBackground" ImageSource="{StaticResource WaterImage}" Stretch="Fill" TileMode="Tile" Viewport="0,0,200,40" ViewportUnits="Absolute" />
-
-            WaterScroll += dt * 100;
-            brush.Transform = new TranslateTransform(-(pxCamera.X + WaterScroll) % 200, (pxCamera.Y) % 40);
-
-            GamePage.Background = brush;
+            _gameBrushScroll += dt * _gamePageScrollSpeed;
+            GamePageBrush.Transform = new TranslateTransform(-(pxCamera.X + _gameBrushScroll) % 200, (pxCamera.Y) % 40);
 
             Canvas.RenderTransform = new TransformGroup()
             {
