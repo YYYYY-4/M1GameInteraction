@@ -19,13 +19,14 @@ using static Atlantis.Box2dNet.B2Extension;
 
 namespace Atlantis.Game
 {
-    public partial class Dynamite : GameControl
+    public partial class Dynamite : Item
     {
         private List<GameShape> shapes = [];
+        
+        private bool _isExploding = false;
+        private float _timer = 0.0f;
+        private bool _isPlayerDestroyed = false;
 
-        bool isExploding = false;
-        bool isSpawned = false;
-        float timer = 0.0f;
 
         private BitmapImage _dynamiteSprite = new BitmapImage();
 
@@ -36,7 +37,7 @@ namespace Atlantis.Game
         public Dynamite(bool exploding)
         {
             InitializeComponent();
-            isExploding = exploding;
+            _isExploding = exploding;
             DataContext = this;
             
         }
@@ -50,39 +51,26 @@ namespace Atlantis.Game
             DataContext = this;
         }
 
-        /// <summary>
-        /// Spawns a new dynamite into the scene that explodes after a timer
-        /// </summary>
-        /// <param name="scene"></param>
-        public static void SpawnDynamite(GameScene scene)
+        public override void Drop()
         {
-            Player player = scene.Controls.OfType<Player>().First();
-            if (player.HasDynamite == true)
-            {
-                Vector2 position = player.Body.GetPosition();
-                bool isExploding = true;
-                Dynamite dynamite = new Dynamite(isExploding);
-                dynamite.isSpawned = true;
-                scene.ProcessGameControl(dynamite, new b2Transform(position, b2Rot.Zero));
-                dynamite._dynamiteSprite = (BitmapImage)Application.Current.FindResource("DynamiteIdle");
-                player.HasDynamite = false;
-            }
+            IsPickup = false;
+            _isExploding = true;
         }
 
         public override void OnUpdate(float dt)
         {
             base.OnUpdate(dt);
 
-            if (isExploding)
+            if (_isExploding)
             {
-                timer += dt;
-                if (timer >= 3.5f) Scene.DestroyControl(this);
-                else if (timer >= 3.0f) ExplodeDynamite();
-                else if (timer >= 2.5f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite5");
-                else if (timer >= 2.0f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite4");
-                else if (timer >= 1.5f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite3");
-                else if (timer >= 1.0f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite2");
-                else if (timer >= 0.5f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite1");
+                _timer += dt;
+                if (_timer >= 3.5f) Scene.DestroyControl(this);
+                else if (_timer >= 3.0f) ExplodeDynamite();
+                else if (_timer >= 2.5f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite5");
+                else if (_timer >= 2.0f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite4");
+                else if (_timer >= 1.5f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite3");
+                else if (_timer >= 1.0f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite2");
+                else if (_timer >= 0.5f) _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite1");
                 else _dynamiteSprite = (BitmapImage)Application.Current.FindResource("Dynamite0");
 
                 dynamite.Source = _dynamiteSprite;
@@ -106,37 +94,18 @@ namespace Atlantis.Game
             dynamite.Visibility = Visibility.Hidden;
             Body.Disable();
 
+            // Checks if a shape within the explosion is destructible.
+            // Also checks if the shape is a player element and if the player has already been destroyed.
+            // This is done as a player element has multiple shapes and removing the same player element multiple times causes a crash.
             foreach (GameShape shape in shapes)
             {
-                if (shape.Destructible)
+                if (shape.Destructible && shape.Control is not Player)
+                    Scene.DestroyControl(shape.Control);
+                else if (shape.Destructible && shape.Control is Player && _isPlayerDestroyed == false)
                 {
                     Scene.DestroyControl(shape.Control);
+                    _isPlayerDestroyed = true;
                 }
-            }
-        }
-
-        /// <summary>
-        /// Removes the dynamite from the scene and gives it to the player
-        /// </summary>
-        /// <param name="player"></param>
-        /// <returns></returns>
-        public int PickUp(Player player)
-        {
-            if (!isSpawned)
-            {
-                Scene.DestroyControl(this);
-                player.HasDynamite = true;
-                return 1;
-            }
-
-            return 0;
-        }
-
-        public override void OnSensorStart(GameShape sensor, GameShape visitor)
-        {
-            if (visitor.Control is Player player)
-            {
-                PickUp(player);
             }
         }
     }

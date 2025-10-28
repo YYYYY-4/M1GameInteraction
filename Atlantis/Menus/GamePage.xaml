@@ -6,5 +6,125 @@
       xmlns:local="clr-namespace:Atlantis.Menus"
       xmlns:game="clr-namespace:Atlantis.Game"
       mc:Ignorable="d"
-      Title="GamePage" Height="450" Width="800">
+      Title="GamePage" Background="Transparent" Width="750" Height="500">
+
+    <Grid x:Name="RootGrid" Grid.RowSpan="2147483647" Grid.ColumnSpan="2147483647">
+        <Grid x:Name="Overlay">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid Background="#FF203562">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="32"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="32"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="32"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="1" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="#FFF6CD26" FontWeight="Bold" Content="{Binding Level}" />
+                    <Label x:Name="LevelStatus" Grid.Row="1" HorizontalAlignment="Center" Foreground="#FFF6CD26" FontWeight="Bold" VerticalAlignment="Top" FontSize="16" Content="Completed" />
+                    <Label Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="#FFF6CD26" FontWeight="Bold" Content="{Binding LevelScore}" />
+                </Grid>
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="ContinueButton" Grid.Row="1" Click="Button_Continue" Foreground="#FFF6CD26" Background="Transparent" BorderBrush="Transparent" Panel.ZIndex="2" Content="Continue" />
+                    <Button Grid.Row="3" Click="Button_Restart" Foreground="#FFF6CD26" Background="Transparent" BorderBrush="Transparent" Panel.ZIndex="2">Restart Level</Button>
+                    <Button Grid.Row="5" Click="Button_LevelSelect" Foreground="#FFF6CD26" Background="Transparent" BorderBrush="Transparent" Panel.ZIndex="2">Level Select</Button>
+                    <Button Grid.Row="7" Click="Button_Settings" Foreground="#FFF6CD26" Background="Transparent" BorderBrush="Transparent" Panel.ZIndex="2">Settings</Button>
+                    <Button Grid.Row="9" Click="Button_MainMenu" Foreground="#FFF6CD26" Background="Transparent" BorderBrush="Transparent" Panel.ZIndex="2">Main Menu</Button>
+                    <Button Grid.Row="11" Click="Button_Exit" Foreground="#FFF6CD26" Background="Transparent" BorderBrush="Transparent" Panel.ZIndex="2">Exit Game</Button>
+                    <Image Grid.Row="1" Source="{StaticResource HighscoreHead}" Panel.ZIndex="1" />
+                    <Image Grid.Row="3" Source="{StaticResource HighscoreHead}" Panel.ZIndex="1" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <Image Grid.Row="5" Source="{StaticResource HighscoreHead}" Panel.ZIndex="1"/>
+                    <Image Grid.Row="7" Source="{StaticResource HighscoreHead}" Panel.ZIndex="1" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <Image Grid.Row="9" Source="{StaticResource HighscoreHead}" Panel.ZIndex="1"/>
+                    <Image Grid.Row="11" Source="{StaticResource HighscoreHead}" Panel.ZIndex="1" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Column="2" Background="#FF203562">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="7*"/>
+                </Grid.RowDefinitions>
+                <Label FontSize="48" HorizontalAlignment="Center" FontWeight="Bold" Foreground="#FFF6CD26" Panel.ZIndex="9" VerticalAlignment="Center">Highscores</Label>
+                <Image Source="{StaticResource HighscoreHead}" Panel.ZIndex="8" HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="14*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="15*"/>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <DataGrid Grid.Row="0" Grid.Column="1" x:Name="HigscoreTable" GridLinesVisibility="None" IsManipulationEnabled="False" IsReadOnly="True" AutoGenerateColumns="False" Background="Transparent" RowBackground="Transparent" AlternatingRowBackground="Transparent" BorderBrush="Transparent"  Panel.ZIndex="0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Name}" Width="1*" IsReadOnly="True" Foreground="#FFF6CD26" FontFamily="{StaticResource MainFont}" FontSize="20" CanUserResize="False" />
+                            <DataGridTextColumn Binding="{Binding Score}" Width="1*" IsReadOnly="True" Foreground="#FFF6CD26" FontFamily="{StaticResource MainFont}" FontSize="20" CanUserResize="False" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Rectangle Grid.Column="1" Grid.Row="0" Panel.ZIndex="-2" Stroke="Black" StrokeThickness="2">
+                        <Rectangle.Fill>
+                            <ImageBrush ImageSource="{StaticResource HighscorePanel}" Stretch="UniformToFill" TileMode="Tile" Viewport="0,0,64,64" ViewportUnits="Absolute"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
 </Page>

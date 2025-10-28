@@ -22,41 +22,9 @@ namespace Atlantis.Menus
     /// <summary>
     /// The logic for HighscorePage
     /// </summary>
-    public partial class HighscorePage : Page
+    public static class Highscores
     {
         private static string s_fileName = "HighscoreList.csv";
-
-        public HighscorePage()
-        {
-            InitializeComponent();
-
-            // Needed otherwise wpf can not find this namespace or whatever...
-            DataContext = this;
-
-
-            //PlayerSave playerSave = new PlayerSave("Ferry", 1);
-            //ActivePlayer player = new ActivePlayer(playerSave);
-          
-
-            // Variabele, Have to get these from other people
-            // For now they are random
-            //int score = Random.Shared.Next(10000);
-            //string name = player.Save.Name;
-            int level = Random.Shared.Next(1, 13);
-
-            int score = 0;
-            // Puts the score in the file, if file does not exist creates the file
-            //AddRecord(level, score, name);
-
-
-            // Gets the data from the .csv file
-            Scoreboard = ReadData(level);
-
-            // Sorts the data by highest score
-            SortScorebaord();
-        }
-
-
 
         /// <summary>
         /// Creates a file to keep record of the scores
@@ -86,11 +54,14 @@ namespace Atlantis.Menus
 
         /// <summary>
         /// Reads the data from .csv file, Makes a object with the collected data
-        /// </summary>
+         /// </summary>
         /// <param name="activelevel"></param>
         /// <returns></returns>
-        private List<HighscoreRecord> ReadData(int activelevel)
+        public static List<HighscoreRecord> ReadData(int activelevel)
         {
+            if (!File.Exists(s_fileName))
+                Create();
+
             List<HighscoreRecord> records = [];
 
             string[] HighscoreList = File.ReadAllLines(s_fileName);
@@ -125,6 +96,7 @@ namespace Atlantis.Menus
                     });
                 }
             }
+            records.Sort(CompareScores);
 
             return records;
         }
@@ -135,7 +107,7 @@ namespace Atlantis.Menus
         /// <param name="record1"></param>
         /// <param name="record2"></param>
         /// <returns></returns>
-        private int CompareScores(HighscoreRecord record1, HighscoreRecord record2)
+        private static int CompareScores(HighscoreRecord record1, HighscoreRecord record2)
         {
             if (record1.Score > record2.Score) 
                 return -1;
@@ -143,29 +115,6 @@ namespace Atlantis.Menus
                 return 1;
             
             return 0;
-        }
-
-        /// <summary>
-        /// Sorts the scoreboard by highest score
-        /// </summary>
-        private void SortScorebaord()
-        {
-            Scoreboard.Sort(CompareScores);
-        }
-
-        // Object list om mee te geven aan de highscore list
-        public List<HighscoreRecord> Scoreboard 
-        { 
-            get;
-            set;
-        }
-
-        //Temp
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            PlayerSave playerSave = new PlayerSave("Ferry", 1);
-
-            AddRecord(Random.Shared.Next(1, 13), 9999 , playerSave.Name);
         }
     }
 }

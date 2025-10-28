@@ -10,47 +10,82 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="2*"/>
-            <RowDefinition Height="0.75*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
             <ColumnDefinition Width="2*"/>
-            <ColumnDefinition />
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="1" Grid.Row="1">
+        <Grid Grid.Column="2" Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
-            <Button Click="SaveFile0_Click">
-                <Label Content="{Binding SaveName0}"/>
+            <Button Click="SaveFile0_Click" Background="Transparent" BorderBrush="Transparent"  Panel.ZIndex="3">
+                <Label Content="{Binding SaveName0}" Foreground="#FFF6CD26" />
             </Button>
-            <Button Grid.Row="1" Click="SaveFile1_Click">
-                <Label Content="{Binding SaveName1}"/>
+            <Image Source="{StaticResource HighscoreHead}" Grid.Row="0" Panel.ZIndex="2" Stretch="Fill"/>
+            <Button Grid.Row="2" Click="SaveFile1_Click" Background="Transparent" BorderBrush="Transparent"  Panel.ZIndex="3">
+                <Label Content="{Binding SaveName1}" Foreground="#FFF6CD26" />
             </Button>
-            <Button Grid.Row="2" Click="SaveFile2_Click">
-                <Label Content="{Binding SaveName2}"/>
+            <Image Source="{StaticResource HighscoreHead}" Grid.Row="2" Panel.ZIndex="2" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="-1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <Button Grid.Row="4" Click="SaveFile2_Click" Background="Transparent" BorderBrush="Transparent"  Panel.ZIndex="3">
+                <Label Content="{Binding SaveName2}" Foreground="#FFF6CD26" />
+            </Button>
+            <Image Source="{StaticResource HighscoreHead}" Grid.Row="4" Panel.ZIndex="2" Stretch="Fill"/>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Image Source="{StaticResource DeleteButton}" Grid.Row="0" Stretch="Fill"/>
+            <Button Click="DeleteSave0_Click" Opacity="0">
+                <Label Content="Delete"/>
+            </Button>
+            <Image Source="{StaticResource DeleteButton}" Grid.Row="2" Stretch="Fill"/>
+            <Button Grid.Row="2" Click="DeleteSave1_Click" Opacity="0">
+                <Label Content="Delete"/>
+            </Button>
+            <Image Source="{StaticResource DeleteButton}" Grid.Row="4" Stretch="Fill"/>
+            <Button Grid.Row="4" Click="DeleteSave2_Click" Opacity="0">
+                <Label Content="Delete"/>
             </Button>
         </Grid>
-        <Grid Grid.Row="1" Grid.Column="2">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition />
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="4*"/>
             </Grid.RowDefinitions>
-            <Button Click="DeleteSave0_Click">
-                <Label Content="Delete"/>
-            </Button>
-            <Button Grid.Row="1" Click="DeleteSave1_Click">
-                <Label Content="Delete"/>
-            </Button>
-            <Button Grid.Row="2" Click="DeleteSave2_Click">
-                <Label Content="Delete"/>
-            </Button>
+            <Image Source="{StaticResource BackButton}" Grid.Column="1" Grid.Row="1" Stretch="Fill" />
+            <Button Click="BackButton_Click" Grid.Column="1" Grid.Row="1" Opacity="0"></Button>
         </Grid>
-        <Button Click="BackButton_Click">Back</Button>
     </Grid>
 </Page>

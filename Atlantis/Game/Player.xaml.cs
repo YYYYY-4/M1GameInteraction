@@ -15,6 +15,9 @@ namespace Atlantis.Game
 {
     public partial class Player : WaterGameControl
     {
+        public Inventory Inventory;
+        private float timer = 0;
+        
         public Player()
         {
             InitializeComponent();
@@ -25,6 +28,7 @@ namespace Atlantis.Game
         public override void OnStart()
         {
             Mass = Shape0.Shape.ComputeMassData().mass;
+            Inventory = new(this, Scene);
         }
 
         bool OnGround = false;
@@ -68,24 +72,39 @@ namespace Atlantis.Game
             return null!;
         }
 
-        private bool _hasDynamite = false;
-        public bool HasDynamite 
-        { 
-            get { return _hasDynamite; }
-            set { _hasDynamite = value; }
-        }
+       
+        ScaleTransform right = new ScaleTransform(1,1,25,0);
+        ScaleTransform left = new ScaleTransform(-1,1,25,0);
 
+        // -1 if facing left, 1 if facing right.
+        public int FacingDirection = 1;
 
         public override void OnUpdate(float dt)
         {
             UpdateGround();
 
+            timer = timer + dt;
+
+
             if (Scene.Keys[Key.G].pressedNow)
             {
-                Dynamite.SpawnDynamite(Scene);
+                Inventory.DropItem(this);
             }
 
             var input = new Vector2(IsKeyDown01(Key.D) - IsKeyDown01(Key.A), IsKeyDown01(Key.W) - IsKeyDown01(Key.S));
+
+            var direction = Body.GetLinearVelocity();
+
+            if (direction.X > 0.01) // checks if player is moving right
+            {
+                _player.RenderTransform = right;
+                FacingDirection = 1;
+            }
+            else if (direction.X < -0.01) // checks if player is moving left
+            {
+                _player.RenderTransform = left;
+                FacingDirection = -1;
+            }
 
             //var r = Scene.RayCastClosest(Body.GetPosition() - new Vector2(0.0f, 1.95f), new Vector2(0.0f, -1.5f), new b2QueryFilter(0x1, 0xFFFFFFFu));
             //var normal = new Vector2(0.0f, 1.0f);
@@ -98,6 +117,9 @@ namespace Atlantis.Game
 
             //Trace.WriteLine($"FPS: {1.0f / dt}");
 
+            if (timer > 1.5f)
+                timer = 0;
+
             if (IsInWater())
             {
                 // I tried looking into water physics but I don't know if I did it correctly. (I didn't do it correctly)
@@ -106,6 +128,22 @@ namespace Atlantis.Game
                 // https://en.wikipedia.org/wiki/Buoyancy
 
                 UpdateWaterForces(Shape0);
+
+                if (timer > 1.0f)
+                    _player.Source = (ImageSource)App.Current.FindResource("PlayerWater3");
+                else if (timer > 0.5f)
+                    _player.Source = (ImageSource)App.Current.FindResource("PlayerWater2");
+                else
+                    _player.Source = (ImageSource)App.Current.FindResource("PlayerWater1");
+            }
+            else
+            {
+                if (timer > 1.0f)
+                    _player.Source = (ImageSource)App.Current.FindResource("PlayerLand3");
+                else if (timer > 0.5f)
+                    _player.Source = (ImageSource)App.Current.FindResource("PlayerLand2");
+                else
+                    _player.Source = (ImageSource)App.Current.FindResource("PlayerLand1");
             }
 
             bool inWaterMovement = IsInWater();
@@ -168,7 +206,13 @@ namespace Atlantis.Game
                 if (OnGround && inputDir.Y > 0.0f)
                 {
                     float duration = 0.5f;
-                    float height = 9.0f;
+                    float height;
+                    if (Inventory.GetItem()?.GetType() == typeof(JumpBoots))
+                    {
+                        height = 13.0f;
+                    }
+                    else
+                        height = 7.5f;
                     var force = (height - Scene.World.GetGravity().Y * duration * (duration / 2)) / duration;
 
                     //Trace.WriteLine("Mass = " + Mass);

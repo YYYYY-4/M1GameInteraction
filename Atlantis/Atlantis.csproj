@@ -11,16 +11,17 @@
 
   <ItemGroup>
     <None Remove="Assets\Brick1.png" />
+    <None Remove="Assets\CoralPixels-Regular.ttf" />
     <None Remove="Assets\Door\DoorClosed.png" />
     <None Remove="Assets\Door\DoorOpen.png" />
     <None Remove="Assets\Door\DoorOpening.png" />
-    <None Remove="Assets\Dynamite\DynamiteFrame0.png" />
-    <None Remove="Assets\Dynamite\DynamiteFrame1.png" />
-    <None Remove="Assets\Dynamite\DynamiteFrame2.png" />
-    <None Remove="Assets\Dynamite\DynamiteFrame3.png" />
-    <None Remove="Assets\Dynamite\DynamiteFrame4.png" />
-    <None Remove="Assets\Dynamite\DynamiteFrame5.png" />
-    <None Remove="Assets\Dynamite\DynamiteIdle.png" />
+    <None Remove="Assets\PlayerItem\Dynamite\DynamiteFrame0.png" />
+    <None Remove="Assets\PlayerItem\Dynamite\DynamiteFrame1.png" />
+    <None Remove="Assets\PlayerItem\Dynamite\DynamiteFrame2.png" />
+    <None Remove="Assets\PlayerItem\Dynamite\DynamiteFrame3.png" />
+    <None Remove="Assets\PlayerItem\Dynamite\DynamiteFrame4.png" />
+    <None Remove="Assets\PlayerItem\Dynamite\DynamiteFrame5.png" />
+    <None Remove="Assets\PlayerItem\Dynamite\DynamiteIdle.png" />
     <None Remove="Assets\Explosion.png" />
     <None Remove="Assets\Fish\Fish0_0.png" />
     <None Remove="Assets\Fish\Fish0_1.png" />
@@ -33,17 +34,45 @@
     <None Remove="Assets\Fish\Fish4_0.png" />
     <None Remove="Assets\Fish\Fish4_1.png" />
     <None Remove="Assets\Fish\Fish5_0.png" />
-    <None Remove="Assets\Fish\FIsh5_1.png" />
+    <None Remove="Assets\Fish\Fish5_1.png" />
+    <None Remove="Assets\MenuElements\BackButton.png" />
+    <None Remove="Assets\MenuElements\DeleteButton.png" />
+    <None Remove="Assets\MenuElements\HighscoreHead.png" />
+    <None Remove="Assets\MenuElements\HighscorePanel.png" />
+    <None Remove="Assets\GameBackground.png" />
+    <None Remove="Assets\Keys\Key0.png" />
+    <None Remove="Assets\Keys\Key1.png" />
+    <None Remove="Assets\Keys\Key2.png" />
+    <None Remove="Assets\Keys\Key3.png" />
+    <None Remove="Assets\LevelSelect\Chapter1LevelSelect.png" />
+    <None Remove="Assets\LevelSelect\Chapter2LevelSelect.png" />
+    <None Remove="Assets\LevelSelect\Chapter3LevelSelect.png" />
+    <None Remove="Assets\LevelSelect\ChapterHead.png" />
     <None Remove="Assets\MenuBackground.png" />
+    <None Remove="Assets\MenuElements\LogoV2.png" />
+    <None Remove="Assets\MenuElements\MenuElementStick.png" />
     <None Remove="Assets\NOSPRITE.png" />
+    <None Remove="Assets\PlayerItem\JumpBoots.png" />
+    <None Remove="Assets\PLayerLandSprite\Catt1.png" />
+    <None Remove="Assets\PLayerLandSprite\Catt2.png" />
+    <None Remove="Assets\PLayerLandSprite\Catt3.png" />
+    <None Remove="Assets\PlayerWaterSprite\pixil-frame-0.png" />
+    <None Remove="Assets\PlayerWaterSprite\pixil-frame-1.png" />
+    <None Remove="Assets\PlayerWaterSprite\pixil-frame-2.png" />
+    <None Remove="Assets\PlayerWaterSprite\pixil-frame-3.png" />
     <None Remove="Assets\placeholder.png" />
     <None Remove="Assets\PlaceholderCollectable.jpg" />
-    <None Remove="Assets\PlayerSprite.gif" />
     <None Remove="Assets\Wall.png" />
     <None Remove="Assets\Wall\WallBase.png" />
     <None Remove="Assets\Wall\WallBreakable.png" />
     <None Remove="Assets\Wall\WallMoveable.png" />
     <None Remove="box2d.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\CoralPixels-Regular.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -56,13 +85,13 @@
     <Resource Include="Assets\Door\DoorClosed.png" />
     <Resource Include="Assets\Door\DoorOpen.png" />
     <Resource Include="Assets\Door\DoorOpening.png" />
-    <Resource Include="Assets\Dynamite\DynamiteFrame0.png" />
-    <Resource Include="Assets\Dynamite\DynamiteFrame1.png" />
-    <Resource Include="Assets\Dynamite\DynamiteFrame2.png" />
-    <Resource Include="Assets\Dynamite\DynamiteFrame3.png" />
-    <Resource Include="Assets\Dynamite\DynamiteFrame4.png" />
-    <Resource Include="Assets\Dynamite\DynamiteFrame5.png" />
-    <Resource Include="Assets\Dynamite\DynamiteIdle.png" />
+    <Resource Include="Assets\PlayerItem\Dynamite\DynamiteFrame0.png" />
+    <Resource Include="Assets\PlayerItem\Dynamite\DynamiteFrame1.png" />
+    <Resource Include="Assets\PlayerItem\Dynamite\DynamiteFrame2.png" />
+    <Resource Include="Assets\PlayerItem\Dynamite\DynamiteFrame3.png" />
+    <Resource Include="Assets\PlayerItem\Dynamite\DynamiteFrame4.png" />
+    <Resource Include="Assets\PlayerItem\Dynamite\DynamiteFrame5.png" />
+    <Resource Include="Assets\PlayerItem\Dynamite\DynamiteIdle.png" />
     <Resource Include="Assets\Explosion.png" />
     <Resource Include="Assets\Fish\Fish0_0.png" />
     <Resource Include="Assets\Fish\Fish0_1.png" />
@@ -75,12 +104,37 @@
     <Resource Include="Assets\Fish\Fish4_0.png" />
     <Resource Include="Assets\Fish\Fish4_1.png" />
     <Resource Include="Assets\Fish\Fish5_0.png" />
-    <Resource Include="Assets\Fish\FIsh5_1.png" />
+    <Resource Include="Assets\Fish\Fish5_1.png" />
+    <Resource Include="Assets\MenuElements\BackButton.png" />
+    <Resource Include="Assets\MenuElements\DeleteButton.png" />
+    <Resource Include="Assets\MenuElements\HighscoreHead.png" />
+    <Resource Include="Assets\MenuElements\HighscorePanel.png" />
+    <Resource Include="Assets\GameBackground.png" />
+    <Resource Include="Assets\Keys\Key0.png" />
+    <Resource Include="Assets\Keys\Key1.png" />
+    <Resource Include="Assets\Keys\Key2.png" />
+    <Resource Include="Assets\Keys\Key3.png" />
+    <Resource Include="Assets\LevelSelect\Chapter1LevelSelect.png" />
+    <Resource Include="Assets\LevelSelect\Chapter2LevelSelect.png" />
+    <Resource Include="Assets\LevelSelect\Chapter3LevelSelect.png" />
+    <Resource Include="Assets\LevelSelect\ChapterHead.png" />
     <Resource Include="Assets\MenuBackground.png" />
+    <Resource Include="Assets\MenuElements\LogoV2.png" />
+    <Resource Include="Assets\MenuElements\MenuElementStick.png" />
     <Resource Include="Assets\NOSPRITE.png" />
+	  <Resource Include="Assets\PixelatedEleganceRegular.ttf">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Assets\PlayerItem\JumpBoots.png" />
+	  <Resource Include="Assets\PLayerLandSprite\Catt1.png" />
+	  <Resource Include="Assets\PLayerLandSprite\Catt2.png" />
+	  <Resource Include="Assets\PLayerLandSprite\Catt3.png" />
+	  <Resource Include="Assets\PlayerWaterSprite\pixil-frame-0.png" />
+	  <Resource Include="Assets\PlayerWaterSprite\pixil-frame-1.png" />
+	  <Resource Include="Assets\PlayerWaterSprite\pixil-frame-2.png" />
+	  <Resource Include="Assets\PlayerWaterSprite\pixil-frame-3.png" />
     <Resource Include="Assets\placeholder.png" />
     <Resource Include="Assets\PlaceholderCollectable.jpg" />
-    <Resource Include="Assets\PlayerSprite.gif" />
     <Resource Include="Assets\Wall.png" />
     <Resource Include="Assets\Wall\WallBase.png" />
     <Resource Include="Assets\Wall\WallBreakable.png" />

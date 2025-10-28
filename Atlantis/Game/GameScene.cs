@@ -1,27 +1,14 @@
 ﻿using Atlantis.Box2dNet;
 using Atlantis.Menus;
-using Atlantis.Scene;
 using Box2dNet.Interop;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Numerics;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography.Xml;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
-using System.Xml.Linq;
 using static Atlantis.Box2dNet.B2Extension;
-using Atlantis.Box2dNet;
-using Atlantis.Menus;
-using Atlantis.Scene;
 
 namespace Atlantis.Game
 {
@@ -88,8 +75,8 @@ namespace Atlantis.Game
         Vector2 LastDragPosition = Vector2.Zero;
         Vector2 LastMousePosition = Vector2.Zero;
 
-        private static bool _paused = false;
-        private static bool Paused
+        private bool _paused = false;
+        public bool Paused
         {
             get => _paused;
             set => _paused = value;
@@ -127,6 +114,8 @@ namespace Atlantis.Game
 
         private void Content_Loaded(object sender, RoutedEventArgs e)
         {
+            Canvas.Loaded -= Content_Loaded;
+
             Canvas.ClearValue(Canvas.WidthProperty);
             Canvas.ClearValue(Canvas.HeightProperty);
 
@@ -141,8 +130,8 @@ namespace Atlantis.Game
                 }),
             };
 
-            Canvas.Background = CanvasBrush;
-
+            //Canvas.Background = CanvasBrush;
+            
             b2WorldDef worldDef = B2Api.b2DefaultWorldDef();
             worldDef.enableSleep = false;
 
@@ -151,12 +140,11 @@ namespace Atlantis.Game
             B2Api.b2SetAssertFcn(AssertFcn);
 
             LoadGameControls(Canvas, (float)Canvas.ActualHeight, 0.0, 0.0);
-            LargeGroundBody();
 
             _watch.Start();
 
             Keys = [];
-            foreach (var key in Enum.GetValues(typeof(Key)).Cast<Key>())
+            foreach (var key in Enum.GetValues<Key>())
             {
                 Keys[key] = new();
             }
@@ -182,18 +170,10 @@ namespace Atlantis.Game
             _watch.Stop();
         }
 
-        private void LargeGroundBody()
-        {
-            var wall = new Wall
-            {
-                Width = 5e4f * ScalingFactor,
-                Height = 50.0f
-            };
-            ProcessGameControl(wall, new b2Transform(new Vector2(-2.5e4f, 0.0f), b2Rot.Zero));
-        }
-
         public void ProcessGameControl(GameControl control, b2Transform transform)
         {
+            control.OnBeforeLoadControl();
+
             if (double.IsNaN(Canvas.GetTop(control)))
             {
                 Canvas.SetTop(control, 0.0);
@@ -780,6 +760,11 @@ namespace Atlantis.Game
                     new RotateTransform(-Camera.Angle.RadToDeg()),
                 ]
             };
+
+            Canvas.RenderTransform = new TransformGroup()
+            {
+                Children = [new ScaleTransform(2, 2), new TranslateTransform(-Canvas.ActualWidth / 2, -Canvas.ActualHeight / 2)]
+            };
         }
 
         public bool IsKeyDown(Key key)
@@ -806,16 +791,6 @@ namespace Atlantis.Game
                 state.pressedAt = Time;
             }
             state.isPressed = true;
-
-            switch (e.Key)
-            {
-                case Key.Escape:
-                    Paused = !Paused;
-                    break;
-                case Key.F1:
-                    GamePage.LoadScene<DemoLevel>();
-                    break;
-            }
         }
 
         private void MainWindow_KeyUp(object sender, KeyEventArgs e)
@@ -852,17 +827,20 @@ namespace Atlantis.Game
                 }, 0);
 
                 // Find shape with lowest area
-                Dragging = shapes.Aggregate((current, sh) =>
+                if (shapes.Count > 0)
                 {
-                    if (current == null)
+                    Dragging = shapes.Aggregate((current, sh) =>
                     {
-                        return current;
-                    }
-                    float a = current.Size.LengthSquared();
-                    float b = sh.Size.LengthSquared();
-                    return a < b ? current : sh;
-                })?.Control;
-
+                        if (current == null)
+                        {
+                            return current;
+                        }
+                        float a = current.Size.LengthSquared();
+                        float b = sh.Size.LengthSquared();
+                        return a < b ? current : sh;
+                    })?.Control;
+                }
+                
                 if (Dragging != null)
                 {
                     DraggingOffset = Dragging.Body.GetPosition() - WorldMousePosition;
