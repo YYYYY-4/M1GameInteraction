@@ -43,7 +43,7 @@ namespace Atlantis.Menus
         /// <param name="e"></param>
         private void Submit_click(object sender, RoutedEventArgs e)
         {
-            if (_name != null)
+            if (_name != null && _name != "")
             {
                 PlayerSave save = new PlayerSave(_name, _saveSlot);
                 save.Save();
