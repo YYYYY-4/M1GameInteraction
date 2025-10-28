@@ -22,7 +22,7 @@ public partial class GamePage : Page
     private int _level;
     private bool _completed = false;
 
-    public string Level => $"Level {_level+1}";
+    public string Level => $"Level {_level + 1}";
 
     public static readonly Dictionary<int, Type> Levels = new()
     {
@@ -154,14 +154,14 @@ public partial class GamePage : Page
 
             if (_completed)
             {
-                if (_level++ == Levels.Count)
+                if (Levels.ContainsKey(_level + 1))
                 {
                     _level++;
                     LoadScene();
                 }
                 else
                 {
-                    return;
+                    _window.GoBack();
                 }
             }
         }

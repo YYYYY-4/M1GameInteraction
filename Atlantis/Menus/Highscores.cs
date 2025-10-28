@@ -59,6 +59,9 @@ namespace Atlantis.Menus
         /// <returns></returns>
         public static List<HighscoreRecord> ReadData(int activelevel)
         {
+            if (!File.Exists(s_fileName))
+                Create();
+
             List<HighscoreRecord> records = [];
 
             string[] HighscoreList = File.ReadAllLines(s_fileName);
