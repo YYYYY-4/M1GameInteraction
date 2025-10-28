@@ -45,8 +45,12 @@
     <BitmapImage x:Key="Chapter3" UriSource="/Atlantis;component/Assets/LevelSelect/Chapter3LevelSelect.png"/>
     <BitmapImage x:Key="ChapterHead" UriSource="/Atlantis;component/Assets/LevelSelect/ChapterHead.png"/>
 
-    <BitmapImage x:Key="HighscorePanel" UriSource="/Atlantis;component/Assets/HigscoreTable/HighscorePanel.png" />
-    <BitmapImage x:Key="HighscoreHead" UriSource="/Atlantis;component/Assets/HigscoreTable/HighscoreHead.png" />
+    <BitmapImage x:Key="HighscorePanel" UriSource="/Atlantis;component/Assets/MenuELements/HighscorePanel.png" />
+    <BitmapImage x:Key="HighscoreHead" UriSource="/Atlantis;component/Assets/MenuElements/HighscoreHead.png" />
+    <BitmapImage x:Key="MenuElementStick" UriSource="/Atlantis;component/Assets/MenuElements/MenuElementStick.png" />
+    <BitmapImage x:Key="BackButton" UriSource="/Atlantis;component/Assets/MenuElements/BackButton.png" />
+    <BitmapImage x:Key="DeleteButton" UriSource="/Atlantis;component/Assets/MenuElements/DeleteButton.png" />
+    <BitmapImage x:Key="PrototypeLogo" UriSource="/Atlantis;component/Assets/MenuElements/LogoV2.png" />
 
     <BitmapImage x:Key="Key0" UriSource="/Atlantis;component/Assets/Keys/Key0.png"/>
     <BitmapImage x:Key="Key1" UriSource="/Atlantis;component/Assets/Keys/Key1.png"/>

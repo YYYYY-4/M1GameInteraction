@@ -71,7 +71,7 @@ namespace Atlantis.Game
             return null!;
         }
 
-        // Ferry check needed
+       
         ScaleTransform right = new ScaleTransform(1,1,25,0);
         ScaleTransform left = new ScaleTransform(-1,1,25,0);
 
@@ -91,12 +91,12 @@ namespace Atlantis.Game
 
             var direction = Body.GetLinearVelocity();
 
-            if (direction.X > 0.1) // checks if player is moving right
+            if (direction.X > 0.01) // checks if player is moving right
             {
                 _player.RenderTransform = right;
                 FacingDirection = 1;
             }
-            else if (direction.X < 0.1) // checks if player is moving left
+            else if (direction.X < -0.01) // checks if player is moving left
             {
                 _player.RenderTransform = left;
                 FacingDirection = -1;
