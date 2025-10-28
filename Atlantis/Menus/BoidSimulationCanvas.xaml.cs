@@ -30,7 +30,8 @@ namespace Atlantis.Menus
             "Fish2_1",
             "Fish3_0",
             "Fish4_0",
-            "Fish5_0"
+            "Fish5_0",
+            "Fish6_0",
         ];
 
         public static readonly List<string> EvilFish = [
@@ -68,7 +69,7 @@ namespace Atlantis.Menus
             MountedPanel = null;
         }
 
-        private void SpawnRandomFish(int fishCount, int predatorCount)
+        public void SpawnRandomFish(int fishCount, int predatorCount)
         {
             for (var i = 0; i < fishCount; i++)
             {

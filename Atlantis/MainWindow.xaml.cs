@@ -8,6 +8,7 @@ using System.Numerics;
 using System.Runtime.Intrinsics.Arm;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Atlantis
 {
@@ -51,6 +52,16 @@ namespace Atlantis
             }
 
             Trace.WriteLine("AfterBack: " + string.Join(", ", PageHistory));
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+
+            if (e.Key == Key.F3)
+            {
+                BoidSimulation.SpawnRandomFish(20, 2);
+            }
         }
 
         public void GoBackToType<PageType>()

@@ -11,10 +11,14 @@
 
   <ItemGroup>
     <None Remove="Assets\Brick1.png" />
+    <None Remove="Assets\Cats\land_cat.png" />
+    <None Remove="Assets\Cats\void_cat.png" />
+    <None Remove="Assets\Cats\water_cat.png" />
     <None Remove="Assets\CoralPixels-Regular.ttf" />
     <None Remove="Assets\Door\DoorClosed.png" />
     <None Remove="Assets\Door\DoorOpen.png" />
     <None Remove="Assets\Door\DoorOpening.png" />
+    <None Remove="Assets\Fish\Fish6_0.png" />
     <None Remove="Assets\PlayerItem\Dynamite\DynamiteFrame0.png" />
     <None Remove="Assets\PlayerItem\Dynamite\DynamiteFrame1.png" />
     <None Remove="Assets\PlayerItem\Dynamite\DynamiteFrame2.png" />
@@ -83,9 +87,13 @@
 
   <ItemGroup>
     <Resource Include="Assets\Brick1.png" />
+    <Resource Include="Assets\Cats\land_cat.png" />
+    <Resource Include="Assets\Cats\void_cat.png" />
+    <Resource Include="Assets\Cats\water_cat.png" />
     <Resource Include="Assets\Door\DoorClosed.png" />
     <Resource Include="Assets\Door\DoorOpen.png" />
     <Resource Include="Assets\Door\DoorOpening.png" />
+    <Resource Include="Assets\Fish\Fish6_0.png" />
     <Resource Include="Assets\PlayerItem\Dynamite\DynamiteFrame0.png" />
     <Resource Include="Assets\PlayerItem\Dynamite\DynamiteFrame1.png" />
     <Resource Include="Assets\PlayerItem\Dynamite\DynamiteFrame2.png" />
