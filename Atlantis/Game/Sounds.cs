@@ -15,11 +15,19 @@ namespace Atlantis.Game
     {
         private static MediaPlayer mainMusic = new MediaPlayer();
         private static bool isInitialized = false;
-        private static double musicVolume = double.Parse(File.ReadAllText("MusicSettings.txt")) / 100;
-        private double sfxVolume = double.Parse(File.ReadAllText("SfxSettings")) / 100;
-
+        
         private MediaPlayer loopedSfxPlayer;
 
+        //Internal function for deciding sound volume
+        private static double SoundVolume(string filepath)
+        {
+            if (File.Exists(filepath))
+                return double.Parse(File.ReadAllText(filepath)) / 100;
+            else
+                return 0.5;
+        }
+
+        //-------------Music----------------------
         //Plays soundtrack.mp3 and loops the music
         public static void PlayMainMusicLoop()
         {
@@ -29,14 +37,14 @@ namespace Atlantis.Game
                 mainMusic.MediaEnded += (s, e) =>
                 {
                     mainMusic.Position = TimeSpan.Zero;
-                    mainMusic.Volume = musicVolume;
+                    mainMusic.Volume = SoundVolume("MusicSettings.txt");
                     mainMusic.Play();
                 };
                 isInitialized = true;
             }
             //Plays music
             mainMusic.Open(new Uri("/Assets/Sounds/Musi/Soundtrack.mp3"));
-            mainMusic.Volume = musicVolume;
+            mainMusic.Volume = SoundVolume("MusicSettings.txt");
             mainMusic.Play();
         }
 
@@ -59,16 +67,18 @@ namespace Atlantis.Game
         //updates volume (used in SettingsMenu)
         public static void UpdateMusicVolume()
         {
-            musicVolume = double.Parse(File.ReadAllText("MusicSettings.txt"));
-            mainMusic.Volume = musicVolume;
+            mainMusic.Volume = SoundVolume("MusicSettings.txt");
         }
 
+        
+        //-------------sfx----------------------
+        
         //play any sound effect
         public void PlaySfx(string filePath)
         {
             MediaPlayer sfxPlayer = new MediaPlayer();
             sfxPlayer.Open(new Uri(filePath, UriKind.RelativeOrAbsolute));
-            sfxPlayer.Volume = sfxVolume;
+            sfxPlayer.Volume = SoundVolume("SfxSettings");
             sfxPlayer.Play();
 
             // Cleanup when finished
@@ -83,7 +93,7 @@ namespace Atlantis.Game
         {
             loopedSfxPlayer = new MediaPlayer();
             loopedSfxPlayer.Open(new Uri(filePath, UriKind.RelativeOrAbsolute));
-            loopedSfxPlayer.Volume = sfxVolume;
+            loopedSfxPlayer.Volume = SoundVolume("SfxSettings");
 
             loopedSfxPlayer.MediaEnded += (s, e) =>
             {
