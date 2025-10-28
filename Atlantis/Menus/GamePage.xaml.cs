@@ -151,6 +151,19 @@ public partial class GamePage : Page
             {
                 SetPaused(false);
             }
+
+            if (_completed)
+            {
+                if (_level++ == Levels.Count)
+                {
+                    _level++;
+                    LoadScene();
+                }
+                else
+                {
+                    return;
+                }
+            }
         }
     }
 
