@@ -73,5 +73,6 @@
             </Rectangle>
         </game:Wall>
         <game:Wall Width="476" Height="110" Canvas.Left="1100" Canvas.Top="570" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <game:Wall Width="3510" Height="975" Canvas.Left="-704" Canvas.Top="1080" HorizontalAlignment="Center" VerticalAlignment="Top"/>
     </Canvas>
 </Page>

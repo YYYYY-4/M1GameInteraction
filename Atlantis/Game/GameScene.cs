@@ -140,7 +140,6 @@ namespace Atlantis.Game
             B2Api.b2SetAssertFcn(AssertFcn);
 
             LoadGameControls(Canvas, (float)Canvas.ActualHeight, 0.0, 0.0);
-            LargeGroundBody();
 
             _watch.Start();
 
@@ -169,16 +168,6 @@ namespace Atlantis.Game
             B2Api.b2DestroyWorld(World);
 
             _watch.Stop();
-        }
-
-        private void LargeGroundBody()
-        {
-            var wall = new Wall
-            {
-                Width = 5e4f * ScalingFactor,
-                Height = 50.0f
-            };
-            ProcessGameControl(wall, new b2Transform(new Vector2(-2.5e4f, 0.0f), b2Rot.Zero));
         }
 
         public void ProcessGameControl(GameControl control, b2Transform transform)
