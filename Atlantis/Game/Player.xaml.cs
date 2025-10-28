@@ -16,6 +16,7 @@ namespace Atlantis.Game
     public partial class Player : WaterGameControl
     {
         public Inventory Inventory;
+        private float timer = 0;
         
         public Player()
         {
@@ -82,6 +83,9 @@ namespace Atlantis.Game
         {
             UpdateGround();
 
+            timer = timer + dt;
+
+
             if (Scene.Keys[Key.G].pressedNow)
             {
                 Inventory.DropItem(this);
@@ -113,6 +117,9 @@ namespace Atlantis.Game
 
             //Trace.WriteLine($"FPS: {1.0f / dt}");
 
+            if (timer > 2.0f)
+                timer = 0;
+
             if (IsInWater())
             {
                 // I tried looking into water physics but I don't know if I did it correctly. (I didn't do it correctly)
@@ -121,9 +128,27 @@ namespace Atlantis.Game
                 // https://en.wikipedia.org/wiki/Buoyancy
 
                 UpdateWaterForces(Shape0);
+
+                if (timer > 1.5f)
+                    _player.Source = (ImageSource)App.Current.FindResource("PlayerWater4");
+                else if (timer > 1.0f)
+                    _player.Source = (ImageSource)App.Current.FindResource("PlayerWater3");
+                else if (timer > 0.5f)
+                    _player.Source = (ImageSource)App.Current.FindResource("PlayerWater2");
+                else
+                    _player.Source = (ImageSource)App.Current.FindResource("PlayerWater1");
+            }
+            else
+            {
+                if (timer > 1.0f)
+                    _player.Source = (ImageSource)App.Current.FindResource("PlayerLand3");
+                else if (timer > 0.5f)
+                    _player.Source = (ImageSource)App.Current.FindResource("PlayerLand2");
+                else
+                    _player.Source = (ImageSource)App.Current.FindResource("PlayerLand1");
             }
 
-            bool inWaterMovement = IsInWater();
+                bool inWaterMovement = IsInWater();
 
             if (inWaterMovement && OnGround && _submergeFactor < 0.4f)
             {
