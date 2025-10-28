@@ -9,7 +9,7 @@ using System.IO;
 
 namespace Atlantis.Game
 {
-    public class Music
+    public static class Music
     {
         private static MediaPlayer _mainMusic = new MediaPlayer();
 
@@ -19,7 +19,7 @@ namespace Atlantis.Game
             //Plays music
             _mainMusic.Open(new Uri(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Assets\Sounds\Music\Soundtrack.mp3")));
             _mainMusic.Volume = Sounds.SoundVolume("MusicSettings.txt");
-            _mainMusic.MediaEnded += new EventHandler(Media_Ended);
+            _mainMusic.MediaEnded += Media_Ended;
             _mainMusic.Play();
         }
 

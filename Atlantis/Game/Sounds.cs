@@ -47,13 +47,13 @@ namespace Atlantis.Game
             _loopedSfxPlayer.Open(new Uri(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\", filePath)));
             _loopedSfxPlayer.Volume = SoundVolume("SfxSettings");
 
-            _loopedSfxPlayer.MediaEnded += new EventHandler(Media_Ended);
+            _loopedSfxPlayer.MediaEnded += Loop;
 
             _loopedSfxPlayer.Play();
         }
 
         //function for looping loopedsfxplayer
-        private void Media_Ended(object sender, EventArgs e)
+        private void Loop(object sender, EventArgs e)
         {
             _loopedSfxPlayer.Position = TimeSpan.Zero;
             _loopedSfxPlayer.Play();
