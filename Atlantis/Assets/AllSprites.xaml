@@ -34,7 +34,7 @@
     <BitmapImage x:Key="PlayerWater3" UriSource="/Atlantis;component/Assets/PlayerWaterSprite/pixil-frame-2.png"/>
     <BitmapImage x:Key="PlayerWater4" UriSource="/Atlantis;component/Assets/PlayerWaterSprite/pixil-frame-3.png"/>
     <BitmapImage x:Key="PlayerSpace1" UriSource="/Atlantis;component/Assets/PlayerSpaceSprite/space1.png"/>
-    <BitmapImage x:Key="PlayerSpace2" UriSource="/Atlantis;component/Assets/PlayerSpaceprite/space2.png"/>
+    <BitmapImage x:Key="PlayerSpace2" UriSource="/Atlantis;component/Assets/PlayerSpaceSprite/space2.png"/>
     <BitmapImage x:Key="PlayerSpace3" UriSource="/Atlantis;component/Assets/PlayerSpacesprite/space3.png"/>
 
     <BitmapImage x:Key="Fish0_0" UriSource="/Atlantis;component/Assets/Fish/Fish0_0.png"/>
