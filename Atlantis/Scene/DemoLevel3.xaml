@@ -18,16 +18,7 @@
         </game:Player>
         <game:PlayerBall Canvas.Left="92" Canvas.Top="57" />
         <game:EndDoor Width="84" Height="90" Canvas.Left="208" Canvas.Top="990" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <game:DoorKey Canvas.Left="2386" Canvas.Top="897" Height="50" Width="50" HorizontalAlignment="Left" VerticalAlignment="Center">
-            <game:DoorKey.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform ScaleX="1" ScaleY="1"/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform X="-2018.056" Y="-115.56"/>
-                </TransformGroup>
-            </game:DoorKey.RenderTransform>
-        </game:DoorKey>
+        <game:DoorKey Canvas.Left="365" Canvas.Top="806" Height="50" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
         <game:Collectible CollectibleImageSource="{StaticResource CatVoid}" Width="50" Height="50" Canvas.Left="1510" Canvas.Top="388" />
         <game:Collectible CollectibleImageSource="{StaticResource CatVoid}" Width="50" Height="50" Canvas.Left="616" Canvas.Top="906"/>
@@ -45,14 +36,14 @@
                 </x:Array>
             </game:DestroyButton.Targets>
         </game:DestroyButton>
-        <game:TimedButton Canvas.Left="348" Canvas.Top="691" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <game:TimedButton Canvas.Left="348" Canvas.Top="691" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center">
             <game:TimedButton.Targets>
                 <x:Array Type="game:GameControl">
                     <x:Reference>ButtonWallTimedRed</x:Reference>
                 </x:Array>
             </game:TimedButton.Targets>
         </game:TimedButton>
-        <game:Wall Width="50" Height="164" Canvas.Left="250" x:Name="ButtonWallWhite" HorizontalAlignment="Center" VerticalAlignment="Top" BorderBrush="White" BorderThickness="4">
+        <game:Wall Width="50" Height="164" Canvas.Left="250" Canvas.Top="0" x:Name="ButtonWallWhite" HorizontalAlignment="Center" VerticalAlignment="Top" BorderBrush="White" BorderThickness="4">
             <Rectangle>
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="{StaticResource WallMoveable}" Stretch="Fill" TileMode="Tile" Viewport="0,0,64,64" ViewportUnits="Absolute"/>
@@ -105,16 +96,17 @@
         <game:Wall Width="772" Height="1081" Canvas.Left="1920" Canvas.Top="-1" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <game:Wall Width="832" Height="1087" Canvas.Left="-827" Canvas.Top="-1" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <game:Wall Width="3881" Height="683" Canvas.Left="-1075" Canvas.Top="-933" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <game:Wall Width="500" Height="50" Canvas.Top="726" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <game:Wall Width="50" Height="300" Canvas.Left="450" Canvas.Top="780" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <game:Wall Width="50" Height="200" Canvas.Left="450" Canvas.Top="526" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <game:Wall Width="3510" Height="164" Canvas.Left="-818" Canvas.Top="1085" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <game:Wall Width="3510" Height="159" Canvas.Left="-818" Canvas.Top="-160" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <game:Wall Width="300" Height="50" Canvas.Left="150" Canvas.Top="526" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <game:Wall Width="170" Height="50" Canvas.Left="280" Canvas.Top="880" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <game:Wall Width="666" Height="50" Canvas.Top="363" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <game:Wall Width="937" Height="50" Canvas.Top="164" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <game:Wall Width="711" Height="50" Canvas.Left="5" Canvas.Top="313" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         <game:Wall Width="437" Height="50" Canvas.Left="500" Canvas.Top="726" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <game:Wall Width="932" Height="50" Canvas.Left="5" Canvas.Top="726" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <game:Wall Width="932" Height="50" Canvas.Top="164" Canvas.Left="0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <game:Wall Width="1920" Height="50" Canvas.Top="1086" Canvas.Left="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         <game:Wall Width="719" Height="50" Canvas.Left="1201" Canvas.Top="726" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         <game:Wall Width="479" Height="50" Canvas.Left="1201" Canvas.Top="164" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         <game:Wall Width="271" Height="50" Canvas.Left="666" Canvas.Top="551" HorizontalAlignment="Left" VerticalAlignment="Center"/>
