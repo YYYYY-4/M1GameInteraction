@@ -457,6 +457,13 @@ namespace Atlantis.Game
             Canvas.Children.Remove(control);
         }
 
+        public void DisableControl(GameControl control)
+        {
+            control.Visibility = Visibility.Hidden;
+            control.Body.Disable();
+        }
+
+
         // Recursively load children from canvas into the scene
         // left and top are in wpf units the absolute distances from 0,0
         private void LoadGameControls(Canvas canvas, double canvasActualHeight, double left, double top)
