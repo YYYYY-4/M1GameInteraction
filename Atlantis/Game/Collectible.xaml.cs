@@ -29,7 +29,7 @@ namespace Atlantis.Game
                 return;
             }
 
-            if (visitor.Control is Player player)
+            if (visitor.Control is Player || visitor.Control is PlayerBall)
             {
                 Scene.GamePage.Score.Collectables += 1;
                 Scene.DestroyControl(this);

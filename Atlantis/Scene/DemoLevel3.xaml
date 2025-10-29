@@ -29,7 +29,7 @@
             </game:DoorKey.RenderTransform>
         </game:DoorKey>
 
-        <game:Collectible CollectibleImageSource="{StaticResource CatVoid}" Width="50" Height="50" Canvas.Left="1510" Canvas.Top="388" RenderTransformOrigin="0.48,0.612"/>
+        <game:Collectible CollectibleImageSource="{StaticResource CatVoid}" Width="50" Height="50" Canvas.Left="1510" Canvas.Top="388" />
         <game:Collectible CollectibleImageSource="{StaticResource CatVoid}" Width="50" Height="50" Canvas.Left="616" Canvas.Top="906"/>
         <game:DestroyButton Canvas.Left="180" Canvas.Top="129" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top">
             <game:DestroyButton.Targets>
