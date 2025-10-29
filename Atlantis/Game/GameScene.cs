@@ -748,6 +748,11 @@ namespace Atlantis.Game
             {
                 if (!_controlsChanged || _controls.Contains(control))
                 {
+                    if (control.Tag != null)
+                    {
+                        int x = 0;
+                    }
+
                     control.OnUpdate(dt);
                 }
             }
@@ -781,6 +786,11 @@ namespace Atlantis.Game
             {
                 //subj.BodyId.SetTransform(Camera.Position, b2Rot.Zero);
                 Camera.Position = B2Api.b2Body_GetPosition(subject.Body);
+            }
+
+            if (GamePage.LevelIndex == 2)
+            {
+                Camera.Position = new Vector2(1920 / 2 / ScalingFactor, 1080 / 2 / ScalingFactor);
             }
 
             World.SetGravity(new Vector2(camRot90.c, -camRot90.s) * 10.0f);
