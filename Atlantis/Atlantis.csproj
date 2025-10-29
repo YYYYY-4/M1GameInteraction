@@ -67,6 +67,7 @@
     <None Remove="Assets\PlayerWaterSprite\pixil-frame-3.png" />
     <None Remove="Assets\placeholder.png" />
     <None Remove="Assets\PlaceholderCollectable.jpg" />
+    <None Remove="Assets\spacetile.png" />
     <None Remove="Assets\Wall.png" />
     <None Remove="Assets\Wall\WallBase.png" />
     <None Remove="Assets\Wall\WallBreakable.png" />
@@ -146,6 +147,7 @@
 	  <Resource Include="Assets\PlayerWaterSprite\pixil-frame-3.png" />
     <Resource Include="Assets\placeholder.png" />
     <Resource Include="Assets\PlaceholderCollectable.jpg" />
+    <Resource Include="Assets\spacetile.png" />
     <Resource Include="Assets\Wall.png" />
     <Resource Include="Assets\Wall\WallBase.png" />
     <Resource Include="Assets\Wall\WallBreakable.png" />

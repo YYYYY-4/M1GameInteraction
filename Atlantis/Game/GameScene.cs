@@ -116,6 +116,9 @@ namespace Atlantis.Game
             }
         }
 
+        int GamePageBrushWidth = 200;
+        int GamePageBrushHeight = 200;
+
         private void Content_Loaded(object sender, RoutedEventArgs e)
         {
             Canvas.Loaded -= Content_Loaded;
@@ -134,11 +137,28 @@ namespace Atlantis.Game
                 }),
             };
 
+            string image = "";
+            switch (GamePage.LevelIndex)
+            {
+                case 0:
+                    image = "WaterImage";
+                    GamePageBrushHeight = 40;
+                    break;
+                case 1:
+                    image = "DoorGameBackground";
+                    GamePageBrushHeight = 40;
+                    break;
+                case 2:
+                    image = "SpaceTileImage";
+                    GamePageBrushHeight = 200;
+                    break;
+            }
+
             GamePageBrush = new ImageBrush();
-            GamePageBrush.ImageSource = (ImageSource)App.Current.FindResource(GamePage.LevelIndex == 0 ? "WaterImage" : "DoorGameBackground");
+            GamePageBrush.ImageSource = (ImageSource)App.Current.FindResource(image);
             GamePageBrush.TileMode = TileMode.Tile;
             GamePageBrush.Stretch = Stretch.Fill;
-            GamePageBrush.Viewport = new Rect(0, 0, 200, 40);
+            GamePageBrush.Viewport = new Rect(0, 0, GamePageBrushWidth, GamePageBrushHeight);
             GamePageBrush.ViewportUnits = BrushMappingMode.Absolute;
             GamePage.Background = GamePageBrush;
 
@@ -792,7 +812,7 @@ namespace Atlantis.Game
             };
 
             _gameBrushScroll += dt * _gamePageScrollSpeed;
-            GamePageBrush.Transform = new TranslateTransform(-(pxCamera.X + _gameBrushScroll) % 200, (pxCamera.Y) % 40);
+            GamePageBrush.Transform = new TranslateTransform(-(pxCamera.X + _gameBrushScroll) % GamePageBrushWidth, (pxCamera.Y) % GamePageBrushHeight);
 
             if (GamePage.LevelIndex == 2)
             {
