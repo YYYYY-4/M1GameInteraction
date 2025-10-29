@@ -39,7 +39,8 @@ public partial class GamePage : Page, INotifyPropertyChanged
     public static readonly Dictionary<int, Type> Levels = new()
     {
         { 0, typeof(DemoLevel) },
-        { 1, typeof(DemoLevel2) }
+        { 1, typeof(DemoLevel2) },
+        { 2, typeof(DemoLevel3) }
     };
 
     public event PropertyChangedEventHandler? PropertyChanged;

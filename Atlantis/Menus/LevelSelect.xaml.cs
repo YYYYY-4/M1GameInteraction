@@ -67,6 +67,7 @@ namespace Atlantis.Menus
 
         private void C3L1_Click(object sender, RoutedEventArgs e)
         {
+            _window.PushPage(new GamePage(_window, _save, 2));
         }
 
         private void C3L2_Click(object sender, RoutedEventArgs e)

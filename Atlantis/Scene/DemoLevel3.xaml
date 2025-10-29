@@ -33,7 +33,7 @@
         <game:JumpBoots Width="50" Height="50" Canvas.Left="297" Canvas.Top="963"/>
         <game:Collectible CollectibleImageSource="{StaticResource CatLand}" Width="50" Height="50" Canvas.Left="1770" Canvas.Top="726"/>
         <game:Collectible CollectibleImageSource="{StaticResource CatLand}" Width="50" Height="50" Canvas.Left="935" Canvas.Top="158"/>
-        <game:DestroyButton Canvas.Left="1630" Canvas.Top="1049" Width="50" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top">
+        <game:DestroyButton Canvas.Left="866" Canvas.Top="988" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center">
             <game:DestroyButton.Targets>
                 <x:Array Type="game:GameControl">
                     <x:Reference>ButtonWall</x:Reference>
@@ -41,6 +41,16 @@
                 </x:Array>
             </game:DestroyButton.Targets>
         </game:DestroyButton>
+
+        <game:TimedButton Duration="5" Canvas.Left="762" Canvas.Top="988" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <game:TimedButton.Targets>
+                <x:Array Type="game:GameControl">
+                    <x:Reference>ButtonWall</x:Reference>
+                    <x:Reference>ButtonWall2</x:Reference>
+                </x:Array>
+            </game:TimedButton.Targets>
+        </game:TimedButton>
+
         <game:Wall Width="100" Height="600" Canvas.Left="1600" Canvas.Top="10" x:Name="ButtonWall">
             <Rectangle>
                 <Rectangle.Fill>

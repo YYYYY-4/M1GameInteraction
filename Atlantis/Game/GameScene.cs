@@ -461,8 +461,15 @@ namespace Atlantis.Game
         {
             control.Visibility = Visibility.Hidden;
             control.Body.Disable();
+            control.ControlEnabled = false;
         }
 
+        public void EnabledControl(GameControl control)
+        {
+            control.Visibility = Visibility.Visible;
+            control.Body.Enable();
+            control.ControlEnabled = true;
+        }
 
         // Recursively load children from canvas into the scene
         // left and top are in wpf units the absolute distances from 0,0
@@ -787,10 +794,22 @@ namespace Atlantis.Game
             _gameBrushScroll += dt * _gamePageScrollSpeed;
             GamePageBrush.Transform = new TranslateTransform(-(pxCamera.X + _gameBrushScroll) % 200, (pxCamera.Y) % 40);
 
-            Canvas.RenderTransform = new TransformGroup()
+            if (GamePage.LevelIndex == 2)
             {
-                Children = [new ScaleTransform(2, 2), new TranslateTransform(-Canvas.ActualWidth / 2, -Canvas.ActualHeight / 2)]
-            };
+                Canvas.RenderTransform = new TransformGroup()
+                {
+                    Children = [new ScaleTransform(1, 1), new TranslateTransform(0, 0)]
+                };
+            }
+            else
+            {
+                Canvas.RenderTransform = new TransformGroup()
+                {
+                    Children = [new ScaleTransform(2, 2), new TranslateTransform(-Canvas.ActualWidth / 2, -Canvas.ActualHeight / 2)]
+                };
+            }
+
+            
         }
 
         public bool IsKeyDown(Key key)
