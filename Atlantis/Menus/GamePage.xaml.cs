@@ -156,7 +156,7 @@ public partial class GamePage : Page, INotifyPropertyChanged
         if (imgResource != null)
         {
             _imgItem.Source = imgResource;
-            _lblItem.Content = itemName;
+            _lblItem.Content = $"(G) {itemName}";
             _spItem.Visibility = Visibility.Visible;
         }
         else
