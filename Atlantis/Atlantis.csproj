@@ -11,10 +11,15 @@
 
   <ItemGroup>
     <None Remove="Assets\Brick1.png" />
+    <None Remove="Assets\Cats\land_cat.png" />
+    <None Remove="Assets\Cats\void_cat.png" />
+    <None Remove="Assets\Cats\water_cat.png" />
     <None Remove="Assets\CoralPixels-Regular.ttf" />
     <None Remove="Assets\Door\DoorClosed.png" />
     <None Remove="Assets\Door\DoorOpen.png" />
     <None Remove="Assets\Door\DoorOpening.png" />
+    <None Remove="Assets\Fish\Fish6_0.png" />
+    <None Remove="Assets\MenuElements\MainScreenLogo.png" />
     <None Remove="Assets\PlayerItem\Dynamite\DynamiteFrame0.png" />
     <None Remove="Assets\PlayerItem\Dynamite\DynamiteFrame1.png" />
     <None Remove="Assets\PlayerItem\Dynamite\DynamiteFrame2.png" />
@@ -56,16 +61,21 @@
     <None Remove="Assets\PLayerLandSprite\Catt1.png" />
     <None Remove="Assets\PLayerLandSprite\Catt2.png" />
     <None Remove="Assets\PLayerLandSprite\Catt3.png" />
+    <None Remove="Assets\PlayerSpaceSprite\space1.png" />
+    <None Remove="Assets\PlayerSpaceSprite\space2.png" />
+    <None Remove="Assets\PlayerSpaceSprite\space3.png" />
     <None Remove="Assets\PlayerWaterSprite\pixil-frame-0.png" />
     <None Remove="Assets\PlayerWaterSprite\pixil-frame-1.png" />
     <None Remove="Assets\PlayerWaterSprite\pixil-frame-2.png" />
     <None Remove="Assets\PlayerWaterSprite\pixil-frame-3.png" />
     <None Remove="Assets\placeholder.png" />
     <None Remove="Assets\PlaceholderCollectable.jpg" />
+    <None Remove="Assets\spacetile.png" />
     <None Remove="Assets\Wall.png" />
     <None Remove="Assets\Wall\WallBase.png" />
     <None Remove="Assets\Wall\WallBreakable.png" />
     <None Remove="Assets\Wall\WallMoveable.png" />
+    <None Remove="Assets\Water.png" />
     <None Remove="box2d.dll" />
   </ItemGroup>
 
@@ -82,9 +92,14 @@
 
   <ItemGroup>
     <Resource Include="Assets\Brick1.png" />
+    <Resource Include="Assets\Cats\land_cat.png" />
+    <Resource Include="Assets\Cats\void_cat.png" />
+    <Resource Include="Assets\Cats\water_cat.png" />
     <Resource Include="Assets\Door\DoorClosed.png" />
     <Resource Include="Assets\Door\DoorOpen.png" />
     <Resource Include="Assets\Door\DoorOpening.png" />
+    <Resource Include="Assets\Fish\Fish6_0.png" />
+    <Resource Include="Assets\MenuElements\MainScreenLogo.png" />
     <Resource Include="Assets\PlayerItem\Dynamite\DynamiteFrame0.png" />
     <Resource Include="Assets\PlayerItem\Dynamite\DynamiteFrame1.png" />
     <Resource Include="Assets\PlayerItem\Dynamite\DynamiteFrame2.png" />
@@ -129,16 +144,21 @@
 	  <Resource Include="Assets\PLayerLandSprite\Catt1.png" />
 	  <Resource Include="Assets\PLayerLandSprite\Catt2.png" />
 	  <Resource Include="Assets\PLayerLandSprite\Catt3.png" />
+	  <Resource Include="Assets\PlayerSpaceSprite\space1.png" />
+	  <Resource Include="Assets\PlayerSpaceSprite\space2.png" />
+	  <Resource Include="Assets\PlayerSpaceSprite\space3.png" />
 	  <Resource Include="Assets\PlayerWaterSprite\pixil-frame-0.png" />
 	  <Resource Include="Assets\PlayerWaterSprite\pixil-frame-1.png" />
 	  <Resource Include="Assets\PlayerWaterSprite\pixil-frame-2.png" />
 	  <Resource Include="Assets\PlayerWaterSprite\pixil-frame-3.png" />
     <Resource Include="Assets\placeholder.png" />
     <Resource Include="Assets\PlaceholderCollectable.jpg" />
+    <Resource Include="Assets\spacetile.png" />
     <Resource Include="Assets\Wall.png" />
     <Resource Include="Assets\Wall\WallBase.png" />
     <Resource Include="Assets\Wall\WallBreakable.png" />
     <Resource Include="Assets\Wall\WallMoveable.png" />
+    <Resource Include="Assets\Water.png" />
   </ItemGroup>
 
   <ItemGroup>

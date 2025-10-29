@@ -1,10 +1,21 @@
-﻿namespace Atlantis.Game
+﻿using System.Windows.Media;
+
+namespace Atlantis.Game
 {
     /// <summary>
     /// Template for GameControl
     /// </summary>
     public partial class Collectible : GameControl
     {
+        public ImageSource CollectibleImageSource
+        {
+            get => img.Source;
+            set
+            {
+                img.Source = value;
+            }
+        }
+
         public Collectible()
         {
             InitializeComponent();
@@ -18,7 +29,7 @@
                 return;
             }
 
-            if (visitor.Control is Player player)
+            if (visitor.Control is Player || visitor.Control is PlayerBall)
             {
                 Scene.GamePage.Score.Collectables += 1;
                 Scene.DestroyControl(this);

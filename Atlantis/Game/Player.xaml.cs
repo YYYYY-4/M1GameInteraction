@@ -138,12 +138,24 @@ namespace Atlantis.Game
             }
             else
             {
-                if (timer > 1.0f)
-                    _player.Source = (ImageSource)App.Current.FindResource("PlayerLand3");
-                else if (timer > 0.5f)
-                    _player.Source = (ImageSource)App.Current.FindResource("PlayerLand2");
+                if (Scene.GamePage.LevelIndex == 2)
+                {
+                    if (timer > 1.0f)
+                        _player.Source = (ImageSource)App.Current.FindResource("PlayerSpace3");
+                    else if (timer > 0.5f)
+                        _player.Source = (ImageSource)App.Current.FindResource("PlayerSpace2");
+                    else
+                        _player.Source = (ImageSource)App.Current.FindResource("PlayerSpace1");
+                }
                 else
-                    _player.Source = (ImageSource)App.Current.FindResource("PlayerLand1");
+                {
+                    if (timer > 1.0f)
+                        _player.Source = (ImageSource)App.Current.FindResource("PlayerLand3");
+                    else if (timer > 0.5f)
+                        _player.Source = (ImageSource)App.Current.FindResource("PlayerLand2");
+                    else
+                        _player.Source = (ImageSource)App.Current.FindResource("PlayerLand1");
+                }
             }
 
             bool inWaterMovement = IsInWater();

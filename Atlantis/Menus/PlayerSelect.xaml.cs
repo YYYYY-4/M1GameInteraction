@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Atlantis.Game;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -157,6 +158,8 @@ namespace Atlantis.Menus
         /// <param name="e"></param>
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
+            Sounds sfxtest = new Sounds();
+            sfxtest.PlaySfx(@"Assets\Sounds\Sfx\Thump.mp3");
             _window.GoBack();
         }
     }

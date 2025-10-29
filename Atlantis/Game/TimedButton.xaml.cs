@@ -7,9 +7,13 @@ namespace Atlantis.Game
     /// <summary>
     /// Interaction logic for DestroyButton.xaml
     /// </summary>
-    public partial class DestroyButton : GameControl
+    public partial class TimedButton : GameControl
     {
-        public DestroyButton()
+        public float Duration { get; set; } = 0f;
+
+        public float Timer { get; set; } = 0f;
+
+        public TimedButton()
         {
             InitializeComponent();
         }
@@ -19,8 +23,23 @@ namespace Atlantis.Game
             UpdateColor();
         }
 
+        bool TargetsDisabled = false;
+
         public override void OnUpdate(float dt)
         {
+            if (SensorCount == 0 && TargetsDisabled)
+            {
+                Timer += dt;
+                
+                if (Timer >= Duration)
+                {
+                    TargetsDisabled = false;
+                    foreach (var control in _targets)
+                    {
+                        Scene.EnabledControl(control);
+                    }
+                }
+            }
         }
 
         int SensorCount = 0;
@@ -33,9 +52,9 @@ namespace Atlantis.Game
         private bool IsVisitor(GameShape visitor)
         {
             return visitor.Control is not WaterArea
-                && visitor.Control is not TimedButton
-                && visitor.Control is not DestroyButton
-                && visitor.Control is not ToggleButton;
+               && visitor.Control is not TimedButton
+               && visitor.Control is not DestroyButton
+               && visitor.Control is not ToggleButton;
         }
 
         public override void OnSensorStart(GameShape sensor, GameShape visitor)
@@ -45,16 +64,17 @@ namespace Atlantis.Game
                 return;
             }
 
-            SensorCount += 1;
+            SensorCount++;
             UpdateColor();
 
-            if (Targets != null)
+            if (SensorCount == 1)
             {
+                TargetsDisabled = true;
+                Timer = 0f;
                 foreach (var control in _targets)
                 {
-                    Scene.DestroyControl(control);
+                    Scene.DisableControl(control);
                 }
-                _targets = null!;
             }
         }
 

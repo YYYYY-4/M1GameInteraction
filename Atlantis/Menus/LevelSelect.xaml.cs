@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Atlantis.Game;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -66,6 +67,7 @@ namespace Atlantis.Menus
 
         private void C3L1_Click(object sender, RoutedEventArgs e)
         {
+            _window.PushPage(new GamePage(_window, _save, 2));
         }
 
         private void C3L2_Click(object sender, RoutedEventArgs e)
@@ -82,6 +84,8 @@ namespace Atlantis.Menus
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
+            Sounds sfxtest = new Sounds();
+            sfxtest.PlaySfx(@"Assets\Sounds\Sfx\Thump.mp3");
             _window.GoBack();
         }
     }

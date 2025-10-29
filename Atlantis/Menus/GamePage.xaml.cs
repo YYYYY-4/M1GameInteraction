@@ -5,6 +5,9 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using Atlantis.Game;
+using Atlantis.Scene;
 
 namespace Atlantis.Menus;
 
@@ -23,6 +26,8 @@ public partial class GamePage : Page, INotifyPropertyChanged
     private int _level;
     private bool _completed = false;
 
+    public int LevelIndex => _level;
+
     public string Level => $"Level {_level + 1}";
     public string LevelScore 
     { 
@@ -34,7 +39,8 @@ public partial class GamePage : Page, INotifyPropertyChanged
     public static readonly Dictionary<int, Type> Levels = new()
     {
         { 0, typeof(DemoLevel) },
-        { 1, typeof(DemoLevel2) }
+        { 1, typeof(DemoLevel2) },
+        { 2, typeof(DemoLevel3) }
     };
 
     public event PropertyChangedEventHandler? PropertyChanged;
@@ -54,6 +60,16 @@ public partial class GamePage : Page, INotifyPropertyChanged
         Focus();
 
         UpdatePauseVisible();
+
+        Loaded += GamePage_Loaded;
+    }
+
+    private void GamePage_Loaded(object sender, RoutedEventArgs e)
+    {
+        if (_level > 0)
+        {
+            _window.BoidSimulation.UnmountPanel();
+        }
     }
 
     /// <summary>
@@ -81,7 +97,6 @@ public partial class GamePage : Page, INotifyPropertyChanged
     /// <typeparam name="T">Scene which inherits Page and defines a Canvas at it's root.</typeparam>
     public void LoadScene()
     {
-
         if (!Levels.TryGetValue(_level, out var levelType))
         {
             return;
@@ -118,6 +133,37 @@ public partial class GamePage : Page, INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(LevelScore)));
 
         UpdatePauseVisible();
+    }
+
+    // Called by GameScene update to update HUD
+    public void GameUpdate(float dt)
+    {
+        float minutes = float.Floor(_scene.Time / 60.0f);
+        float seconds = _scene.Time - minutes * 60.0f;
+
+        _lblScore.Content = $"Score: {Score.Calculation(_scene.Time)}";
+        _lblTime.Content = $"Time: {minutes:00}:{seconds:00}";
+
+        var currentItem = _scene.Controls.OfType<Player>().FirstOrDefault()?.Inventory?.GetItem();
+        ImageSource? imgResource = null;
+        string itemName = string.Empty;
+
+        if (currentItem != null)
+        {
+            imgResource = currentItem.GetIconResource();
+            itemName = currentItem.GetDisplayName();
+        }
+
+        if (imgResource != null)
+        {
+            _imgItem.Source = imgResource;
+            _lblItem.Content = $"(G) {itemName}";
+            _spItem.Visibility = Visibility.Visible;
+        }
+        else
+        {
+            _spItem.Visibility = Visibility.Collapsed;
+        }
     }
 
     private void UpdatePauseVisible()

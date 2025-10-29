@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static Atlantis.Box2dNet.B2Extension;
+using Atlantis.Game;
 
 namespace Atlantis.Game
 {
@@ -83,6 +84,8 @@ namespace Atlantis.Game
         /// </summary>
         public void ExplodeDynamite()
         {
+            Sounds explosionSfx = new Sounds();
+            explosionSfx.PlaySfx(@"Assets\Sounds\Sfx\Explosion.mp3");
             Vector2 position = Body.GetPosition();
             b2Circle circle = new b2Circle(position, 8.0f);
             b2ShapeProxy proxy = B2Api.b2MakeProxy([position], 1, circle.radius);
@@ -107,6 +110,16 @@ namespace Atlantis.Game
                     _isPlayerDestroyed = true;
                 }
             }
+        }
+
+        public override string GetDisplayName()
+        {
+            return "Dynamite";
+        }
+
+        public override ImageSource GetIconResource()
+        {
+            return (ImageSource)FindResource("DynamiteIdle");
         }
     }
 }

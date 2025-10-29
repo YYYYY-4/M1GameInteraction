@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Atlantis.Menus"
       mc:Ignorable="d" 
+      Background="{StaticResource MenuBackground}"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LevelSelect">
 
@@ -141,6 +142,8 @@
                     <Image Source="{StaticResource Chapter3}" Stretch="Fill" Grid.Row="2"/>
                     <Image Source="{StaticResource Chapter3}" Stretch="Fill" Grid.Row="4"/>
                     <Image Source="{StaticResource Chapter3}" Stretch="Fill" Grid.Row="6"/>
+
+                    <Label Content="Demo3" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
                     <Button Click="C3L1_Click" Opacity="0"/>
                     <Button Click="C3L2_Click" Grid.Row="2" Opacity="0"/>

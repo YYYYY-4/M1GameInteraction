@@ -18,8 +18,9 @@
     <BitmapImage x:Key="JumpBoots" UriSource="/Atlantis;component/Assets/PlayerItem/JumpBoots.png"/>
     
     <BitmapImage x:Key="Explosion" UriSource="/Atlantis;component/Assets/Explosion.png"/>
-    <BitmapImage x:Key="MenuBackground" UriSource="/Atlantis;component/Assets/MenuBackground.png"/>
-    <BitmapImage x:Key="GameBackground" UriSource="/Atlantis;component/Assets/GameBackground.png"/>
+    <BitmapImage x:Key="MenuBackgroundImage" UriSource="/Atlantis;component/Assets/MenuBackground.png"/>
+    <BitmapImage x:Key="DoorGameBackground" UriSource="/Atlantis;component/Assets/GameBackground.png"/>
+    <BitmapImage x:Key="WaterImage" UriSource="/Atlantis;component/Assets/Water.png"/>
     <BitmapImage x:Key="Placeholder" UriSource="/Atlantis;component/Assets/placeholder.png"/>
     <BitmapImage x:Key="Collectable" UriSource="/Atlantis;component/Assets/PlaceholderCollectable.jpg"/>
     <BitmapImage x:Key="DoorClosed" UriSource="/Atlantis;component/Assets/Door/DoorClosed.png"/>
@@ -32,6 +33,9 @@
     <BitmapImage x:Key="PlayerWater2" UriSource="/Atlantis;component/Assets/PlayerWaterSprite/pixil-frame-1.png"/>
     <BitmapImage x:Key="PlayerWater3" UriSource="/Atlantis;component/Assets/PlayerWaterSprite/pixil-frame-2.png"/>
     <BitmapImage x:Key="PlayerWater4" UriSource="/Atlantis;component/Assets/PlayerWaterSprite/pixil-frame-3.png"/>
+    <BitmapImage x:Key="PlayerSpace1" UriSource="/Atlantis;component/Assets/PlayerSpaceSprite/space1.png"/>
+    <BitmapImage x:Key="PlayerSpace2" UriSource="/Atlantis;component/Assets/PlayerSpaceSprite/space2.png"/>
+    <BitmapImage x:Key="PlayerSpace3" UriSource="/Atlantis;component/Assets/PlayerSpacesprite/space3.png"/>
 
     <BitmapImage x:Key="Fish0_0" UriSource="/Atlantis;component/Assets/Fish/Fish0_0.png"/>
     <BitmapImage x:Key="Fish0_1" UriSource="/Atlantis;component/Assets/Fish/Fish0_1.png"/>
@@ -45,7 +49,12 @@
     <BitmapImage x:Key="Fish4_1" UriSource="/Atlantis;component/Assets/Fish/Fish4_1.png"/>
     <BitmapImage x:Key="Fish5_0" UriSource="/Atlantis;component/Assets/Fish/Fish5_0.png"/>
     <BitmapImage x:Key="Fish5_1" UriSource="/Atlantis;component/Assets/Fish/Fish5_1.png"/>
-    
+    <BitmapImage x:Key="Fish6_0" UriSource="/Atlantis;component/Assets/Fish/Fish6_0.png" Rotation="Rotate90"/>
+
+    <BitmapImage x:Key="CatWater" UriSource="/Atlantis;component/Assets/Cats/water_cat.png"/>
+    <BitmapImage x:Key="CatLand" UriSource="/Atlantis;component/Assets/Cats/land_cat.png"/>
+    <BitmapImage x:Key="CatVoid" UriSource="/Atlantis;component/Assets/Cats/void_cat.png" />
+
     <BitmapImage x:Key="WallBase" UriSource="/Atlantis;component/Assets/Wall/WallBase.png"/>
     <BitmapImage x:Key="WallBreakable" UriSource="/Atlantis;component/Assets/Wall/WallBreakable.png"/>
     <BitmapImage x:Key="WallMoveable" UriSource="/Atlantis;component/Assets/Wall/WallMoveable.png"/>
@@ -61,13 +70,20 @@
     <BitmapImage x:Key="BackButton" UriSource="/Atlantis;component/Assets/MenuElements/BackButton.png" />
     <BitmapImage x:Key="DeleteButton" UriSource="/Atlantis;component/Assets/MenuElements/DeleteButton.png" />
     <BitmapImage x:Key="PrototypeLogo" UriSource="/Atlantis;component/Assets/MenuElements/LogoV2.png" />
+    <BitmapImage x:Key="Logo" UriSource="/Atlantis;component/Assets/MenuElements/MainScreenLogo.png" />
 
     <BitmapImage x:Key="Key0" UriSource="/Atlantis;component/Assets/Keys/Key0.png"/>
     <BitmapImage x:Key="Key1" UriSource="/Atlantis;component/Assets/Keys/Key1.png"/>
     <BitmapImage x:Key="Key2" UriSource="/Atlantis;component/Assets/Keys/Key2.png"/>
     <BitmapImage x:Key="Key3" UriSource="/Atlantis;component/Assets/Keys/Key3.png"/>
+
+    <BitmapImage x:Key="SpaceTileImage" UriSource="/Atlantis;component/Assets/spacetile.png"/>
     
     <FontFamily x:Key="MainFont">/Atlantis;component/Assets/#Pixelated Elegance</FontFamily>
     <FontFamily x:Key="SecondFont">/Atlantis;component/Assets/#Coral Pixels</FontFamily>
+
+    <ImageBrush x:Key="MenuBackground" ImageSource="{StaticResource MenuBackgroundImage}" />
+    <ImageBrush x:Key="TiledWaterBackground" ImageSource="{StaticResource WaterImage}" Stretch="Fill" TileMode="Tile" Viewport="0,0,200,40" ViewportUnits="Absolute" />
+    <ImageBrush x:Key="TiledSpaceBackground" ImageSource="{StaticResource SpaceTileImage}" Stretch="Fill" TileMode="Tile" Viewport="0,0,50,50" ViewportUnits="Absolute" />
 </ResourceDictionary>
 

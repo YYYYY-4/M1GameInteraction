@@ -29,7 +29,7 @@ namespace Atlantis.Game
         // Copyy of _controls to iterate safely while supporting adding/removing objects
         private List<GameControl> _iterControls = [];
 
-        // Scaling of wpf-xaml sizes to a unit in the physics simulation 1:ScalingFactor
+        // Scaling of wpf-xaml sies to a unit in the physics simulation 1:ScalingFactor
         const float ScalingFactor = 25.0f;
 
         public b2WorldId World;
@@ -38,6 +38,10 @@ namespace Atlantis.Game
         public Canvas Canvas;
 
         public DrawingBrush CanvasBrush;
+        public ImageBrush GamePageBrush;
+
+        private float _gameBrushScroll = 0.0f;
+        private float _gamePageScrollSpeed = 0.0f;
 
         // Unique ID for shape lookup, incremented for each shape
         nint ShapeIdGen = 0;
@@ -112,6 +116,9 @@ namespace Atlantis.Game
             }
         }
 
+        int GamePageBrushWidth = 200;
+        int GamePageBrushHeight = 200;
+
         private void Content_Loaded(object sender, RoutedEventArgs e)
         {
             Canvas.Loaded -= Content_Loaded;
@@ -130,8 +137,35 @@ namespace Atlantis.Game
                 }),
             };
 
+            string image = "";
+            switch (GamePage.LevelIndex)
+            {
+                case 0:
+                    image = "WaterImage";
+                    GamePageBrushHeight = 40;
+                    break;
+                case 1:
+                    image = "DoorGameBackground";
+                    GamePageBrushHeight = 40;
+                    break;
+                case 2:
+                    image = "SpaceTileImage";
+                    GamePageBrushHeight = 200;
+                    break;
+            }
+
+            GamePageBrush = new ImageBrush();
+            GamePageBrush.ImageSource = (ImageSource)App.Current.FindResource(image);
+            GamePageBrush.TileMode = TileMode.Tile;
+            GamePageBrush.Stretch = Stretch.Fill;
+            GamePageBrush.Viewport = new Rect(0, 0, GamePageBrushWidth, GamePageBrushHeight);
+            GamePageBrush.ViewportUnits = BrushMappingMode.Absolute;
+            GamePage.Background = GamePageBrush;
+
+            _gamePageScrollSpeed = GamePage.LevelIndex <= 0 ? 100f : 0f;
+
             //Canvas.Background = CanvasBrush;
-            
+
             b2WorldDef worldDef = B2Api.b2DefaultWorldDef();
             worldDef.enableSleep = false;
 
@@ -443,6 +477,20 @@ namespace Atlantis.Game
             Canvas.Children.Remove(control);
         }
 
+        public void DisableControl(GameControl control)
+        {
+            control.Visibility = Visibility.Hidden;
+            control.Body.Disable();
+            control.ControlEnabled = false;
+        }
+
+        public void EnabledControl(GameControl control)
+        {
+            control.Visibility = Visibility.Visible;
+            control.Body.Enable();
+            control.ControlEnabled = true;
+        }
+
         // Recursively load children from canvas into the scene
         // left and top are in wpf units the absolute distances from 0,0
         private void LoadGameControls(Canvas canvas, double canvasActualHeight, double left, double top)
@@ -700,11 +748,18 @@ namespace Atlantis.Game
             {
                 if (!_controlsChanged || _controls.Contains(control))
                 {
+                    if (control.Tag != null)
+                    {
+                        int x = 0;
+                    }
+
                     control.OnUpdate(dt);
                 }
             }
 
             DragUpdate();
+
+            GamePage.GameUpdate(dt);
         }
 
         public void GameRender(float dt)
@@ -733,7 +788,14 @@ namespace Atlantis.Game
                 Camera.Position = B2Api.b2Body_GetPosition(subject.Body);
             }
 
-            World.SetGravity(new Vector2(camRot90.c, -camRot90.s) * 10.0f);
+            if (GamePage.LevelIndex == 2)
+            {
+                Camera.Position = new Vector2(1920 / 2 / ScalingFactor, 1080 / 2 / ScalingFactor);
+            }
+
+            float gravityScale = GamePage.LevelIndex == 2 ? 3f : 10f;
+
+            World.SetGravity(new Vector2(camRot90.c, -camRot90.s) * gravityScale);
 
             // Render GameControls
             foreach (var control in _iterControls)
@@ -761,10 +823,31 @@ namespace Atlantis.Game
                 ]
             };
 
-            Canvas.RenderTransform = new TransformGroup()
+            _gameBrushScroll += dt * _gamePageScrollSpeed;
+            GamePageBrush.Transform = new TranslateTransform(-(pxCamera.X + _gameBrushScroll) % GamePageBrushWidth, (pxCamera.Y) % GamePageBrushHeight);
+
+            if (GamePage.LevelIndex == 2)
             {
-                Children = [new ScaleTransform(2, 2), new TranslateTransform(-Canvas.ActualWidth / 2, -Canvas.ActualHeight / 2)]
-            };
+                double scale = 0.75;
+                double x = Canvas.ActualWidth;
+                double deltaX = Canvas.ActualWidth - x * scale;
+                double y = Canvas.ActualHeight;
+                double deltaY = Canvas.ActualHeight - y * scale;
+
+                Canvas.RenderTransform = new TransformGroup()
+                {
+                    Children = [new ScaleTransform(scale, scale), new TranslateTransform(deltaX / 2, deltaY / 2)]
+                };
+            }
+            else
+            {
+                Canvas.RenderTransform = new TransformGroup()
+                {
+                    Children = [new ScaleTransform(2, 2), new TranslateTransform(-Canvas.ActualWidth / 2, -Canvas.ActualHeight / 2)]
+                };
+            }
+
+            
         }
 
         public bool IsKeyDown(Key key)
@@ -816,15 +899,7 @@ namespace Atlantis.Game
 
                 var queryFilter = B2Util.QueryFilter(PhysicsCategory.All, PhysicsMask.All);
 
-                List<GameShape> shapes = [];
-                World.OverlapAABB(ab, queryFilter, (b2ShapeId shape, nint ctx) =>
-                {
-                    if (_shapeLookUp.TryGetValue(shape.GetUserData(), out var sh))
-                    {
-                        shapes.Add(sh);
-                    }
-                    return false;
-                }, 0);
+                var shapes = OverlapAABB(ab, queryFilter);
 
                 // Find shape with lowest area
                 if (shapes.Count > 0)
@@ -833,10 +908,12 @@ namespace Atlantis.Game
                     {
                         if (current == null)
                         {
-                            return current;
+                            return sh;
                         }
+
                         float a = current.Size.LengthSquared();
                         float b = sh.Size.LengthSquared();
+                        
                         return a < b ? current : sh;
                     })?.Control;
                 }
@@ -876,6 +953,7 @@ namespace Atlantis.Game
         // Use case: get shapes overlapping a shape without having to define a callback
 
         private List<GameShape> overlapCast;
+        private List<GameShape> aabbCast;
 
         private bool OverlapCastFcn(b2ShapeId shapeId, IntPtr context)
         {
@@ -894,6 +972,25 @@ namespace Atlantis.Game
 
             return overlapCast;
         }
+
+        private bool AABBCastFcn(b2ShapeId shapeId, nint ctx)
+        {
+            if (_shapeLookUp.TryGetValue(shapeId.GetUserData(), out var result))
+            {
+                aabbCast.Add(result);
+            }
+            return true;
+        }
+
+        public List<GameShape> OverlapAABB(in b2AABB aabb, b2QueryFilter filter)
+        {
+            aabbCast = [];
+
+            World.OverlapAABB(aabb, filter, AABBCastFcn, 0);
+
+            return aabbCast;
+        }
+
 
         public b2RayResult RayCastClosest(Vector2 origin, Vector2 translation, b2QueryFilter filter)
         {
