@@ -73,11 +73,14 @@
     <BitmapImage x:Key="Key1" UriSource="/Atlantis;component/Assets/Keys/Key1.png"/>
     <BitmapImage x:Key="Key2" UriSource="/Atlantis;component/Assets/Keys/Key2.png"/>
     <BitmapImage x:Key="Key3" UriSource="/Atlantis;component/Assets/Keys/Key3.png"/>
+
+    <BitmapImage x:Key="SpaceTileImage" UriSource="/Atlantis;component/Assets/spacetile.png"/>
     
     <FontFamily x:Key="MainFont">/Atlantis;component/Assets/#Pixelated Elegance</FontFamily>
     <FontFamily x:Key="SecondFont">/Atlantis;component/Assets/#Coral Pixels</FontFamily>
 
     <ImageBrush x:Key="MenuBackground" ImageSource="{StaticResource MenuBackgroundImage}" />
     <ImageBrush x:Key="TiledWaterBackground" ImageSource="{StaticResource WaterImage}" Stretch="Fill" TileMode="Tile" Viewport="0,0,200,40" ViewportUnits="Absolute" />
+    <ImageBrush x:Key="TiledSpaceBackground" ImageSource="{StaticResource SpaceTileImage}" Stretch="Fill" TileMode="Tile" Viewport="0,0,50,50" ViewportUnits="Absolute" />
 </ResourceDictionary>
 

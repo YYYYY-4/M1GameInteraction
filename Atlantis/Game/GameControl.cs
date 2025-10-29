@@ -61,6 +61,8 @@ namespace Atlantis.Game
 #if DEBUG
         private b2BodyId _body;
 
+        public bool ControlEnabled = true;
+
         public b2BodyId Body
         {
             get

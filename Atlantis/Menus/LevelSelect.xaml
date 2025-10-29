@@ -143,6 +143,8 @@
                     <Image Source="{StaticResource Chapter3}" Stretch="Fill" Grid.Row="4"/>
                     <Image Source="{StaticResource Chapter3}" Stretch="Fill" Grid.Row="6"/>
 
+                    <Label Content="Demo3" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
                     <Button Click="C3L1_Click" Opacity="0"/>
                     <Button Click="C3L2_Click" Grid.Row="2" Opacity="0"/>
                     <Button Click="C3L3_Click" Grid.Row="4" Opacity="0"/>

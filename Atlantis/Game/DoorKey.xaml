@@ -9,12 +9,12 @@
     <Canvas>
         <Image Source="{StaticResource Key3}" Width="50" Height="50">
             <local:ShapeDef.ShapeDef>
-                <local:ShapeDef Category="None"/>
+                <local:ShapeDef Category="Dynamite" Mask="Dynamite"/>
             </local:ShapeDef.ShapeDef>
         </Image>
         <Rectangle Width="50" Height="50">
             <local:ShapeDef.ShapeDef>
-                <local:ShapeDef IsSensor="True" EnableSensorEvents="True"/>
+                <local:ShapeDef IsSensor="True" EnableSensorEvents="True" />
             </local:ShapeDef.ShapeDef>
         </Rectangle>
     </Canvas>

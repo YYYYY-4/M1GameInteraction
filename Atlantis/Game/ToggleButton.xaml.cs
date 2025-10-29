@@ -1,4 +1,5 @@
 ﻿using Atlantis.Box2dNet;
+using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Windows.Media;
 
@@ -7,9 +8,9 @@ namespace Atlantis.Game
     /// <summary>
     /// Interaction logic for DestroyButton.xaml
     /// </summary>
-    public partial class DestroyButton : GameControl
+    public partial class ToggleButton : GameControl
     {
-        public DestroyButton()
+        public ToggleButton()
         {
             InitializeComponent();
         }
@@ -19,9 +20,7 @@ namespace Atlantis.Game
             UpdateColor();
         }
 
-        public override void OnUpdate(float dt)
-        {
-        }
+        bool TargetsDisabled = false;
 
         int SensorCount = 0;
 
@@ -45,16 +44,23 @@ namespace Atlantis.Game
                 return;
             }
 
-            SensorCount += 1;
+            SensorCount++;
             UpdateColor();
 
-            if (Targets != null)
+            if (SensorCount == 1)
             {
+                TargetsDisabled = !TargetsDisabled;
                 foreach (var control in _targets)
                 {
-                    Scene.DestroyControl(control);
+                    if (TargetsDisabled)
+                    {
+                        Scene.DisableControl(control);
+                    }
+                    else
+                    {
+                        Scene.EnabledControl(control);
+                    }
                 }
-                _targets = null!;
             }
         }
 

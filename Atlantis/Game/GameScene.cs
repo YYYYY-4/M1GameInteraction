@@ -116,6 +116,9 @@ namespace Atlantis.Game
             }
         }
 
+        int GamePageBrushWidth = 200;
+        int GamePageBrushHeight = 200;
+
         private void Content_Loaded(object sender, RoutedEventArgs e)
         {
             Canvas.Loaded -= Content_Loaded;
@@ -134,11 +137,28 @@ namespace Atlantis.Game
                 }),
             };
 
+            string image = "";
+            switch (GamePage.LevelIndex)
+            {
+                case 0:
+                    image = "WaterImage";
+                    GamePageBrushHeight = 40;
+                    break;
+                case 1:
+                    image = "DoorGameBackground";
+                    GamePageBrushHeight = 40;
+                    break;
+                case 2:
+                    image = "SpaceTileImage";
+                    GamePageBrushHeight = 200;
+                    break;
+            }
+
             GamePageBrush = new ImageBrush();
-            GamePageBrush.ImageSource = (ImageSource)App.Current.FindResource(GamePage.LevelIndex == 0 ? "WaterImage" : "DoorGameBackground");
+            GamePageBrush.ImageSource = (ImageSource)App.Current.FindResource(image);
             GamePageBrush.TileMode = TileMode.Tile;
             GamePageBrush.Stretch = Stretch.Fill;
-            GamePageBrush.Viewport = new Rect(0, 0, 200, 40);
+            GamePageBrush.Viewport = new Rect(0, 0, GamePageBrushWidth, GamePageBrushHeight);
             GamePageBrush.ViewportUnits = BrushMappingMode.Absolute;
             GamePage.Background = GamePageBrush;
 
@@ -457,6 +477,20 @@ namespace Atlantis.Game
             Canvas.Children.Remove(control);
         }
 
+        public void DisableControl(GameControl control)
+        {
+            control.Visibility = Visibility.Hidden;
+            control.Body.Disable();
+            control.ControlEnabled = false;
+        }
+
+        public void EnabledControl(GameControl control)
+        {
+            control.Visibility = Visibility.Visible;
+            control.Body.Enable();
+            control.ControlEnabled = true;
+        }
+
         // Recursively load children from canvas into the scene
         // left and top are in wpf units the absolute distances from 0,0
         private void LoadGameControls(Canvas canvas, double canvasActualHeight, double left, double top)
@@ -714,6 +748,11 @@ namespace Atlantis.Game
             {
                 if (!_controlsChanged || _controls.Contains(control))
                 {
+                    if (control.Tag != null)
+                    {
+                        int x = 0;
+                    }
+
                     control.OnUpdate(dt);
                 }
             }
@@ -749,7 +788,14 @@ namespace Atlantis.Game
                 Camera.Position = B2Api.b2Body_GetPosition(subject.Body);
             }
 
-            World.SetGravity(new Vector2(camRot90.c, -camRot90.s) * 10.0f);
+            if (GamePage.LevelIndex == 2)
+            {
+                Camera.Position = new Vector2(1920 / 2 / ScalingFactor, 1080 / 2 / ScalingFactor);
+            }
+
+            float gravityScale = GamePage.LevelIndex == 2 ? 3f : 10f;
+
+            World.SetGravity(new Vector2(camRot90.c, -camRot90.s) * gravityScale);
 
             // Render GameControls
             foreach (var control in _iterControls)
@@ -778,12 +824,30 @@ namespace Atlantis.Game
             };
 
             _gameBrushScroll += dt * _gamePageScrollSpeed;
-            GamePageBrush.Transform = new TranslateTransform(-(pxCamera.X + _gameBrushScroll) % 200, (pxCamera.Y) % 40);
+            GamePageBrush.Transform = new TranslateTransform(-(pxCamera.X + _gameBrushScroll) % GamePageBrushWidth, (pxCamera.Y) % GamePageBrushHeight);
 
-            Canvas.RenderTransform = new TransformGroup()
+            if (GamePage.LevelIndex == 2)
             {
-                Children = [new ScaleTransform(2, 2), new TranslateTransform(-Canvas.ActualWidth / 2, -Canvas.ActualHeight / 2)]
-            };
+                double scale = 0.75;
+                double x = Canvas.ActualWidth;
+                double deltaX = Canvas.ActualWidth - x * scale;
+                double y = Canvas.ActualHeight;
+                double deltaY = Canvas.ActualHeight - y * scale;
+
+                Canvas.RenderTransform = new TransformGroup()
+                {
+                    Children = [new ScaleTransform(scale, scale), new TranslateTransform(deltaX / 2, deltaY / 2)]
+                };
+            }
+            else
+            {
+                Canvas.RenderTransform = new TransformGroup()
+                {
+                    Children = [new ScaleTransform(2, 2), new TranslateTransform(-Canvas.ActualWidth / 2, -Canvas.ActualHeight / 2)]
+                };
+            }
+
+            
         }
 
         public bool IsKeyDown(Key key)
