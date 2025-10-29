@@ -51,7 +51,10 @@ namespace Atlantis.Game
 
         private bool IsVisitor(GameShape visitor)
         {
-            return visitor.Control is not WaterArea;
+            return visitor.Control is not WaterArea
+               && visitor.Control is not TimedButton
+               && visitor.Control is not DestroyButton
+               && visitor.Control is not ToggleButton;
         }
 
         public override void OnSensorStart(GameShape sensor, GameShape visitor)
