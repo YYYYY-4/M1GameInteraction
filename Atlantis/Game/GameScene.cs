@@ -826,9 +826,15 @@ namespace Atlantis.Game
 
             if (GamePage.LevelIndex == 2)
             {
+                double scale = 0.75;
+                double x = Canvas.ActualWidth;
+                double deltaX = Canvas.ActualWidth - x * scale;
+                double y = Canvas.ActualHeight;
+                double deltaY = Canvas.ActualHeight - y * scale;
+
                 Canvas.RenderTransform = new TransformGroup()
                 {
-                    Children = [new ScaleTransform(1, 1), new TranslateTransform(0, 0)]
+                    Children = [new ScaleTransform(scale, scale), new TranslateTransform(deltaX / 2, deltaY / 2)]
                 };
             }
             else
