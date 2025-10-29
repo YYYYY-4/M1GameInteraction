@@ -29,7 +29,7 @@ namespace Atlantis.Game
         // Copyy of _controls to iterate safely while supporting adding/removing objects
         private List<GameControl> _iterControls = [];
 
-        // Scaling of wpf-xaml sizes to a unit in the physics simulation 1:ScalingFactor
+        // Scaling of wpf-xaml sies to a unit in the physics simulation 1:ScalingFactor
         const float ScalingFactor = 25.0f;
 
         public b2WorldId World;
@@ -38,6 +38,10 @@ namespace Atlantis.Game
         public Canvas Canvas;
 
         public DrawingBrush CanvasBrush;
+        public ImageBrush GamePageBrush;
+
+        private float _gameBrushScroll = 0.0f;
+        private float _gamePageScrollSpeed = 0.0f;
 
         // Unique ID for shape lookup, incremented for each shape
         nint ShapeIdGen = 0;
@@ -130,8 +134,18 @@ namespace Atlantis.Game
                 }),
             };
 
+            GamePageBrush = new ImageBrush();
+            GamePageBrush.ImageSource = (ImageSource)App.Current.FindResource(GamePage.LevelIndex == 0 ? "WaterImage" : "DoorGameBackground");
+            GamePageBrush.TileMode = TileMode.Tile;
+            GamePageBrush.Stretch = Stretch.Fill;
+            GamePageBrush.Viewport = new Rect(0, 0, 200, 40);
+            GamePageBrush.ViewportUnits = BrushMappingMode.Absolute;
+            GamePage.Background = GamePageBrush;
+
+            _gamePageScrollSpeed = GamePage.LevelIndex <= 0 ? 100f : 0f;
+
             //Canvas.Background = CanvasBrush;
-            
+
             b2WorldDef worldDef = B2Api.b2DefaultWorldDef();
             worldDef.enableSleep = false;
 
@@ -705,9 +719,9 @@ namespace Atlantis.Game
             }
 
             DragUpdate();
-        }
 
-        float WaterScroll = 0.0f;
+            GamePage.GameUpdate(dt);
+        }
 
         public void GameRender(float dt)
         {
@@ -763,19 +777,8 @@ namespace Atlantis.Game
                 ]
             };
 
-            ImageBrush brush = new ImageBrush();
-            brush.ImageSource = (ImageSource)App.Current.FindResource("WaterImage");
-            brush.TileMode = TileMode.Tile;
-            brush.Stretch = Stretch.Fill;
-            brush.Viewport = new Rect(0, 0, 200, 40);
-            brush.ViewportUnits = BrushMappingMode.Absolute;
-
-            // <ImageBrush x:Key="TiledWaterBackground" ImageSource="{StaticResource WaterImage}" Stretch="Fill" TileMode="Tile" Viewport="0,0,200,40" ViewportUnits="Absolute" />
-
-            WaterScroll += dt * 100;
-            brush.Transform = new TranslateTransform(-(pxCamera.X + WaterScroll) % 200, (pxCamera.Y) % 40);
-
-            GamePage.Background = brush;
+            _gameBrushScroll += dt * _gamePageScrollSpeed;
+            GamePageBrush.Transform = new TranslateTransform(-(pxCamera.X + _gameBrushScroll) % 200, (pxCamera.Y) % 40);
 
             Canvas.RenderTransform = new TransformGroup()
             {

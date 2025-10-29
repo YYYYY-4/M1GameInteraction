@@ -111,5 +111,15 @@ namespace Atlantis.Game
                 }
             }
         }
+
+        public override string GetDisplayName()
+        {
+            return "Dynamite";
+        }
+
+        public override ImageSource GetIconResource()
+        {
+            return (ImageSource)FindResource("DynamiteIdle");
+        }
     }
 }
