@@ -18,7 +18,15 @@
         </game:Player>
         <game:PlayerBall Canvas.Left="92" Canvas.Top="57" />
         <game:EndDoor Width="84" Height="90" Canvas.Left="208" Canvas.Top="990" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <game:DoorKey Canvas.Left="365" Canvas.Top="806" Height="50" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <game:DoorKey Canvas.Left="365" Canvas.Top="806" Height="50" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" >
+            <game:BodyDef.BodyDef>
+                <game:BodyDef Type="b2_dynamicBody" />
+            </game:BodyDef.BodyDef>
+
+            <game:ShapeDef.ShapeDef>
+                <game:ShapeDef Category="All" Mask="All" />
+            </game:ShapeDef.ShapeDef>
+        </game:DoorKey>
 
         <game:Collectible CollectibleImageSource="{StaticResource CatVoid}" Width="50" Height="50" Canvas.Left="1510" Canvas.Top="388" />
         <game:Collectible CollectibleImageSource="{StaticResource CatVoid}" Width="50" Height="50" Canvas.Left="616" Canvas.Top="906"/>
