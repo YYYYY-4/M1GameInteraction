@@ -61,6 +61,9 @@
     <None Remove="Assets\PLayerLandSprite\Catt1.png" />
     <None Remove="Assets\PLayerLandSprite\Catt2.png" />
     <None Remove="Assets\PLayerLandSprite\Catt3.png" />
+    <None Remove="Assets\PlayerSpaceSprite\space1.png" />
+    <None Remove="Assets\PlayerSpaceSprite\space2.png" />
+    <None Remove="Assets\PlayerSpaceSprite\space3.png" />
     <None Remove="Assets\PlayerWaterSprite\pixil-frame-0.png" />
     <None Remove="Assets\PlayerWaterSprite\pixil-frame-1.png" />
     <None Remove="Assets\PlayerWaterSprite\pixil-frame-2.png" />
@@ -141,6 +144,9 @@
 	  <Resource Include="Assets\PLayerLandSprite\Catt1.png" />
 	  <Resource Include="Assets\PLayerLandSprite\Catt2.png" />
 	  <Resource Include="Assets\PLayerLandSprite\Catt3.png" />
+	  <Resource Include="Assets\PlayerSpaceSprite\space1.png" />
+	  <Resource Include="Assets\PlayerSpaceSprite\space2.png" />
+	  <Resource Include="Assets\PlayerSpaceSprite\space3.png" />
 	  <Resource Include="Assets\PlayerWaterSprite\pixil-frame-0.png" />
 	  <Resource Include="Assets\PlayerWaterSprite\pixil-frame-1.png" />
 	  <Resource Include="Assets\PlayerWaterSprite\pixil-frame-2.png" />
