@@ -43,7 +43,7 @@
                 </x:Array>
             </game:DestroyButton.Targets>
         </game:DestroyButton>
-        <game:TimedButton Canvas.Left="348" Canvas.Top="691" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center">
+        <game:TimedButton Canvas.Left="348" Canvas.Top="691" Width="50" Height="50" Duration="30" HorizontalAlignment="Left" VerticalAlignment="Center">
             <game:TimedButton.Targets>
                 <x:Array Type="game:GameControl">
                     <x:Reference>ButtonWallTimedRed</x:Reference>
@@ -57,7 +57,7 @@
                 </x:Array>
             </game:DestroyButton.Targets>
         </game:DestroyButton>
-        <game:TimedButton Canvas.Left="1775" Canvas.Top="691" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center">
+        <game:TimedButton Canvas.Left="1775" Canvas.Top="691" Width="50" Height="50" Duration="30" HorizontalAlignment="Left" VerticalAlignment="Center">
             <game:TimedButton.Targets>
                 <x:Array Type="game:GameControl">
                     <x:Reference>ButtonWallTimedYellow</x:Reference>
