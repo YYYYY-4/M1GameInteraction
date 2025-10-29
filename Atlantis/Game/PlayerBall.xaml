@@ -6,5 +6,12 @@
              xmlns:local="clr-namespace:Atlantis.Game"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Ellipse Width="50" Height="50" Fill="#fccf00" />
+    <local:BodyDef.BodyDef>
+        <local:BodyDef Type="b2_dynamicBody"/>
+    </local:BodyDef.BodyDef>
+    <Ellipse Width="50" Height="50" Fill="#fccf00" >
+        <local:ShapeDef.ShapeDef>
+            <local:ShapeDef Category="Player" Mask="Player" EnableSensorEvents="True" />
+        </local:ShapeDef.ShapeDef>
+    </Ellipse>
 </local:GameControl>

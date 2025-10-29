@@ -793,7 +793,9 @@ namespace Atlantis.Game
                 Camera.Position = new Vector2(1920 / 2 / ScalingFactor, 1080 / 2 / ScalingFactor);
             }
 
-            World.SetGravity(new Vector2(camRot90.c, -camRot90.s) * 10.0f);
+            float gravityScale = GamePage.LevelIndex == 2 ? 3f : 10f;
+
+            World.SetGravity(new Vector2(camRot90.c, -camRot90.s) * gravityScale);
 
             // Render GameControls
             foreach (var control in _iterControls)
