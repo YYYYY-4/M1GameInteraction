@@ -16,7 +16,7 @@
                 <RotateTransform Angle="0"/>
             </game:Player.RenderTransform>
         </game:Player>
-        <game:EndDoor Width="84" Height="90" Canvas.Left="208" Canvas.Top="990" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="-20.506,6.505"/>
+        <game:EndDoor Width="84" Height="90" Canvas.Left="208" Canvas.Top="990" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <game:DoorKey Canvas.Left="2386" Canvas.Top="897" Height="50" Width="50" HorizontalAlignment="Left" VerticalAlignment="Center">
             <game:DoorKey.RenderTransform>
                 <TransformGroup>
@@ -52,7 +52,22 @@
                 </Rectangle.Fill>
             </Rectangle>
         </game:Wall>
-        <game:Wall Width="50" Height="100" Canvas.Left="280" x:Name="ButtonWall2" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="781">
+        <game:Wall Width="50" Height="265" Canvas.Left="1045" Canvas.Top="617" x:Name="ButtonWall2" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+            <game:Wall.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </game:Wall.RenderTransform>
+            <Rectangle>
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="{StaticResource WallMoveable}" Stretch="Fill" TileMode="Tile" Viewport="0,0,64,64" ViewportUnits="Absolute"/>
+                </Rectangle.Fill>
+            </Rectangle>
+        </game:Wall>
+        <game:Wall Width="50" Height="100" Canvas.Left="280" x:Name="ButtonWall3" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="781">
             <Rectangle Margin="0,0,0,0">
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="{StaticResource WallMoveable}" Stretch="Fill" TileMode="Tile" Viewport="0,0,64,64" ViewportUnits="Absolute"/>
