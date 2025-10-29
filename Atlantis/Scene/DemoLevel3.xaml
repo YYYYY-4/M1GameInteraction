@@ -11,6 +11,7 @@
       Title="DemoLevel2">
 
     <Canvas Width="1920" Height="1080">
+        <Label Content="E/Q To Rotate" Canvas.Left="1236" Canvas.Top="938" FontFamily="{StaticResource MainFont}" FontSize="40" Foreground="White" />
         <game:Player Canvas.Top="980" Canvas.Left="67">
             <game:Player.RenderTransform>
                 <RotateTransform Angle="0"/>
